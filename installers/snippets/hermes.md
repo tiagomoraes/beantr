@@ -1,0 +1,1 @@
+Use the `beantr-coffee-os` skill. Manage the user's coffee ledger at `${LEDGER_PATH}`. Current Markdown files are live state; monthly logs are append-only evidence; insights and recipes should be updated only when evidence supports them.

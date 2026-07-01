@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Beantr bootstrap installer.
+#
+#   curl -fsSL https://beantr.tiagomoraes.cloud/install | bash
+#   curl -fsSL https://beantr.tiagomoraes.cloud/install | bash -s -- claude-code ~/beantr
+#
+# With no arguments, detects which supported agents are present on this
+# machine and installs Beantr for each of them. Pass an agent name
+# (hermes, claude-code, opencode, openclaw, cowork, generic) and optionally
+# a ledger path to install for just that agent instead.
+set -euo pipefail
+
+PACK_URL="https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz"
+WORK_DIR="$(mktemp -d)"
+trap 'rm -rf "$WORK_DIR"' EXIT
+
+echo "Downloading Beantr..." >&2
+curl -fsSL "$PACK_URL" | tar xz -C "$WORK_DIR"
+cd "$WORK_DIR/beantr"
+
+if [ "$#" -ge 1 ]; then
+  ./installers/install.sh "$@"
+  echo "Done. See https://github.com/tiagomoraes/beantr for docs." >&2
+  exit 0
+fi
+
+agents=()
+if [ -d "$HOME/.hermes" ] && command -v hermes >/dev/null 2>&1; then
+  agents+=(hermes)
+fi
+if [ -d "$HOME/.claude" ]; then
+  agents+=(claude-code)
+fi
+if command -v opencode >/dev/null 2>&1; then
+  agents+=(opencode)
+fi
+if [ -d "$HOME/.openclaw" ]; then
+  agents+=(openclaw)
+fi
+
+if [ "${#agents[@]}" -eq 0 ]; then
+  echo "No known agent detected automatically; installing generic instructions." >&2
+  ./installers/install.sh generic
+else
+  for agent in "${agents[@]}"; do
+    echo "Detected $agent, installing..." >&2
+    ./installers/install.sh "$agent"
+  done
+fi
+
+echo "Done. See https://github.com/tiagomoraes/beantr for docs." >&2

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or idea
+    url: https://github.com/tiagomoraes/beantr/discussions
+    about: For open-ended questions and ideas, start a discussion instead of an issue.
+  - name: Documentation
+    url: https://github.com/tiagomoraes/beantr/tree/main/docs
+    about: Install guides, the ledger contract, and the release process.

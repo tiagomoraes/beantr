@@ -6,6 +6,25 @@ All notable changes to Beantr are documented here. The format is based on
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-07-02
+
+### Changed
+- **BREAKING — renamed the skill and plugin from `beantr-coffee-os` to
+  `beantr`.** The skill now installs and is invoked as `beantr`.
+  - Claude Code plugin: `/plugin install beantr@beantr` (was
+    `beantr-coffee-os@beantr`).
+  - Installer target path is now `<agent>/skills/beantr` (was
+    `.../skills/beantr-coffee-os`), and the canonical instruction file is
+    `~/.beantr/beantr.md` (was `~/.beantr/beantr-coffee-os.md`).
+  - The Cowork package is now `dist/beantr-skill.zip` (was
+    `dist/beantr-coffee-os-skill.zip`).
+
+### Migration
+- Existing installs do not rename in place. Uninstall the old skill first
+  (`/plugin uninstall beantr-coffee-os@beantr`, or
+  `./installers/uninstall.sh <agent>` from a pre-2.0.0 clone), then reinstall
+  with the new name. Your coffee ledger at `~/beantr` is never touched.
+
 ## [1.2.0] - 2026-07-02
 
 ### Added

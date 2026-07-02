@@ -1,5 +1,5 @@
 ---
-name: beantr-coffee-os
+name: beantr
 description: Manage a personal coffee inventory, brew log, recipes, and recommendations through Markdown files instead of an API or database.
 version: 1.0.0
 author: Tiago Moraes

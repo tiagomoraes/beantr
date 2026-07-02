@@ -12,7 +12,7 @@ REQUIRED = [
     'README.md',
     'AGENTS.md',
     'Makefile',
-    'skills/beantr-coffee-os/SKILL.md',
+    'skills/beantr/SKILL.md',
     'templates/beantr/README.md',
     'templates/beantr/beans/current.md',
     'templates/beantr/beans/history/YYYY-MM.md',
@@ -68,12 +68,12 @@ def check_retired() -> None:
 
 
 def check_skill_frontmatter() -> None:
-    text = (ROOT / 'skills/beantr-coffee-os/SKILL.md').read_text(encoding='utf-8')
+    text = (ROOT / 'skills/beantr/SKILL.md').read_text(encoding='utf-8')
     if not text.startswith('---\n'):
         fail('SKILL.md must start with YAML frontmatter')
     if '\n---\n' not in text[4:]:
         fail('SKILL.md frontmatter is not closed')
-    for token in ['name: beantr-coffee-os', 'description:', '## Update workflow', '## Verification checklist']:
+    for token in ['name: beantr', 'description:', '## Update workflow', '## Verification checklist']:
         if token not in text:
             fail(f'SKILL.md missing token: {token}')
 

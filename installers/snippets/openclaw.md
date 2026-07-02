@@ -1,7 +1,7 @@
 <!-- BEGIN BEANTR -->
 ## Beantr
 
-Read Beantr instructions from `${BEANTR_HOME}/beantr-coffee-os.md`.
+Read Beantr instructions from `${BEANTR_HOME}/beantr.md`.
 Manage the coffee ledger at `${LEDGER_PATH}`.
 
 Rules:

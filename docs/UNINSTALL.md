@@ -10,7 +10,7 @@ command yourself.**
 If you installed the Claude Code plugin, remove it from inside Claude Code:
 
 ```text
-/plugin uninstall beantr-coffee-os@beantr
+/plugin uninstall beantr@beantr
 /plugin marketplace remove beantr
 ```
 
@@ -47,17 +47,17 @@ Supported `<agent>` values: `hermes`, `claude-code`, `opencode`, `openclaw`,
 
 | Agent | Removed |
 |---|---|
-| `hermes` | `${HERMES_HOME:-~/.hermes}/skills/beantr-coffee-os` |
-| `claude-code` | `${CLAUDE_HOME:-~/.claude}/skills/beantr-coffee-os` and the managed block in `~/.claude/CLAUDE.md` |
-| `opencode` | `${OPENCODE_HOME:-~/.config/opencode}/skills/beantr-coffee-os` and the managed block in that agent's `AGENTS.md` |
-| `openclaw` | `${OPENCLAW_HOME:-~/.openclaw}/skills/beantr-coffee-os` (remove any snippet you pasted into a workspace `AGENTS.md` by hand) |
-| `cowork` | `dist/beantr-coffee-os-skill.zip`; delete the uploaded skill from **Settings → Cowork → Customize → Skills** in Claude Desktop |
+| `hermes` | `${HERMES_HOME:-~/.hermes}/skills/beantr` |
+| `claude-code` | `${CLAUDE_HOME:-~/.claude}/skills/beantr` and the managed block in `~/.claude/CLAUDE.md` |
+| `opencode` | `${OPENCODE_HOME:-~/.config/opencode}/skills/beantr` and the managed block in that agent's `AGENTS.md` |
+| `openclaw` | `${OPENCLAW_HOME:-~/.openclaw}/skills/beantr` (remove any snippet you pasted into a workspace `AGENTS.md` by hand) |
+| `cowork` | `dist/beantr-skill.zip`; delete the uploaded skill from **Settings → Cowork → Customize → Skills** in Claude Desktop |
 | `generic` | `${BEANTR_HOME:-~/.beantr}/README.md` |
 
 Removing the managed block leaves the rest of your `CLAUDE.md` / `AGENTS.md`
 untouched; if the block was the only thing in the file, the empty file is
 removed. When the **last** agent is uninstalled, the shared files in
-`${BEANTR_HOME:-~/.beantr}` (`beantr-coffee-os.md` and `config`) are cleaned up
+`${BEANTR_HOME:-~/.beantr}` (`beantr.md` and `config`) are cleaned up
 too. `uninstall.sh all` does this in one pass.
 
 ## Manual removal
@@ -66,10 +66,10 @@ If you'd rather remove things by hand — or the script can't reach an agent it
 doesn't auto-detect — delete the folders directly:
 
 ```bash
-rm -rf ~/.hermes/skills/beantr-coffee-os
-rm -rf ~/.claude/skills/beantr-coffee-os
-rm -rf ~/.config/opencode/skills/beantr-coffee-os
-rm -rf ~/.openclaw/skills/beantr-coffee-os
+rm -rf ~/.hermes/skills/beantr
+rm -rf ~/.claude/skills/beantr
+rm -rf ~/.config/opencode/skills/beantr
+rm -rf ~/.openclaw/skills/beantr
 rm -rf ~/.beantr
 ```
 

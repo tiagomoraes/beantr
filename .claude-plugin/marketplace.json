@@ -6,10 +6,10 @@
   "description": "Filesystem-native coffee-tracking skill pack for AI agents.",
   "plugins": [
     {
-      "name": "beantr-coffee-os",
+      "name": "beantr",
       "source": "./",
       "description": "Manage a personal coffee inventory, brew log, recipes, and recommendations through Markdown files instead of an API or database.",
-      "version": "1.2.0",
+      "version": "2.0.0",
       "category": "personal-assistant",
       "keywords": ["coffee", "markdown", "filesystem", "personal-assistant"]
     }

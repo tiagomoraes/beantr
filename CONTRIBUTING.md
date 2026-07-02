@@ -26,7 +26,7 @@ Beantr has a deliberate shape. Keep contributions inside it:
 - **Docs in English.**
 - **Keep it portable** across agents (Hermes, Claude Code, OpenCode, OpenClaw,
   Claude Cowork, and any file-capable assistant).
-- `skills/beantr-coffee-os/SKILL.md` is the canonical agent behavior contract;
+- `skills/beantr/SKILL.md` is the canonical agent behavior contract;
   `templates/beantr/` is the canonical starter ledger. Change them deliberately.
 - **Run `make validate` before every commit.** It checks pack structure, the
   skill frontmatter, plugin manifests, and doc links.

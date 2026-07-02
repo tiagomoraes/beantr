@@ -11,7 +11,7 @@ set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 BEANTR_HOME="${BEANTR_HOME:-$HOME/.beantr}"
-SKILL_SRC="$REPO_DIR/skills/beantr-coffee-os"
+SKILL_SRC="$REPO_DIR/skills/beantr"
 TEMPLATE_SRC="$REPO_DIR/templates/beantr"
 
 # Version of the pack being installed, read from the plugin manifest. Recorded
@@ -37,7 +37,7 @@ copy_templates() {
 }
 
 install_instruction_file() {
-  cp "$SKILL_SRC/SKILL.md" "$BEANTR_HOME/beantr-coffee-os.md"
+  cp "$SKILL_SRC/SKILL.md" "$BEANTR_HOME/beantr.md"
 }
 
 replace_managed_block() {
@@ -71,12 +71,12 @@ PY
 install_skill_dir() {
   local skills_root="$1"
   mkdir -p "$skills_root"
-  rm -rf "$skills_root/beantr-coffee-os"
-  cp -R "$SKILL_SRC" "$skills_root/beantr-coffee-os"
+  rm -rf "$skills_root/beantr"
+  cp -R "$SKILL_SRC" "$skills_root/beantr"
 }
 
 package_cowork_zip() {
-  local out_base="$REPO_DIR/dist/beantr-coffee-os-skill"
+  local out_base="$REPO_DIR/dist/beantr-skill"
   mkdir -p "$REPO_DIR/dist"
   python3 - "$SKILL_SRC" "$out_base" <<'PY'
 from pathlib import Path
@@ -108,7 +108,7 @@ install_one() {
   install_instruction_file
   cat > "$BEANTR_HOME/config" <<EOF
 BEANTR_LEDGER=$LEDGER_PATH
-BEANTR_INSTRUCTIONS=$BEANTR_HOME/beantr-coffee-os.md
+BEANTR_INSTRUCTIONS=$BEANTR_HOME/beantr.md
 BEANTR_VERSION=$(plugin_version)
 EOF
 
@@ -116,31 +116,31 @@ EOF
     hermes|hermes-agent)
       HERMES_HOME="${HERMES_HOME:-$HOME/.hermes}"
       install_skill_dir "$HERMES_HOME/skills"
-      echo "Installed Beantr skill to $HERMES_HOME/skills/beantr-coffee-os"
+      echo "Installed Beantr skill to $HERMES_HOME/skills/beantr"
       ;;
     claude|claude-code)
       CLAUDE_HOME_DIR="${CLAUDE_HOME:-$HOME/.claude}"
       install_skill_dir "$CLAUDE_HOME_DIR/skills"
       replace_managed_block "$CLAUDE_HOME_DIR/CLAUDE.md" "$REPO_DIR/installers/snippets/claude-code.md"
-      echo "Installed Beantr skill to $CLAUDE_HOME_DIR/skills/beantr-coffee-os"
+      echo "Installed Beantr skill to $CLAUDE_HOME_DIR/skills/beantr"
       echo "Installed Beantr Claude instructions to $CLAUDE_HOME_DIR/CLAUDE.md"
       ;;
     opencode|agents-md)
       OPENCODE_HOME_DIR="${OPENCODE_HOME:-$HOME/.config/opencode}"
       install_skill_dir "$OPENCODE_HOME_DIR/skills"
       replace_managed_block "$OPENCODE_HOME_DIR/AGENTS.md" "$REPO_DIR/installers/snippets/opencode.md"
-      echo "Installed Beantr skill to $OPENCODE_HOME_DIR/skills/beantr-coffee-os"
+      echo "Installed Beantr skill to $OPENCODE_HOME_DIR/skills/beantr"
       echo "Installed Beantr AGENTS.md instructions to $OPENCODE_HOME_DIR/AGENTS.md"
       ;;
     openclaw)
       OPENCLAW_HOME="${OPENCLAW_HOME:-$HOME/.openclaw}"
       install_skill_dir "$OPENCLAW_HOME/skills"
-      echo "Installed Beantr skill to $OPENCLAW_HOME/skills/beantr-coffee-os"
+      echo "Installed Beantr skill to $OPENCLAW_HOME/skills/beantr"
       echo "Optional: add installers/snippets/openclaw.md to your OpenClaw workspace AGENTS.md to force-load it every turn."
       ;;
     cowork|claude-cowork)
       package_cowork_zip
-      echo "Packaged $REPO_DIR/dist/beantr-coffee-os-skill.zip"
+      echo "Packaged $REPO_DIR/dist/beantr-skill.zip"
       echo "In Claude Desktop: Settings > Cowork > Customize > Skills > + > Upload a skill, then select that zip."
       ;;
     generic)
@@ -154,7 +154,7 @@ EOF
   esac
 
   echo "Beantr ledger: $LEDGER_PATH"
-  echo "Beantr instruction file: $BEANTR_HOME/beantr-coffee-os.md"
+  echo "Beantr instruction file: $BEANTR_HOME/beantr.md"
 }
 
 # No agent named: install nothing, report what's here and how to install it.

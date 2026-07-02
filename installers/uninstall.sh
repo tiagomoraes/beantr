@@ -25,7 +25,7 @@ ledger_path() {
 
 remove_skill_dir() {
   local skills_root="$1"
-  local dir="$skills_root/beantr-coffee-os"
+  local dir="$skills_root/beantr"
   if [ -d "$dir" ]; then
     rm -rf "$dir"
     echo "Removed $dir"
@@ -67,7 +67,7 @@ PY
 # but never the ledger. Only runs when no agent install remains.
 remove_shared_home() {
   local removed=0
-  for f in beantr-coffee-os.md config README.md; do
+  for f in beantr.md config README.md; do
     if [ -e "$BEANTR_HOME/$f" ]; then
       rm -f "$BEANTR_HOME/$f"
       removed=1
@@ -87,14 +87,14 @@ detect_installed() {
   local opencode_home="${OPENCODE_HOME:-$HOME/.config/opencode}"
   local openclaw_home="${OPENCLAW_HOME:-$HOME/.openclaw}"
 
-  [ -d "$hermes_home/skills/beantr-coffee-os" ] && echo hermes
-  if [ -d "$claude_home/skills/beantr-coffee-os" ] || grep -q 'BEGIN BEANTR' "$claude_home/CLAUDE.md" 2>/dev/null; then
+  [ -d "$hermes_home/skills/beantr" ] && echo hermes
+  if [ -d "$claude_home/skills/beantr" ] || grep -q 'BEGIN BEANTR' "$claude_home/CLAUDE.md" 2>/dev/null; then
     echo claude-code
   fi
-  if [ -d "$opencode_home/skills/beantr-coffee-os" ] || grep -q 'BEGIN BEANTR' "$opencode_home/AGENTS.md" 2>/dev/null; then
+  if [ -d "$opencode_home/skills/beantr" ] || grep -q 'BEGIN BEANTR' "$opencode_home/AGENTS.md" 2>/dev/null; then
     echo opencode
   fi
-  [ -d "$openclaw_home/skills/beantr-coffee-os" ] && echo openclaw
+  [ -d "$openclaw_home/skills/beantr" ] && echo openclaw
   return 0
 }
 
@@ -121,7 +121,7 @@ uninstall_one() {
       echo "If you pasted installers/snippets/openclaw.md into a workspace AGENTS.md, remove that block by hand."
       ;;
     cowork|claude-cowork)
-      rm -f "$REPO_DIR/dist/beantr-coffee-os-skill.zip" 2>/dev/null || true
+      rm -f "$REPO_DIR/dist/beantr-skill.zip" 2>/dev/null || true
       echo "Cowork skills live in the app, not on disk."
       echo "In Claude Desktop: Settings > Cowork > Customize > Skills, then delete the Beantr skill."
       echo "Also clear any Beantr text from Global/folder Instructions if you added it."

@@ -14,7 +14,7 @@ set -euo pipefail
 # Supported <agent> values: hermes, claude-code, opencode, openclaw, cowork, generic.
 #
 # Claude Code plugin users update from inside the agent instead:
-#   /plugin update beantr-coffee-os@beantr
+#   /plugin update beantr@beantr
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
@@ -42,14 +42,14 @@ detect_installed() {
   local opencode_home="${OPENCODE_HOME:-$HOME/.config/opencode}"
   local openclaw_home="${OPENCLAW_HOME:-$HOME/.openclaw}"
 
-  [ -d "$hermes_home/skills/beantr-coffee-os" ] && echo hermes
-  if [ -d "$claude_home/skills/beantr-coffee-os" ] || grep -q 'BEGIN BEANTR' "$claude_home/CLAUDE.md" 2>/dev/null; then
+  [ -d "$hermes_home/skills/beantr" ] && echo hermes
+  if [ -d "$claude_home/skills/beantr" ] || grep -q 'BEGIN BEANTR' "$claude_home/CLAUDE.md" 2>/dev/null; then
     echo claude-code
   fi
-  if [ -d "$opencode_home/skills/beantr-coffee-os" ] || grep -q 'BEGIN BEANTR' "$opencode_home/AGENTS.md" 2>/dev/null; then
+  if [ -d "$opencode_home/skills/beantr" ] || grep -q 'BEGIN BEANTR' "$opencode_home/AGENTS.md" 2>/dev/null; then
     echo opencode
   fi
-  [ -d "$openclaw_home/skills/beantr-coffee-os" ] && echo openclaw
+  [ -d "$openclaw_home/skills/beantr" ] && echo openclaw
   return 0
 }
 
@@ -79,7 +79,7 @@ show_guidance() {
   echo "  install.sh claude-code ~/beantr    # see: install.sh" >&2
   echo >&2
   echo "Claude Code plugin users update from inside the agent instead:" >&2
-  echo "  /plugin update beantr-coffee-os@beantr" >&2
+  echo "  /plugin update beantr@beantr" >&2
   echo >&2
   echo "Docs: https://github.com/tiagomoraes/beantr/blob/main/docs/UPDATE.md" >&2
 }

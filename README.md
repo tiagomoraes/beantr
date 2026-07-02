@@ -36,7 +36,7 @@ The new Beantr optimizes for:
 
 ```text
 beantr/
-  skills/beantr-coffee-os/       # Portable skill pack for agents
+  skills/beantr/       # Portable skill pack for agents
   templates/beantr/           # Starter ledger files
   installers/                    # Agent-specific install helpers/snippets
   docs/                          # English documentation
@@ -51,7 +51,7 @@ Fastest path: inside Claude Code, install this repo as a plugin (no clone needed
 
 ```text
 /plugin marketplace add tiagomoraes/beantr
-/plugin install beantr-coffee-os@beantr
+/plugin install beantr@beantr
 ```
 
 For any other agent, name the one you want. Run with no agent to see which agents are detected on your machine (this installs nothing), or pass `all` to install for every detected agent at once:
@@ -137,7 +137,7 @@ See [docs/LEDGER.md](docs/LEDGER.md) for the full contract.
 
 ## Updating
 
-Pull a newer Beantr into an existing install by re-applying the latest pack. Plugin users run `/plugin update beantr-coffee-os@beantr`; everyone else uses the bootstrap updater or the script after `git pull`. It refreshes every installed agent at the ledger path recorded at install time and never touches your coffee data:
+Pull a newer Beantr into an existing install by re-applying the latest pack. Plugin users run `/plugin update beantr@beantr`; everyone else uses the bootstrap updater or the script after `git pull`. It refreshes every installed agent at the ledger path recorded at install time and never touches your coffee data:
 
 ```bash
 curl -fsSL https://beantr.tiagomoraes.cloud/update | bash                    # update every installed agent
@@ -149,7 +149,7 @@ See [docs/UPDATE.md](docs/UPDATE.md) for what an update changes and how versions
 
 ## Uninstalling
 
-Uninstalling mirrors installing and never touches your coffee ledger. Plugin users run `/plugin uninstall beantr-coffee-os@beantr`; everyone else uses the bootstrap uninstaller or the script from a clone:
+Uninstalling mirrors installing and never touches your coffee ledger. Plugin users run `/plugin uninstall beantr@beantr`; everyone else uses the bootstrap uninstaller or the script from a clone:
 
 ```bash
 curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash              # show what's installed (removes nothing)

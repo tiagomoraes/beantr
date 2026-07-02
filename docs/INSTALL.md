@@ -11,7 +11,7 @@ If you use Claude Code, install straight from inside the agent — no shell, no 
 
 ```text
 /plugin marketplace add tiagomoraes/beantr
-/plugin install beantr-coffee-os@beantr
+/plugin install beantr@beantr
 ```
 
 For any other agent (or if you'd rather run one shell command), the bootstrap installer downloads the pack and installs it for you. Beantr installs one agent at a time, so pass the agent name. Run it with no arguments to see which supported agents are detected on your machine and the exact command to install each — it installs nothing on its own. Pass `all` to install for every detected agent in one go:
@@ -46,7 +46,7 @@ The installer is intentionally simple. It only copies Markdown/shell assets into
 
 If no ledger path is supplied, it uses `~/beantr`. Supported `<agent>` values: `hermes`, `claude-code`, `opencode`, `openclaw`, `cowork`, `generic`. Use `all` in place of an agent to install for every detected agent (they share one ledger), or run `install.sh` with no arguments to list detected agents without installing anything.
 
-Every target also creates `${BEANTR_HOME:-~/.beantr}/beantr-coffee-os.md` — a canonical copy of the skill instructions you can point any other tool at — and `${BEANTR_HOME:-~/.beantr}/config` with the ledger path.
+Every target also creates `${BEANTR_HOME:-~/.beantr}/beantr.md` — a canonical copy of the skill instructions you can point any other tool at — and `${BEANTR_HOME:-~/.beantr}/config` with the ledger path.
 
 ## Hermes Agent
 
@@ -58,14 +58,14 @@ Hermes supports skills directly. Install Beantr as a Hermes skill:
 
 What this does:
 
-- copies `skills/beantr-coffee-os/` into `${HERMES_HOME:-~/.hermes}/skills/beantr-coffee-os`;
+- copies `skills/beantr/` into `${HERMES_HOME:-~/.hermes}/skills/beantr`;
 - creates `~/beantr` from the templates if it does not exist;
 - writes `~/.beantr/config` with the selected ledger path.
 
 Use it in Hermes by loading the skill or asking naturally:
 
 ```bash
-hermes --skills beantr-coffee-os
+hermes --skills beantr
 ```
 
 Example prompt:
@@ -74,7 +74,7 @@ Example prompt:
 
 ## Claude Code and Claude-style agents
 
-Claude Code discovers Skills automatically from a `SKILL.md` folder — no manual prompt needed. Easiest: install it as a plugin from inside Claude Code itself (see [Fastest path](#fastest-path) above) — this repo is a self-hosted plugin marketplace, so `/plugin marketplace add tiagomoraes/beantr` + `/plugin install beantr-coffee-os@beantr` is the whole install.
+Claude Code discovers Skills automatically from a `SKILL.md` folder — no manual prompt needed. Easiest: install it as a plugin from inside Claude Code itself (see [Fastest path](#fastest-path) above) — this repo is a self-hosted plugin marketplace, so `/plugin marketplace add tiagomoraes/beantr` + `/plugin install beantr@beantr` is the whole install.
 
 Or install it the same way as every other agent here:
 
@@ -84,11 +84,11 @@ Or install it the same way as every other agent here:
 
 What this does:
 
-- copies `skills/beantr-coffee-os/` into `${CLAUDE_HOME:-~/.claude}/skills/beantr-coffee-os`, so Claude Code loads and auto-invokes it whenever a prompt is coffee-related;
+- copies `skills/beantr/` into `${CLAUDE_HOME:-~/.claude}/skills/beantr`, so Claude Code loads and auto-invokes it whenever a prompt is coffee-related;
 - also appends a managed Beantr block to `~/.claude/CLAUDE.md` (created if missing) as a standing reminder of the ledger path — safe to delete if you only want skill-based invocation;
 - creates the Beantr ledger from templates.
 
-If you'd rather keep this project-local instead of installing the skill globally for every Claude Code session, copy `skills/beantr-coffee-os/` into a specific project's `.claude/skills/beantr-coffee-os/` instead, or paste the block from `installers/snippets/claude-code.md` into that project's `CLAUDE.md` (replace `${BEANTR_HOME}` and `${LEDGER_PATH}` with real paths).
+If you'd rather keep this project-local instead of installing the skill globally for every Claude Code session, copy `skills/beantr/` into a specific project's `.claude/skills/beantr/` instead, or paste the block from `installers/snippets/claude-code.md` into that project's `CLAUDE.md` (replace `${BEANTR_HOME}` and `${LEDGER_PATH}` with real paths).
 
 ## OpenCode
 
@@ -100,7 +100,7 @@ If you'd rather keep this project-local instead of installing the skill globally
 
 What this does:
 
-- copies `skills/beantr-coffee-os/` into `${OPENCODE_HOME:-~/.config/opencode}/skills/beantr-coffee-os`;
+- copies `skills/beantr/` into `${OPENCODE_HOME:-~/.config/opencode}/skills/beantr`;
 - appends a managed Beantr block to `${OPENCODE_HOME:-~/.config/opencode}/AGENTS.md`;
 - creates the Beantr ledger from templates.
 
@@ -116,7 +116,7 @@ OpenCode also reads skills straight out of `~/.claude/skills` and project-level 
 
 What this does:
 
-- copies `skills/beantr-coffee-os/` into `${OPENCLAW_HOME:-~/.openclaw}/skills/beantr-coffee-os` — OpenClaw's global skills directory, loaded for every agent;
+- copies `skills/beantr/` into `${OPENCLAW_HOME:-~/.openclaw}/skills/beantr` — OpenClaw's global skills directory, loaded for every agent;
 - creates the Beantr ledger from templates.
 
 OpenClaw resolves skills in this order: `<workspace>/skills`, `<workspace>/.agents/skills`, `~/.agents/skills`, `~/.openclaw/skills`, then bundled/extra directories, so a per-agent workspace install always wins over the global one. If you want Beantr force-loaded into the system prompt every turn instead of relying on skill auto-invocation, paste `installers/snippets/openclaw.md` into your agent workspace's `AGENTS.md` bootstrap file (defaults to `~/.openclaw/workspace/AGENTS.md`, or wherever `agents.defaults.workspace` points).
@@ -133,12 +133,12 @@ Claude Cowork runs inside the Claude Desktop app and uses the same Skills mechan
 
 What this does:
 
-- packages `skills/beantr-coffee-os/` into `dist/beantr-coffee-os-skill.zip`;
+- packages `skills/beantr/` into `dist/beantr-skill.zip`;
 - creates the Beantr ledger from templates so you have something to point Cowork at.
 
 Then, in Claude Desktop:
 
-1. Open **Settings → Cowork → Customize → Skills**, click **+ → Create skill → Upload a skill**, and select `dist/beantr-coffee-os-skill.zip`.
+1. Open **Settings → Cowork → Customize → Skills**, click **+ → Create skill → Upload a skill**, and select `dist/beantr-skill.zip`.
 2. Grant Cowork access to your `~/beantr` folder (or wherever you passed as `<ledger-path>`) so it can read and write the ledger.
 3. Optional: open **Settings → Cowork → Global Instructions** (or a folder-level instruction, scoped to the ledger folder) and paste the text from `installers/snippets/cowork.md`, replacing `${LEDGER_PATH}` with your real path. This is only needed if you want Beantr's ledger path pinned outside of skill auto-invocation.
 
@@ -152,11 +152,11 @@ For any assistant that can read and write files:
 
 Then give the assistant this instruction:
 
-> Use Beantr. Read `~/.beantr/beantr-coffee-os.md`, then manage my coffee ledger at `~/beantr` by updating current Markdown files and appending monthly logs.
+> Use Beantr. Read `~/.beantr/beantr.md`, then manage my coffee ledger at `~/beantr` by updating current Markdown files and appending monthly logs.
 
 ## Updating
 
-To pull a newer Beantr into an existing install, re-apply the latest pack. Plugin users run `/plugin update beantr-coffee-os@beantr`; everyone else uses the bootstrap updater or the script from a clone. It refreshes every agent you already have installed, at the ledger path recorded at install time, and never touches your coffee data:
+To pull a newer Beantr into an existing install, re-apply the latest pack. Plugin users run `/plugin update beantr@beantr`; everyone else uses the bootstrap updater or the script from a clone. It refreshes every agent you already have installed, at the ledger path recorded at install time, and never touches your coffee data:
 
 ```bash
 curl -fsSL https://beantr.tiagomoraes.cloud/update | bash                    # update every installed agent
@@ -168,7 +168,7 @@ See [UPDATE.md](UPDATE.md) for exactly what an update changes and how versions a
 
 ## Uninstalling
 
-Uninstalling mirrors installing. If you installed the Claude Code plugin, run `/plugin uninstall beantr-coffee-os@beantr` (and `/plugin marketplace remove beantr` if you don't want the marketplace either). For any other agent, the uninstaller undoes exactly what the installer added — run it with no arguments to see what's installed and how to remove each (it removes nothing), name an agent to remove one, or pass `all`:
+Uninstalling mirrors installing. If you installed the Claude Code plugin, run `/plugin uninstall beantr@beantr` (and `/plugin marketplace remove beantr` if you don't want the marketplace either). For any other agent, the uninstaller undoes exactly what the installer added — run it with no arguments to see what's installed and how to remove each (it removes nothing), name an agent to remove one, or pass `all`:
 
 ```bash
 curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash              # show what's installed (removes nothing)

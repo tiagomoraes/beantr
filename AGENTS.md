@@ -12,7 +12,7 @@ Beantr is an agent pack for filesystem-native coffee management. It is not a hos
 - Keep Beantr portable across agents.
 - Prefer Markdown, shell snippets, and plain files over product runtime code.
 - Do not reintroduce FastAPI, PostgreSQL, Alembic, Docker, Railway, or MCP server scaffolding unless the maintainer explicitly asks for a new runtime product.
-- Treat `skills/beantr-coffee-os/SKILL.md` as the canonical agent behavior contract.
+- Treat `skills/beantr/SKILL.md` as the canonical agent behavior contract.
 - Treat `templates/beantr/` as the canonical starter filesystem.
 - Update `site/index.html` when installation or positioning changes.
 - Run `make validate` before committing.

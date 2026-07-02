@@ -13,7 +13,7 @@ A clear description of the bug.
 
 - [ ] Installer (`installers/install.sh` / bootstrap `site/install`)
 - [ ] Claude Code plugin / marketplace
-- [ ] Skill behavior (`skills/beantr-coffee-os/SKILL.md`)
+- [ ] Skill behavior (`skills/beantr/SKILL.md`)
 - [ ] Templates / ledger (`templates/beantr/`)
 - [ ] Landing site (`site/`)
 - [ ] Docs

@@ -10,7 +10,7 @@
 #   curl -fsSL https://beantr.tiagomoraes.cloud/update | bash -s -- claude-code
 #
 # Agent names: hermes, claude-code, opencode, openclaw, cowork, generic.
-# Claude Code plugin users update from inside the agent: /plugin update beantr-coffee-os@beantr
+# Claude Code plugin users update from inside the agent: /plugin update beantr@beantr
 set -euo pipefail
 
 PACK_URL="https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz"

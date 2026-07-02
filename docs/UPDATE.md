@@ -11,7 +11,7 @@ release adds are seeded alongside your existing ones.
 If you installed the Claude Code plugin, update it from inside Claude Code:
 
 ```text
-/plugin update beantr-coffee-os@beantr
+/plugin update beantr@beantr
 ```
 
 For any other agent (or a shell install), the bootstrap updater downloads the
@@ -46,7 +46,7 @@ Supported `<agent>` values: `hermes`, `claude-code`, `opencode`, `openclaw`,
   a custom ledger location is preserved rather than reset to the `~/beantr`
   default.
 - Overwrites the installed skill folder and the canonical
-  `~/.beantr/beantr-coffee-os.md`, and replaces the managed block in your
+  `~/.beantr/beantr.md`, and replaces the managed block in your
   `CLAUDE.md` / `AGENTS.md` with the current one (leaving the rest of the file
   untouched).
 - Seeds any **new** ledger template files a release introduces; it never
@@ -63,7 +63,7 @@ you at [INSTALL.md](INSTALL.md).
 `cowork` and `generic` aren't auto-detected, so name them explicitly to update:
 
 ```bash
-./installers/update.sh cowork    # repackages dist/beantr-coffee-os-skill.zip to re-upload
+./installers/update.sh cowork    # repackages dist/beantr-skill.zip to re-upload
 ./installers/update.sh generic   # refreshes ~/.beantr/README.md
 ```
 

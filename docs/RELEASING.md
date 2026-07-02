@@ -3,7 +3,7 @@
 Beantr ships three ways, all from this repo:
 
 1. **Claude Code plugin** — `/plugin marketplace add tiagomoraes/beantr` then
-   `/plugin install beantr-coffee-os@beantr`. Served from the repository's
+   `/plugin install beantr@beantr`. Served from the repository's
    **default branch**.
 2. **One-line bootstrap** — `curl -fsSL https://beantr.tiagomoraes.cloud/install | bash`,
    which downloads the latest packaged tarball.

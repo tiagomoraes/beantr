@@ -24,7 +24,7 @@ The project goal changed. Beantr is now for personal AI assistants that already 
 | Container table | `beans/current.md` container columns / notes |
 | Fill table | live bean rows + `beans/history/YYYY-MM.md` |
 | Event table | `beans/history/`, `gear/history/`, `sessions/` |
-| MCP tools | `skills/beantr-coffee-os/SKILL.md` workflow |
+| MCP tools | `skills/beantr/SKILL.md` workflow |
 | REST API | agent file reads/writes |
 | Database migrations | Markdown template evolution |
 

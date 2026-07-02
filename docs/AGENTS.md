@@ -18,22 +18,22 @@ No HTTP calls, MCP tools, database credentials, or background service are requir
 Use this core instruction when your agent does not support installable skills:
 
 ```text
-You have access to Beantr, a filesystem-native coffee ledger. Read the Beantr instructions at ~/.beantr/beantr-coffee-os.md. Manage the user's coffee context at ~/beantr. Current Markdown files are the source of truth for live state. Monthly history/session files are append-only evidence. Update insights and recipes only when evidence supports a stable recommendation. Never invent unknown coffee facts.
+You have access to Beantr, a filesystem-native coffee ledger. Read the Beantr instructions at ~/.beantr/beantr.md. Manage the user's coffee context at ~/beantr. Current Markdown files are the source of truth for live state. Monthly history/session files are append-only evidence. Update insights and recipes only when evidence supports a stable recommendation. Never invent unknown coffee facts.
 ```
 
 ## Hermes Agent
 
-Hermes can load the skill directly from `~/.hermes/skills/beantr-coffee-os`.
+Hermes can load the skill directly from `~/.hermes/skills/beantr`.
 
 Recommended command:
 
 ```bash
-hermes --skills beantr-coffee-os
+hermes --skills beantr
 ```
 
 ## Claude Code
 
-This repo is itself a Claude Code plugin marketplace (`.claude-plugin/marketplace.json` + `.claude-plugin/plugin.json` at the root): `/plugin marketplace add tiagomoraes/beantr` then `/plugin install beantr-coffee-os@beantr` is the whole install, no shell needed. Equivalently, copy `skills/beantr-coffee-os/` into `~/.claude/skills/beantr-coffee-os` (or a project's `.claude/skills/`) — Claude Code discovers `SKILL.md` folders on its own and auto-invokes them when a prompt is relevant, no managed block required, though `installers/snippets/claude-code.md` is available if you want the ledger path pinned in `CLAUDE.md` as well.
+This repo is itself a Claude Code plugin marketplace (`.claude-plugin/marketplace.json` + `.claude-plugin/plugin.json` at the root): `/plugin marketplace add tiagomoraes/beantr` then `/plugin install beantr@beantr` is the whole install, no shell needed. Equivalently, copy `skills/beantr/` into `~/.claude/skills/beantr` (or a project's `.claude/skills/`) — Claude Code discovers `SKILL.md` folders on its own and auto-invokes them when a prompt is relevant, no managed block required, though `installers/snippets/claude-code.md` is available if you want the ledger path pinned in `CLAUDE.md` as well.
 
 ## OpenCode
 
@@ -45,7 +45,7 @@ OpenCode reads the same `SKILL.md` format directly from `~/.config/opencode/skil
 
 ## Claude Cowork
 
-Cowork runs the same agentic architecture as Claude Code inside Claude Desktop, but skills are installed through the UI: Settings → Cowork → Customize → Skills → upload a zipped `skills/beantr-coffee-os/` folder (`./installers/install.sh cowork` builds it). Grant Cowork folder access to the ledger path, and optionally paste `installers/snippets/cowork.md` into Global or folder-level Instructions.
+Cowork runs the same agentic architecture as Claude Code inside Claude Desktop, but skills are installed through the UI: Settings → Cowork → Customize → Skills → upload a zipped `skills/beantr/` folder (`./installers/install.sh cowork` builds it). Grant Cowork folder access to the ledger path, and optionally paste `installers/snippets/cowork.md` into Global or folder-level Instructions.
 
 ## Other assistants
 

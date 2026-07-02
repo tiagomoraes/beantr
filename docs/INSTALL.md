@@ -14,14 +14,15 @@ If you use Claude Code, install straight from inside the agent — no shell, no 
 /plugin install beantr-coffee-os@beantr
 ```
 
-For any other agent (or if you'd rather run one shell command), the bootstrap installer downloads the pack and installs it for you. With no arguments it detects whichever supported agents are present on your machine; pass an agent name to install for just one:
+For any other agent (or if you'd rather run one shell command), the bootstrap installer downloads the pack and installs it for you. Beantr installs one agent at a time, so pass the agent name. Run it with no arguments to see which supported agents are detected on your machine and the exact command to install each — it installs nothing on its own. Pass `all` to install for every detected agent in one go:
 
 ```bash
-curl -fsSL https://beantr.tiagomoraes.cloud/install | bash
-curl -fsSL https://beantr.tiagomoraes.cloud/install | bash -s -- claude-code ~/beantr
+curl -fsSL https://beantr.tiagomoraes.cloud/install | bash                              # show detected agents (installs nothing)
+curl -fsSL https://beantr.tiagomoraes.cloud/install | bash -s -- claude-code ~/beantr   # one agent
+curl -fsSL https://beantr.tiagomoraes.cloud/install | bash -s -- all                    # every detected agent
 ```
 
-The rest of this page covers the manual install (clone/download + `installers/install.sh`), which the bootstrap script and plugin both wrap — useful if you want to inspect the pack first, run it in CI, or target an agent not auto-detected.
+The rest of this page covers the manual install (clone/download + `installers/install.sh`), which the bootstrap script and plugin both wrap — useful if you want to inspect the pack first, run it in CI, or target an agent by name.
 
 Clone the repository first if you have GitHub access:
 
@@ -43,7 +44,7 @@ The installer is intentionally simple. It only copies Markdown/shell assets into
 ./installers/install.sh <agent> <ledger-path>
 ```
 
-If no ledger path is supplied, it uses `~/beantr`. Supported `<agent>` values: `hermes`, `claude-code`, `opencode`, `openclaw`, `cowork`, `generic`.
+If no ledger path is supplied, it uses `~/beantr`. Supported `<agent>` values: `hermes`, `claude-code`, `opencode`, `openclaw`, `cowork`, `generic`. Use `all` in place of an agent to install for every detected agent (they share one ledger), or run `install.sh` with no arguments to list detected agents without installing anything.
 
 Every target also creates `${BEANTR_HOME:-~/.beantr}/beantr-coffee-os.md` — a canonical copy of the skill instructions you can point any other tool at — and `${BEANTR_HOME:-~/.beantr}/config` with the ledger path.
 
@@ -155,16 +156,12 @@ Then give the assistant this instruction:
 
 ## Uninstalling
 
-Beantr is only files. If you installed the Claude Code plugin, run `/plugin uninstall beantr-coffee-os@beantr` (and `/plugin marketplace remove beantr` if you don't want the marketplace either). Otherwise, remove the skill/snippet for whichever agent you installed:
+Uninstalling mirrors installing. If you installed the Claude Code plugin, run `/plugin uninstall beantr-coffee-os@beantr` (and `/plugin marketplace remove beantr` if you don't want the marketplace either). For any other agent, the uninstaller undoes exactly what the installer added — run it with no arguments to see what's installed and how to remove each (it removes nothing), name an agent to remove one, or pass `all`:
 
 ```bash
-rm -rf ~/.hermes/skills/beantr-coffee-os
-rm -rf ~/.claude/skills/beantr-coffee-os
-rm -rf ~/.config/opencode/skills/beantr-coffee-os
-rm -rf ~/.openclaw/skills/beantr-coffee-os
-rm -rf ~/.beantr
+curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash              # show what's installed (removes nothing)
+curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash -s -- all    # remove every detected agent
+./installers/uninstall.sh claude-code                                     # or, from a clone/pack: one agent
 ```
 
-Also remove the managed block (between `<!-- BEGIN BEANTR -->` and `<!-- END BEANTR -->`) from `~/.claude/CLAUDE.md` or `~/.config/opencode/AGENTS.md` if you added one, and delete the uploaded skill from Cowork's Customize panel.
-
-Do **not** delete the Beantr ledger unless you intentionally want to remove your coffee data.
+The uninstaller **never** deletes your coffee ledger — it prints the path on the way out so you can remove it by hand if you want to. See [UNINSTALL.md](UNINSTALL.md) for the full guide: what each agent target removes, and step-by-step manual removal.

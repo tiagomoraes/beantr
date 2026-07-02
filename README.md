@@ -54,10 +54,12 @@ Fastest path: inside Claude Code, install this repo as a plugin (no clone needed
 /plugin install beantr-coffee-os@beantr
 ```
 
-For any other agent, or to install every detected agent on your machine in one go:
+For any other agent, name the one you want. Run with no agent to see which agents are detected on your machine (this installs nothing), or pass `all` to install for every detected agent at once:
 
 ```bash
-curl -fsSL https://beantr.tiagomoraes.cloud/install | bash
+curl -fsSL https://beantr.tiagomoraes.cloud/install | bash                    # show detected agents + how to install
+curl -fsSL https://beantr.tiagomoraes.cloud/install | bash -s -- hermes       # install for one agent
+curl -fsSL https://beantr.tiagomoraes.cloud/install | bash -s -- all          # install for every detected agent
 ```
 
 Or do it by hand. Clone the repository if you have GitHub access:
@@ -132,6 +134,18 @@ See [docs/LEDGER.md](docs/LEDGER.md) for the full contract.
 - [OpenClaw](docs/INSTALL.md#openclaw)
 - [Claude Cowork](docs/INSTALL.md#claude-cowork)
 - [Generic file-capable assistants](docs/INSTALL.md#generic-file-capable-assistants)
+
+## Uninstalling
+
+Uninstalling mirrors installing and never touches your coffee ledger. Plugin users run `/plugin uninstall beantr-coffee-os@beantr`; everyone else uses the bootstrap uninstaller or the script from a clone:
+
+```bash
+curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash              # show what's installed (removes nothing)
+curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash -s -- all    # remove every detected agent
+./installers/uninstall.sh claude-code                                     # or, from a clone/pack: one agent
+```
+
+See [docs/UNINSTALL.md](docs/UNINSTALL.md) for per-agent details and manual removal.
 
 ## Development
 

@@ -9,7 +9,7 @@
       "name": "beantr-coffee-os",
       "source": "./",
       "description": "Manage a personal coffee inventory, brew log, recipes, and recommendations through Markdown files instead of an API or database.",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "personal-assistant",
       "keywords": ["coffee", "markdown", "filesystem", "personal-assistant"]
     }

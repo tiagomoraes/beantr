@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Beantr bootstrap uninstaller. Downloads the latest pack and hands off to
+# installers/uninstall.sh, which owns all uninstall logic. It only removes the
+# wiring Beantr added; your coffee ledger is never deleted.
+#
+#   # Show what's installed and how to remove it (removes nothing):
+#   curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash
+#
+#   # Remove Beantr for one agent:
+#   curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash -s -- claude-code
+#
+#   # Remove Beantr for every detected agent, in one go:
+#   curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash -s -- all
+#
+# Agent names: hermes, claude-code, opencode, openclaw, cowork, generic.
+set -euo pipefail
+
+PACK_URL="https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz"
+WORK_DIR="$(mktemp -d)"
+trap 'rm -rf "$WORK_DIR"' EXIT
+
+echo "Downloading Beantr..." >&2
+curl -fsSL "$PACK_URL" | tar xz -C "$WORK_DIR"
+cd "$WORK_DIR/beantr"
+
+./installers/uninstall.sh "$@"

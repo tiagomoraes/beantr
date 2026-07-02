@@ -135,6 +135,18 @@ See [docs/LEDGER.md](docs/LEDGER.md) for the full contract.
 - [Claude Cowork](docs/INSTALL.md#claude-cowork)
 - [Generic file-capable assistants](docs/INSTALL.md#generic-file-capable-assistants)
 
+## Uninstalling
+
+Uninstalling mirrors installing and never touches your coffee ledger. Plugin users run `/plugin uninstall beantr-coffee-os@beantr`; everyone else uses the bootstrap uninstaller or the script from a clone:
+
+```bash
+curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash              # show what's installed (removes nothing)
+curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash -s -- all    # remove every detected agent
+./installers/uninstall.sh claude-code                                     # or, from a clone/pack: one agent
+```
+
+See [docs/UNINSTALL.md](docs/UNINSTALL.md) for per-agent details and manual removal.
+
 ## Development
 
 This repository intentionally has no runtime dependencies. The validation script only checks the pack structure and docs links.

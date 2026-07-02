@@ -6,6 +6,21 @@ All notable changes to Beantr are documented here. The format is based on
 
 ## [Unreleased]
 
+### Added
+- **Updater** (`installers/update.sh`) that re-applies the current pack to the
+  agents you already have installed, refreshing the skill, managed
+  `CLAUDE.md` / `AGENTS.md` block, and instruction file. It reuses the ledger
+  path recorded at install time (so a custom ledger is never reset to the
+  default), seeds only new template files, never overwrites your coffee data,
+  and reports the version change (e.g. `v1.1.0 -> v1.2.0`).
+- **One-line bootstrap updater** (`site/update`), served at
+  `https://beantr.tiagomoraes.cloud/update`, plus a dedicated
+  [update guide](docs/UPDATE.md) and `make update*` targets.
+
+### Changed
+- The installer now records `BEANTR_VERSION` in `~/.beantr/config` so updates
+  can report what you upgraded from and to.
+
 ## [1.1.0] - 2026-07-02
 
 ### Added

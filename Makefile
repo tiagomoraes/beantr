@@ -1,4 +1,4 @@
-.PHONY: validate install-hermes install-claude install-opencode install-openclaw install-cowork uninstall uninstall-hermes uninstall-claude uninstall-opencode uninstall-openclaw uninstall-cowork package site-deploy preview-site
+.PHONY: validate install-hermes install-claude install-opencode install-openclaw install-cowork update update-hermes update-claude update-opencode update-openclaw update-cowork uninstall uninstall-hermes uninstall-claude uninstall-opencode uninstall-openclaw uninstall-cowork package site-deploy preview-site
 
 validate:
 	python3 scripts/validate.py
@@ -17,6 +17,24 @@ install-openclaw:
 
 install-cowork:
 	./installers/install.sh cowork "$${BEANTR_LEDGER:-$$HOME/beantr}"
+
+update:
+	./installers/update.sh
+
+update-hermes:
+	./installers/update.sh hermes
+
+update-claude:
+	./installers/update.sh claude-code
+
+update-opencode:
+	./installers/update.sh opencode
+
+update-openclaw:
+	./installers/update.sh openclaw
+
+update-cowork:
+	./installers/update.sh cowork
 
 uninstall:
 	./installers/uninstall.sh

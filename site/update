@@ -13,7 +13,7 @@
 # Claude Code plugin users update from inside the agent: /plugin update beantr@beantr
 set -euo pipefail
 
-PACK_URL="https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz?v=2.0.0"
+PACK_URL="https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz?v=2.0.0-20260702b"
 WORK_DIR="$(mktemp -d)"
 trap 'rm -rf "$WORK_DIR"' EXIT
 

@@ -72,7 +72,7 @@ cd beantr
 Or download the public agent pack from the landing page:
 
 ```bash
-curl -L 'https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz?v=2.0.0' | tar xz
+curl -L 'https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz?v=2.0.0-20260702b' | tar xz
 cd beantr
 ```
 

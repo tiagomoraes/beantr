@@ -6,6 +6,8 @@ All notable changes to Beantr are documented here. The format is based on
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-07-02
+
 ### Added
 - **Updater** (`installers/update.sh`) that re-applies the current pack to the
   agents you already have installed, refreshing the skill, managed

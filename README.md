@@ -135,6 +135,18 @@ See [docs/LEDGER.md](docs/LEDGER.md) for the full contract.
 - [Claude Cowork](docs/INSTALL.md#claude-cowork)
 - [Generic file-capable assistants](docs/INSTALL.md#generic-file-capable-assistants)
 
+## Updating
+
+Pull a newer Beantr into an existing install by re-applying the latest pack. Plugin users run `/plugin update beantr-coffee-os@beantr`; everyone else uses the bootstrap updater or the script after `git pull`. It refreshes every installed agent at the ledger path recorded at install time and never touches your coffee data:
+
+```bash
+curl -fsSL https://beantr.tiagomoraes.cloud/update | bash                    # update every installed agent
+curl -fsSL https://beantr.tiagomoraes.cloud/update | bash -s -- claude-code  # or just one
+./installers/update.sh                                                       # or, from a clone/pack
+```
+
+See [docs/UPDATE.md](docs/UPDATE.md) for what an update changes and how versions are reported.
+
 ## Uninstalling
 
 Uninstalling mirrors installing and never touches your coffee ledger. Plugin users run `/plugin uninstall beantr-coffee-os@beantr`; everyone else uses the bootstrap uninstaller or the script from a clone:

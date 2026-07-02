@@ -14,6 +14,14 @@ BEANTR_HOME="${BEANTR_HOME:-$HOME/.beantr}"
 SKILL_SRC="$REPO_DIR/skills/beantr-coffee-os"
 TEMPLATE_SRC="$REPO_DIR/templates/beantr"
 
+# Version of the pack being installed, read from the plugin manifest. Recorded
+# in the config so `update.sh` can report what you upgraded from and to.
+plugin_version() {
+  local manifest="$REPO_DIR/.claude-plugin/plugin.json"
+  [ -f "$manifest" ] || return 0
+  sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$manifest" | head -n1
+}
+
 copy_templates() {
   # Seed starter ledger files, skipping any that already exist. Never fails on
   # reinstall. The old `tar xkf` exits 2 under GNU tar when a file exists
@@ -101,6 +109,7 @@ install_one() {
   cat > "$BEANTR_HOME/config" <<EOF
 BEANTR_LEDGER=$LEDGER_PATH
 BEANTR_INSTRUCTIONS=$BEANTR_HOME/beantr-coffee-os.md
+BEANTR_VERSION=$(plugin_version)
 EOF
 
   case "$AGENT" in

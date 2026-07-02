@@ -154,6 +154,18 @@ Then give the assistant this instruction:
 
 > Use Beantr. Read `~/.beantr/beantr-coffee-os.md`, then manage my coffee ledger at `~/beantr` by updating current Markdown files and appending monthly logs.
 
+## Updating
+
+To pull a newer Beantr into an existing install, re-apply the latest pack. Plugin users run `/plugin update beantr-coffee-os@beantr`; everyone else uses the bootstrap updater or the script from a clone. It refreshes every agent you already have installed, at the ledger path recorded at install time, and never touches your coffee data:
+
+```bash
+curl -fsSL https://beantr.tiagomoraes.cloud/update | bash                    # update every installed agent
+curl -fsSL https://beantr.tiagomoraes.cloud/update | bash -s -- claude-code  # or just one
+./installers/update.sh                                                       # or, from a clone/pack after `git pull`
+```
+
+See [UPDATE.md](UPDATE.md) for exactly what an update changes and how versions are reported.
+
 ## Uninstalling
 
 Uninstalling mirrors installing. If you installed the Claude Code plugin, run `/plugin uninstall beantr-coffee-os@beantr` (and `/plugin marketplace remove beantr` if you don't want the marketplace either). For any other agent, the uninstaller undoes exactly what the installer added — run it with no arguments to see what's installed and how to remove each (it removes nothing), name an agent to remove one, or pass `all`:

@@ -34,7 +34,7 @@ cd beantr
 Or download the public agent pack from the landing page:
 
 ```bash
-curl -L 'https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz?v=20260630-templates' | tar xz
+curl -L 'https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz?v=2.0.0' | tar xz
 cd beantr
 ```
 

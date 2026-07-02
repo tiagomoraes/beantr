@@ -54,10 +54,12 @@ Fastest path: inside Claude Code, install this repo as a plugin (no clone needed
 /plugin install beantr-coffee-os@beantr
 ```
 
-For any other agent, or to install every detected agent on your machine in one go:
+For any other agent, name the one you want. Run with no agent to see which agents are detected on your machine (this installs nothing), or pass `all` to install for every detected agent at once:
 
 ```bash
-curl -fsSL https://beantr.tiagomoraes.cloud/install | bash
+curl -fsSL https://beantr.tiagomoraes.cloud/install | bash                    # show detected agents + how to install
+curl -fsSL https://beantr.tiagomoraes.cloud/install | bash -s -- hermes       # install for one agent
+curl -fsSL https://beantr.tiagomoraes.cloud/install | bash -s -- all          # install for every detected agent
 ```
 
 Or do it by hand. Clone the repository if you have GitHub access:

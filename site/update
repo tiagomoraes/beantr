@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Beantr bootstrap updater. Downloads the latest pack and hands off to
+# installers/update.sh, which re-applies it to the agents you already have
+# installed. Your coffee ledger is never moved or overwritten.
+#
+#   # Update every installed agent to the latest pack:
+#   curl -fsSL https://beantr.tiagomoraes.cloud/update | bash
+#
+#   # Update just one agent:
+#   curl -fsSL https://beantr.tiagomoraes.cloud/update | bash -s -- claude-code
+#
+# Agent names: hermes, claude-code, opencode, openclaw, cowork, generic.
+# Claude Code plugin users update from inside the agent: /plugin update beantr-coffee-os@beantr
+set -euo pipefail
+
+PACK_URL="https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz"
+WORK_DIR="$(mktemp -d)"
+trap 'rm -rf "$WORK_DIR"' EXIT
+
+echo "Downloading latest Beantr..." >&2
+curl -fsSL "$PACK_URL" | tar xz -C "$WORK_DIR"
+cd "$WORK_DIR/beantr"
+
+./installers/update.sh "$@"

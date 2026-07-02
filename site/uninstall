@@ -15,7 +15,7 @@
 # Agent names: hermes, claude-code, opencode, openclaw, cowork, generic.
 set -euo pipefail
 
-PACK_URL="https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz"
+PACK_URL="https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz?v=2.0.0"
 WORK_DIR="$(mktemp -d)"
 trap 'rm -rf "$WORK_DIR"' EXIT
 

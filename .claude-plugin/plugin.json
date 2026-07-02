@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "beantr-coffee-os",
   "displayName": "Beantr",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Manage a personal coffee inventory, brew log, recipes, and recommendations through Markdown files instead of an API or database.",
   "author": {
     "name": "Tiago Moraes"

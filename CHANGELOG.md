@@ -6,6 +6,8 @@ All notable changes to Beantr are documented here. The format is based on
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-07-02
+
 ### Added
 - **Uninstaller** (`installers/uninstall.sh`) mirroring the installer: removes a
   single agent's wiring, `all` detected agents, or with no arguments lists

@@ -58,9 +58,15 @@ Recommended fields:
 - `label`
 - `coffee_name`
 - `roaster`
+- `species`
 - `origin`
+- `producer`
+- `farm`
 - `variety`
 - `process`
+- `altitude_m`
+- `score`
+- `sensory_notes`
 - `roast_date`
 - `purchase_date`
 - `bag_size_g`
@@ -69,6 +75,7 @@ Recommended fields:
 - `container_capacity_g`
 - `state`
 - `priority`
+- `source_url`
 - `notes`
 
 ### `beans/history/YYYY-MM.md`
@@ -110,6 +117,40 @@ Recommended fields:
 
 Distilled advice from the evidence. Update this only when there is enough signal to be useful.
 
+## Metadata enrichment
+
+When adding or correcting a bean, capture important coffee metadata from the user statement and package/label images first. If important fields remain unknown and web/search tools are available, make a best-effort online lookup before finalizing the inventory update.
+
+Important metadata includes:
+
+- species;
+- variety/cultivar;
+- origin, country, region, farm, and producer;
+- process/fermentation;
+- altitude;
+- score or grade;
+- roast profile/level;
+- sensory notes;
+- lot, harvest, or batch identifiers;
+- official product/source URL.
+
+Source priority:
+
+1. User-provided facts and visible package/label details.
+2. Official roaster or shop product pages for the same coffee/lot.
+3. Other roaster-owned pages, archived product pages, or reputable coffee listings.
+4. General web results only as search aids, not as proof.
+
+Lookup rules:
+
+- Search with the roaster, coffee name, farm/producer, variety, process, and any label-specific terms.
+- Only copy online facts when the source plausibly matches the same coffee and lot; be especially careful with changing fields like roast date, availability, price, and current product batch.
+- Prefer stable agronomic/profile facts from online sources over nothing, but keep storage facts, remaining weight, and user-specific dates from the user or ledger.
+- Record the source URL or source description in `source_url` or `notes`, and append a history entry describing what was enriched.
+- If sources conflict, preserve user/label facts, note the conflict, and leave uncertain fields as `unknown` unless the user resolves it.
+- If no trustworthy source is found quickly, do not stall the update; write `unknown` and report which fields remain missing.
+- Never infer lot-specific metadata from a different coffee just because it has the same roaster, farm, or marketing name.
+
 ## Update workflow
 
 When the user logs a brew, adds coffee, changes gear, or asks for advice:
@@ -117,10 +158,11 @@ When the user logs a brew, adds coffee, changes gear, or asks for advice:
 1. Identify the ledger path.
 2. Read the relevant `current.md` files first.
 3. Read recent session/history files only when needed for evidence.
-4. Make the smallest file updates that reflect the user's statement.
-5. Append to the correct monthly log when an event occurred.
-6. Update `recipes/current.md` or `insights/current.md` only if the new evidence changes a recommendation.
-7. Report exactly what changed and what remains uncertain.
+4. For bean inventory updates, enrich missing important metadata from online sources when tools are available and the lookup can be done without delaying the core update.
+5. Make the smallest file updates that reflect the user's statement and any trustworthy enrichment.
+6. Append to the correct monthly log when an event occurred, including metadata source notes when facts were enriched.
+7. Update `recipes/current.md` or `insights/current.md` only if the new evidence changes a recommendation.
+8. Report exactly what changed, what source was used, and what remains uncertain.
 
 ## Recommendation rules
 
@@ -168,5 +210,6 @@ Before replying after a Beantr edit:
 - the live state answers "what is true now?";
 - the appropriate append-only log contains the event;
 - recommendations cite evidence or are clearly labeled as heuristics;
+- online-enriched metadata includes a source or explicit uncertainty;
 - IDs and labels stayed stable;
 - the user can understand the changed files without special software.

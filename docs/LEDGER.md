@@ -41,9 +41,22 @@ This prevents the agent from replaying an entire history every time it needs to 
 2. Use monthly append-only logs for events.
 3. Keep labels and IDs stable.
 4. Prefer `unknown` over invented facts.
-5. Cite recent sessions when making recommendations.
-6. Use UTC timestamps unless the user requests a different timezone.
-7. Keep changes small and human-readable.
+5. For bean inventory updates, use available package/label evidence first; when important metadata is still missing and web tools are available, make a best-effort lookup against official roaster or shop pages before finalizing.
+6. Cite recent sessions when making recommendations.
+7. Use UTC timestamps unless the user requests a different timezone.
+8. Keep changes small and human-readable.
+
+## Bean metadata enrichment
+
+Beantr stays filesystem-native: web access is not required to use a ledger. When an agent does have search or browser tools, it should use them as a lightweight enrichment step for missing bean metadata such as species, variety/cultivar, origin, farm, producer, process, altitude, score, roast profile, sensory notes, lot, harvest, and official product URL.
+
+Use this source order:
+
+1. User-provided facts and visible package/label details.
+2. Official roaster or shop product pages for the same coffee/lot.
+3. Other roaster-owned pages, archived product pages, or reputable coffee listings.
+
+Do not copy facts from a merely similar coffee. If the online source does not clearly match the user's bag or lot, leave uncertain fields as `unknown`, record the search/source notes, and tell the user what remains missing. User-specific state such as remaining grams, container, freezing date, and storage location should come from the user or ledger, not from online listings.
 
 ## Bean IDs and labels
 

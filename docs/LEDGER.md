@@ -44,6 +44,8 @@ This prevents the agent from replaying an entire history every time it needs to 
 5. Cite recent sessions when making recommendations.
 6. Use UTC timestamps unless the user requests a different timezone.
 7. Keep changes small and human-readable.
+8. Treat each named reusable jar, tube, or canister as an exclusive physical container.
+9. Never create a second active assignment for an occupied container without resolving the prior coffee first.
 
 ## Bean IDs and labels
 
@@ -58,6 +60,26 @@ Example:
 ```
 
 A label can change for readability. An ID should not change unless it was wrong.
+
+## Physical containers
+
+A named reusable container can hold at most one active coffee at a time. Generic
+locations such as a freezer, shelf, or cabinet can hold several distinct bags
+and are not exclusive containers.
+
+Use `container_id` for one named reusable container. Use `container_members`
+for the exact current IDs in a batch of tubes or other small containers. Treat
+an `unknown` remaining amount as active, not empty.
+
+Before assigning a new coffee to an occupied container, resolve what happened
+to its current coffee. If the user did not say whether it was finished, moved,
+discarded, or mislabeled, ask instead of guessing. When the prior coffee moved
+and its destination is unknown, preserve its amount and set its container to
+`unknown`; do not mark it consumed.
+
+After every inventory edit, check that no active container appears in two rows
+or in both an aggregate batch and an individual row. Historical rows may keep
+their old container labels after they reach `0g` and `finished`.
 
 ## Session entries
 

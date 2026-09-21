@@ -13,6 +13,8 @@ REQUIRED = [
     'AGENTS.md',
     'Makefile',
     'skills/beantr/SKILL.md',
+    'skills/beantr/references/physical-container-integrity.md',
+    'skills/beantr/templates/beantr/beans/current.md',
     'templates/beantr/README.md',
     'templates/beantr/beans/current.md',
     'templates/beantr/beans/history/YYYY-MM.md',
@@ -73,7 +75,14 @@ def check_skill_frontmatter() -> None:
         fail('SKILL.md must start with YAML frontmatter')
     if '\n---\n' not in text[4:]:
         fail('SKILL.md frontmatter is not closed')
-    for token in ['name: beantr', 'description:', '## Update workflow', '## Verification checklist']:
+    for token in [
+        'name: beantr',
+        'description:',
+        'version:',
+        '## Update workflow',
+        '### Physical-container identity and exclusivity',
+        '## Verification checklist',
+    ]:
         if token not in text:
             fail(f'SKILL.md missing token: {token}')
 
@@ -91,6 +100,8 @@ def check_plugin_manifests() -> None:
     if plugin['name'] not in names:
         fail(f"marketplace.json plugins list does not include plugin.json's name '{plugin['name']}'")
     for entry in marketplace['plugins']:
+        if entry.get('name') == plugin['name'] and entry.get('version') != plugin.get('version'):
+            fail('plugin.json and marketplace.json versions must match')
         source = entry.get('source')
         if isinstance(source, str) and source.startswith('./'):
             if not (ROOT / source).exists():
@@ -103,6 +114,15 @@ def check_templates() -> None:
             text = (ROOT / rel).read_text(encoding='utf-8')
             if 'unknown' not in text.lower() and rel.endswith('.md'):
                 fail(f'{rel} should model unknown values rather than invented values')
+
+    for rel in [
+        'templates/beantr/beans/current.md',
+        'skills/beantr/templates/beantr/beans/current.md',
+    ]:
+        text = (ROOT / rel).read_text(encoding='utf-8')
+        for token in ['container_id', 'container_members', 'Never assign two active coffees']:
+            if token not in text:
+                fail(f'{rel} missing physical-container token: {token}')
 
 
 def check_relative_links() -> None:
@@ -124,6 +144,36 @@ def check_site() -> None:
     for token in ['Beantr', 'installers/install.sh hermes', 'beans', 'filesystem']:
         if token not in text:
             fail(f'site/index.html missing token: {token}')
+
+    plugin = json.loads((ROOT / '.claude-plugin/plugin.json').read_text(encoding='utf-8'))
+    version = plugin['version']
+    pages = [
+        'site/index.html',
+        'site/guide/index.html',
+        'site/hermes/index.html',
+        'site/claude-code/index.html',
+        'site/opencode/index.html',
+        'site/openclaw/index.html',
+        'site/cowork/index.html',
+    ]
+    for rel in pages:
+        page = (ROOT / rel).read_text(encoding='utf-8')
+        for asset in [f'/beantr.css?v={version}', f'/beantr.js?v={version}']:
+            if asset not in page:
+                fail(f'{rel} does not reference current-version asset: {asset}')
+
+    pack_users = [
+        'README.md',
+        'docs/INSTALL.md',
+        'site/guide/index.html',
+        'site/install',
+        'site/update',
+        'site/uninstall',
+    ]
+    for rel in pack_users:
+        body = (ROOT / rel).read_text(encoding='utf-8')
+        if f'beantr-agent-pack-latest.tar.gz?v={version}-' not in body:
+            fail(f'{rel} does not reference the current-version pack cache key')
 
 
 def main() -> None:

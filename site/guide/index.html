@@ -114,7 +114,7 @@ git clone https://github.com/tiagomoraes/beantr.git
 cd beantr
 
 <span class="c"># or download the pack</span>
-curl -L https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz | tar xz
+curl -L 'https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz?v=2.0.1-20260921' | tar xz
 cd beantr
 
 <span class="c"># then install: ./installers/install.sh &lt;agent&gt; [notes-path]</span>
@@ -132,7 +132,7 @@ cd beantr
   recipes/current.md          <span class="c"># the recipe you would reach for today</span>
   sessions/2026-09.md         <span class="c"># every brew, month by month</span>
   insights/current.md         <span class="c"># what to try next, only when your cups back it up</span></pre>
-      <p>Pass a different folder as the last argument of any install command to keep the notes elsewhere. The path is remembered in <code>~/.beantr/config</code>, so updates find it. Full detail on each file is in <a href="https://github.com/tiagomoraes/beantr/blob/develop/docs/LEDGER.md">the ledger reference</a>.</p>
+      <p>Pass a different folder as the last argument of any install command to keep the notes elsewhere. The path is remembered in <code>~/.beantr/config</code>, so updates find it. Full detail on each file is in <a href="https://github.com/tiagomoraes/beantr/blob/main/docs/LEDGER.md">the ledger reference</a>.</p>
 
       <h2 id="update">Updating</h2>
       <p>An update re-applies the latest pack to the assistants you already installed for. It refreshes the skill, the managed blocks and <code>~/.beantr/beantr.md</code>, adds any new starter file a release introduces, and never moves or overwrites your notes.</p>
@@ -179,7 +179,7 @@ curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash -s -- <span class="
         <nav aria-label="Footer">
           <a href="/">Home</a>
           <a href="https://github.com/tiagomoraes/beantr">GitHub</a>
-          <a href="https://github.com/tiagomoraes/beantr/blob/develop/skills/beantr/SKILL.md">Skill file</a>
+          <a href="https://github.com/tiagomoraes/beantr/blob/main/skills/beantr/SKILL.md">Skill file</a>
         </nav>
       </div>
       <span class="big" aria-hidden="true">beantr</span>

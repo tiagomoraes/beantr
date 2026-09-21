@@ -74,7 +74,7 @@ cd beantr
 Or download the public agent pack from the landing page:
 
 ```bash
-curl -L 'https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz?v=2.0.2-20260921' | tar xz
+curl -L 'https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz?v=2.1.0-20260921' | tar xz
 cd beantr
 ```
 
@@ -184,7 +184,8 @@ for how releases are cut and published.
 2. **Current state beats inferred state.** Do not reconstruct today from every historical log when a current file exists.
 3. **Logs stay append-only.** History is evidence, not mutable state.
 4. **Recommendations must cite evidence.** Good coffee advice should point to recent sessions or stable preferences.
-5. **Humans can always edit the files.** Beantr should never require a special UI.
+5. **Physical containers are exclusive.** A named jar or tube can have only one active coffee; conflicts require clarification instead of silent replacement.
+6. **Humans can always edit the files.** Beantr should never require a special UI.
 
 ## Status
 

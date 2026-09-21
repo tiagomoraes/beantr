@@ -6,6 +6,22 @@ All notable changes to Beantr are documented here. The format is based on
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-09-21
+
+### Added
+- Physical-container integrity rules in the Beantr skill. A named reusable jar,
+  tube, or canister can have at most one active coffee, and the agent must
+  resolve the prior occupant before assigning a different coffee.
+- Stable `container_id` and exact `container_members` fields for new ledgers,
+  including batch-to-individual overlap checks and leading-zero preservation.
+- A worked physical-container audit and correction guide at
+  `skills/beantr/references/physical-container-integrity.md`.
+
+### Changed
+- The installer now reports the pack version it installed.
+- The landing page and ledger documentation now explain how Beantr prevents
+  physically impossible container assignments.
+
 ## [2.0.2] - 2026-09-21
 
 ### Fixed

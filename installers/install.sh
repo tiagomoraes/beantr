@@ -153,6 +153,9 @@ EOF
       ;;
   esac
 
+  local installed_version
+  installed_version="$(plugin_version)"
+  [ -n "$installed_version" ] && echo "Beantr version: v$installed_version"
   echo "Beantr ledger: $LEDGER_PATH"
   echo "Beantr instruction file: $BEANTR_HOME/beantr.md"
 }

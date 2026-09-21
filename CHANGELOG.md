@@ -6,6 +6,24 @@ All notable changes to Beantr are documented here. The format is based on
 
 ## [Unreleased]
 
+## [2.0.1] - 2026-09-21
+
+### Changed
+- Redesigned the site around one dark page ("Crema on black"): coffee-first,
+  plain-language copy, a question-and-answer section that shows everyday use,
+  and the install prompt as the primary call to action with the one-line
+  command as the secondary path. `DESIGN.md` documents the new system.
+- Restyled the per-agent install pages (`/hermes/`, `/claude-code/`,
+  `/opencode/`, `/openclaw/`, `/cowork/`) to match, each leading with the
+  prompt for that agent.
+
+### Added
+- `/guide/`, a full install guide page: the prompt, the one-line command,
+  every agent, manual install from a clone or the pack, where the notes live,
+  updating and uninstalling.
+- A GitHub star badge in the site nav, shown only once the repository has more
+  than 100 stars.
+
 ## [2.0.0] - 2026-07-02
 
 ### Changed

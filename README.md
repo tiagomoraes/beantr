@@ -47,6 +47,8 @@ beantr/
 
 ## Quick start
 
+The website walks through every path with copy buttons: <https://beantr.tiagomoraes.cloud/guide/>.
+
 Fastest path: inside Claude Code, install this repo as a plugin (no clone needed):
 
 ```text
@@ -72,7 +74,7 @@ cd beantr
 Or download the public agent pack from the landing page:
 
 ```bash
-curl -L 'https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz?v=2.0.0-20260702b' | tar xz
+curl -L 'https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz?v=2.0.1-20260921' | tar xz
 cd beantr
 ```
 

@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="How to install Beantr in Claude Code, Hermes, OpenCode, OpenClaw or Claude Cowork: the prompt, the one-line command, the manual install, and how to update or uninstall.">
+  <meta name="theme-color" content="#0F0F0E">
+  <meta property="og:title" content="Beantr install guide">
+  <meta property="og:description" content="Every way to install Beantr, agent by agent, plus updating and uninstalling.">
+  <meta property="og:type" content="website">
+  <title>Beantr install guide</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23D8B48B'/%3E%3Cpath d='M10 6c9 0 3 20 12 20' stroke='%230F0F0E' stroke-width='2.6' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    try {
+      if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('js');
+      }
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="/beantr.css">
+</head>
+<body>
+  <div class="navbar">
+    <div class="pill">
+      <a class="brand" href="/" aria-label="Beantr home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--accent)"/><path d="M10 6c9 0 3 20 12 20" stroke="var(--on-accent)" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg>
+        Beantr
+      </a>
+      <nav aria-label="Main">
+        <a class="hide-sm" href="/#talk">How it works</a>
+        <a href="https://github.com/tiagomoraes/beantr">GitHub</a>
+      </nav>
+      <a class="go" href="#fastest">Install</a>
+    </div>
+  </div>
+
+  <main id="top">
+    <section class="hero hero--page">
+      <div class="wrap">
+        <h1 aria-label="Install guide.">
+          <span class="l" aria-hidden="true"><span class="w" style="--i:0">Install</span> <span class="w" style="--i:1"><em>guide.</em></span></span>
+        </h1>
+        <p class="lede">A skill your assistant loads, plus a folder of coffee notes it reads and writes. Installing puts both in place.</p>
+        <nav class="toc" aria-label="On this page">
+          <a href="#fastest">Fastest path</a>
+          <a href="#one-command">One command</a>
+          <a href="#by-agent">By agent</a>
+          <a href="#by-hand">From a clone</a>
+          <a href="#notes">Your notes</a>
+          <a href="#update">Update</a>
+          <a href="#uninstall">Uninstall</a>
+        </nav>
+      </div>
+    </section>
+
+    <article class="doc">
+      <h2 id="fastest">The fastest path</h2>
+      <p>Hand the install to the assistant itself. Paste this to any assistant that can run a shell command:</p>
+      <div class="ask">
+        <p class="ask__label">Paste this to your agent</p>
+        <p class="ask__text" id="prompt">Install Beantr so you can keep track of my coffee. Run <code>curl -fsSL https://beantr.tiagomoraes.cloud/<wbr>install | bash -s -- all</code>. It adds the Beantr skill and creates my coffee notes at <code>~/beantr</code>. Then read them and tell me you are ready.</p>
+        <div class="ask__foot"><button type="button" class="copy" data-copy="#prompt" data-magnetic>Copy prompt</button></div>
+      </div>
+      <p>It downloads the pack, installs the skill for every assistant it finds on the machine, and creates your notes at <code>~/beantr</code>. Existing notes are never overwritten, so it is safe to run again.</p>
+      <p>Inside Claude Code you can skip the shell entirely and install Beantr as a plugin:</p>
+      <div class="codeblock"><div class="codeblock__bar"><span>Claude Code</span><button type="button" class="copy copy--ghost" data-copy="/plugin marketplace add tiagomoraes/beantr&#10;/plugin install beantr@beantr">Copy</button></div><pre>/plugin marketplace add tiagomoraes/beantr
+/plugin install beantr@beantr</pre></div>
+
+      <h2 id="one-command">One command, by hand</h2>
+      <p>The bootstrap installer is a small script served from this site. It downloads the latest pack and hands off to the installer inside it. Beantr installs one assistant at a time, so you name the one you want, or pass <code>all</code>:</p>
+      <div class="codeblock"><div class="codeblock__bar"><span>shell</span><button type="button" class="copy copy--ghost" data-copy="curl -fsSL https://beantr.tiagomoraes.cloud/install | bash">Copy</button></div><pre><span class="c"># show which assistants it detects, and how to install each (installs nothing)</span>
+curl -fsSL https://beantr.tiagomoraes.cloud/install | bash
+
+<span class="c"># install for one assistant, with the default notes folder</span>
+curl -fsSL https://beantr.tiagomoraes.cloud/install | bash -s -- <span class="arg">claude-code</span>
+
+<span class="c"># install for every assistant it detects, sharing one notes folder</span>
+curl -fsSL https://beantr.tiagomoraes.cloud/install | bash -s -- <span class="arg">all</span>
+
+<span class="c"># keep the notes somewhere else</span>
+curl -fsSL https://beantr.tiagomoraes.cloud/install | bash -s -- <span class="arg">hermes</span> ~/coffee</pre></div>
+      <p>Assistant names: <code>hermes</code>, <code>claude-code</code>, <code>opencode</code>, <code>openclaw</code>, <code>cowork</code>, <code>generic</code>. Every install also writes <code>~/.beantr/beantr.md</code>, a copy of the skill you can point any other tool at, and <code>~/.beantr/config</code> with the path to your notes.</p>
+
+      <h2 id="by-agent">By agent</h2>
+      <p>Each assistant has its own page with the prompt, the command and a note for the assistant itself. This is what the installer does for each.</p>
+
+      <h3 id="claude-code"><a href="/claude-code/">Claude Code</a></h3>
+      <p>Easiest as a plugin: this repository is its own plugin marketplace, so the two <code>/plugin</code> commands above are the whole install. Claude Code loads the skill on its own whenever you talk about coffee.</p>
+      <p>Without plugin support, run the shell installer with <code>claude-code</code>. It copies the skill into <code>~/.claude/skills/beantr</code>, adds a short managed block to <code>~/.claude/CLAUDE.md</code> as a reminder of where your notes live, and creates the notes. To keep it project-local instead, copy <code>skills/beantr/</code> into that project's <code>.claude/skills/</code>.</p>
+
+      <h3 id="hermes"><a href="/hermes/">Hermes</a></h3>
+      <p>Hermes supports skills directly. The installer copies the skill into <code>~/.hermes/skills/beantr</code> and creates your notes. Load it with <code>hermes --skills beantr</code>, or just ask about coffee.</p>
+
+      <h3 id="opencode"><a href="/opencode/">OpenCode</a></h3>
+      <p>OpenCode reads the same <code>SKILL.md</code> format as Claude Code and also reads <code>AGENTS.md</code>. The installer copies the skill into <code>~/.config/opencode/skills/beantr</code> and appends a managed Beantr block to <code>~/.config/opencode/AGENTS.md</code>. If you already installed for Claude Code on the same machine, OpenCode picks that skill up on its own.</p>
+
+      <h3 id="openclaw"><a href="/openclaw/">OpenClaw</a></h3>
+      <p>OpenClaw connects chat apps to an agent and loads skills globally. The installer copies the skill into <code>~/.openclaw/skills/beantr</code>, where every agent it runs can see it. To force it into the system prompt on every turn, paste <code>installers/snippets/openclaw.md</code> into your workspace <code>AGENTS.md</code>.</p>
+
+      <h3 id="cowork"><a href="/cowork/">Claude Cowork</a></h3>
+      <p>Cowork takes skills as an upload in the desktop app. The installer packages the skill as <code>dist/beantr-skill.zip</code> and creates your notes. Then open <strong>Settings → Cowork → Customize → Skills</strong>, choose <strong>+ → Upload a skill</strong>, pick the zip, and grant Cowork access to your <code>~/beantr</code> folder.</p>
+
+      <h3 id="generic">Any other assistant</h3>
+      <p>Run the installer with <code>generic</code>. It creates the notes and writes the skill to <code>~/.beantr/beantr.md</code>. Then tell your assistant:</p>
+      <div class="callout"><p>Use Beantr. Read <code>~/.beantr/beantr.md</code>, then manage my coffee notes at <code>~/beantr</code> by updating the current files and appending to the monthly logs.</p></div>
+
+      <h2 id="by-hand">From a clone or the pack</h2>
+      <p>Want to read the pack before running it, or install from CI? Clone the repository, or download the same pack the bootstrap script uses, and run the installer directly. The bootstrap script and the plugin both wrap this.</p>
+      <div class="codeblock"><div class="codeblock__bar"><span>shell</span><button type="button" class="copy copy--ghost" data-copy="git clone https://github.com/tiagomoraes/beantr.git&#10;cd beantr&#10;./installers/install.sh hermes ~/beantr">Copy</button></div><pre><span class="c"># clone</span>
+git clone https://github.com/tiagomoraes/beantr.git
+cd beantr
+
+<span class="c"># or download the pack</span>
+curl -L https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz | tar xz
+cd beantr
+
+<span class="c"># then install: ./installers/install.sh &lt;agent&gt; [notes-path]</span>
+./installers/install.sh <span class="arg">hermes</span> ~/beantr</pre></div>
+      <p>The installer only copies Markdown and shell files into places each assistant already reads: skills folders, <code>CLAUDE.md</code>, <code>AGENTS.md</code>. For Cowork it packages a zip. Run it with no arguments to list what it detects without installing anything.</p>
+
+      <h2 id="notes">Where your notes live</h2>
+      <p>By default at <code>~/beantr</code>, created from starter templates the first time. Every file is Markdown you can open and edit yourself. The assistant keeps the current files up to date and only ever adds to the monthly logs.</p>
+      <pre class="tree">~/beantr/
+  README.md
+  beans/current.md            <span class="c"># what is on the shelf right now</span>
+  beans/history/2026-09.md    <span class="c"># restocks and corrections, month by month</span>
+  gear/current.md             <span class="c"># grinders, brewers, defaults</span>
+  gear/history/2026-09.md
+  recipes/current.md          <span class="c"># the recipe you would reach for today</span>
+  sessions/2026-09.md         <span class="c"># every brew, month by month</span>
+  insights/current.md         <span class="c"># what to try next, only when your cups back it up</span></pre>
+      <p>Pass a different folder as the last argument of any install command to keep the notes elsewhere. The path is remembered in <code>~/.beantr/config</code>, so updates find it. Full detail on each file is in <a href="https://github.com/tiagomoraes/beantr/blob/develop/docs/LEDGER.md">the ledger reference</a>.</p>
+
+      <h2 id="update">Updating</h2>
+      <p>An update re-applies the latest pack to the assistants you already installed for. It refreshes the skill, the managed blocks and <code>~/.beantr/beantr.md</code>, adds any new starter file a release introduces, and never moves or overwrites your notes.</p>
+      <div class="codeblock"><div class="codeblock__bar"><span>shell</span><button type="button" class="copy copy--ghost" data-copy="curl -fsSL https://beantr.tiagomoraes.cloud/update | bash">Copy</button></div><pre><span class="c"># Claude Code plugin</span>
+/plugin update beantr@beantr
+
+<span class="c"># everyone else: every installed assistant, or just one</span>
+curl -fsSL https://beantr.tiagomoraes.cloud/update | bash
+curl -fsSL https://beantr.tiagomoraes.cloud/update | bash -s -- <span class="arg">claude-code</span>
+
+<span class="c"># from a clone or pack</span>
+git pull &amp;&amp; ./installers/update.sh</pre></div>
+      <p>Cowork and generic installs are not auto-detected, so name them: <code>./installers/update.sh cowork</code> repackages the zip for you to upload again. The update prints what changed, for example <code>Beantr updated: v1.2.0 -> v2.0.0</code>.</p>
+
+      <h2 id="uninstall">Uninstalling</h2>
+      <p>Uninstalling mirrors installing: it removes only what the installer added. Your notes are your data and are never deleted; the script prints their location on the way out.</p>
+      <div class="codeblock"><div class="codeblock__bar"><span>shell</span><button type="button" class="copy copy--ghost" data-copy="curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash">Copy</button></div><pre><span class="c"># Claude Code plugin (second line optional)</span>
+/plugin uninstall beantr@beantr
+/plugin marketplace remove beantr
+
+<span class="c"># everyone else: list what is installed (removes nothing), one assistant, or all</span>
+curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash
+curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash -s -- <span class="arg">claude-code</span>
+curl -fsSL https://beantr.tiagomoraes.cloud/uninstall | bash -s -- <span class="arg">all</span></pre></div>
+      <table>
+        <thead><tr><th>Assistant</th><th>Removed</th></tr></thead>
+        <tbody>
+          <tr><td>hermes</td><td><code>~/.hermes/skills/beantr</code></td></tr>
+          <tr><td>claude-code</td><td><code>~/.claude/skills/beantr</code> and the managed block in <code>~/.claude/CLAUDE.md</code></td></tr>
+          <tr><td>opencode</td><td><code>~/.config/opencode/skills/beantr</code> and the managed block in that <code>AGENTS.md</code></td></tr>
+          <tr><td>openclaw</td><td><code>~/.openclaw/skills/beantr</code>. Remove any snippet you pasted into a workspace <code>AGENTS.md</code> yourself</td></tr>
+          <tr><td>cowork</td><td><code>dist/beantr-skill.zip</code>. Delete the uploaded skill in Cowork's Customize panel</td></tr>
+          <tr><td>generic</td><td><code>~/.beantr/README.md</code></td></tr>
+        </tbody>
+      </table>
+      <p>When the last assistant is removed, the shared files in <code>~/.beantr</code> are cleaned up too. If you truly want your coffee history gone, that is one more command you run yourself: <code>rm -rf ~/beantr</code>.</p>
+    </article>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="row">
+        <span>MIT licensed. Made by Tiago Moraes.</span>
+        <nav aria-label="Footer">
+          <a href="/">Home</a>
+          <a href="https://github.com/tiagomoraes/beantr">GitHub</a>
+          <a href="https://github.com/tiagomoraes/beantr/blob/develop/skills/beantr/SKILL.md">Skill file</a>
+        </nav>
+      </div>
+      <span class="big" aria-hidden="true">beantr</span>
+    </div>
+  </footer>
+
+  <script src="/beantr.js"></script>
+</body>
+</html>

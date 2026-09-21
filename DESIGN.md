@@ -1,73 +1,85 @@
 # Design
 
-Visual system for Beantr's landing page and brand surfaces. Direction: **"Vellum & Ember"** — a file-native coffee ledger given the composure of a well-made object. Sourced from the `Beantr Design System` project on claude.ai/design (projectId `de75fede-21f4-4ce7-91d1-d2dcd11310e2`). This is a **committed, shipped identity**: preserve it. New work extends these tokens rather than re-deciding them.
+Visual system for Beantr's site: the landing page, the install guide (`/guide/`) and the per-agent install pages. Direction: **"Crema on black"**. One dark page, the black of a matte coffee bag and the tan of crema, with typography doing all the work. Chosen on 2026-09-21 after a four-variant prototype (see `site/prototype/README.md`); it replaces the earlier "Vellum & Ember" system. This is the shipped identity: extend these tokens rather than re-deciding them.
 
 ## Design Language
 
-Warm vellum paper and near-black espresso ink, used as two full alternating chapter surfaces (not a light page with one dark footer). One brass accent carries links, primary actions, focus, and the seal mark; oxblood is a secondary reserved strictly for seals/emphasis. Three type roles: a high-contrast display serif for moments that matter, a humanist serif for prose, a soft mono for all data/labels/paths. No gradients, no blue/purple, no glassmorphism, no emoji. Crisp letterpress-adjacent radii; hairline warm borders; umber-tinted shadows used sparingly. Calm, deliberate motion.
+A single dark surface from top to bottom, no light sections, no photography. Very large, tight grotesk headlines set centered; one crema accent that carries emphasis words, the primary button, rules and focus; everything else in three steps of warm off-white. Hairlines separate sections. Interactive things are pills; containers are soft 16px boxes; the prompt card is a 22px "message" you are about to send. Motion is calm and always earned: words rise out of a mask, the command types itself once, headings settle from a blur, the agent's answers draw a rule as they arrive. No gradients, no glass, no blue or purple, no emoji, no em dashes.
 
 ## Color
 
-OKLCH-adjacent warm ramps, expressed as hex tokens (kept verbatim from the design system).
+Tokens live in `site/beantr.css` on `:root` and are the only colors used.
 
-**Vellum (paper surfaces):** `--paper-50 #FBF5E9` · `--paper-100 #F5EAD6` · `--paper-200 #EDDCC0` · `--paper-300 #E0C69C` · `--paper-400 #C9A876`
+| Token | Value | Role |
+|---|---|---|
+| `--bg` | `#0F0F0E` | page |
+| `--bg-2` | `#161615` | cards, code, the prompt card |
+| `--bg-3` | `#1C1C1A` | hover fills, inline code inside the prompt, the ghost footer wordmark |
+| `--ink` | `#EDEBE5` | headlines, primary text |
+| `--ink-2` | `#B3B0A7` | body text |
+| `--mute` | `#86837B` | labels, captions, file paths |
+| `--line` | `#262624` | hairlines |
+| `--line-2` | `#353532` | borders on interactive things |
+| `--accent` | `#D8B48B` | crema: emphasis words, primary button, rules, quotes, `.arg` in commands |
+| `--accent-2` | `#E7CBA8` | accent hover, code inside the prompt |
+| `--on-accent` | `#151310` | text on the accent |
 
-**Ink (text + dark surface, never flat black):** `--ink-900 #1B1310` · `--ink-800 #241A14` · `--ink-700 #4A392C` · `--ink-600 #5C4936` · `--ink-500 #7C6A57` · `--ink-400 #A6947E`
-
-**Brass (primary accent):** `--brass-200 #E8D2A0` · `--brass-400 #C9A055` · `--brass-600 #AD7C3C` · `--brass-700 #8C6129` · `--brass-900 #5C3E19`
-
-**Oxblood (secondary — seals/emphasis only, never status):** `--oxblood-600 #7A342A` and ramp.
-
-**Status (a hue apart from brand, status-only):** olive (success), rust (danger), amber (warning).
-
-**Semantic aliases (light):** page `--paper-100`, raised `--paper-50`, sunken `--paper-200`; text primary `--ink-800`, secondary `--ink-700`, muted `--ink-500`; accent `--brass-600`, hover `--brass-700`; borders `--paper-300` / `--paper-400`; focus ring `--brass-600`.
-
-**Inverse scope (dark espresso chapters):** page `--ink-900`, raised `--ink-800`, sunken `rgba(0,0,0,.28)`; text primary `--paper-100`, secondary `--paper-300`, muted `--paper-400`; accent `--brass-400`; borders `rgba(245,234,214,.14)`. Applied by re-pointing the semantic aliases inside a `.section--dark` scope.
-
-**Contrast:** body ≥ 4.5:1, large/bold ≥ 3:1, verified on both surfaces. Notably `--ink-500` muted labels clear AA against `--paper-100`; on dark, muted uses `--paper-400`.
+**Contrast:** `--ink` on `--bg` is about 15:1, `--ink-2` about 9:1, `--mute` about 4.9:1 (kept at or above 4.5:1 because it is used at 12 to 13 px), `--accent` about 10:1, `--on-accent` on `--accent` about 10:1. The site is dark only: `color-scheme: dark`, no light theme. There is no secondary or status color; if one is ever needed it must sit a hue away from crema.
 
 ## Typography
 
-Three roles, deliberately (this is the identity — do not reduce to a reflex serif/sans pair, and do not add a fourth):
+Two faces, deliberately:
 
-- **Display — DM Serif Display** (`--font-display`): headlines, pull-quotes, the wordmark. High-contrast, dramatic. *Committed brand font; kept despite being a common default because it is the shipped identity.*
-- **Prose — Spectral** (`--font-serif`): body copy, nav, UI text. Humanist serif, warm.
-- **Data — Spline Sans Mono** (`--font-mono`): tags, badges, file paths, timestamps, numeric fields, micro-labels — almost always uppercase + letter-spaced.
+- **Bricolage Grotesque** (`--sans`), variable (`opsz`, `wdth`, `wght`), for everything that is not code. Headlines at 700 with `letter-spacing: -.04em` and `line-height: .96`; questions and quotes at 500; body at 400. Emphasis inside a headline is color (`<em>` set upright in `--accent`), never a second family.
+- **IBM Plex Mono** (`--mono`) for commands, file paths, labels, captions and the marquee. Labels stay sentence case; no uppercase-tracked eyebrows anywhere.
 
-Decision rule: is this a *moment* (display), *prose* (serif), or *data* (mono)? Never use display for body or small labels.
+Scale (fluid): h1 `clamp(38px, 6vw, 88px)` (inner pages `clamp(36px, 5.2vw, 76px)`); h2 `clamp(34px, 4.4vw, 64px)`, small variant `clamp(28px, 3.2vw, 44px)`; question `clamp(26px, 3vw, 42px)`; h3 22 to 34 px; body 17 px; lede `clamp(17px, 1.6vw, 20px)`; mono 13 to 14 px; labels 12 px. Headlines use `text-wrap: balance`, prose `text-wrap: pretty`. The hero headline is at most two lines on desktop; each line is its own mask for the entrance.
 
-**Scale (fluid):** display `clamp(46px, 7vw, 96px)` (capped at 96px — the page states, it does not shout); h1 `clamp(38px,5vw,56px)`; h2 `clamp(28px,4vw,36px)`; h3 24px; h4 19px; body 16px; small 14px; micro/eyebrow 12–12.5px. Line-heights: tight 0.98 (display), snug 1.2, normal 1.55, relaxed 1.7. Letter-spacing: display `-0.01em` (never below −0.04em); mono labels `+0.1–0.18em`. Use `text-wrap: balance` on headings, `pretty` on long prose. Fonts are Google-Fonts substitutes pending a real license.
+Fonts load from Google Fonts with `display=swap`. Self-hosting is a fine later improvement; keep the two families.
 
-## Spacing
+## Spacing and Layout
 
-4px base scale `--space-1 … --space-14` (4,8,12,16,20,24,32,40,48,64,80,96,128,160). Used generously — this is a document, not a dense app. Prefer the larger steps for section and chapter-band rhythm; vary spacing for rhythm rather than a uniform gap everywhere.
+Content column `--wrap: 1180px`, long-form and inner pages `--wrap-narrow: 820px`, gutters `clamp(20px, 4vw, 40px)` as `padding-inline` on `.wrap` only; section rhythm is `padding-block: clamp(72px, 10vw, 130px)` on `.section .wrap` (tight sections `clamp(56px, 7vw, 96px)`). Sections are separated by a `--line` hairline, never by a change of background. The hero is centered; below it, two-column grids (`.qa`, `.story`) and the three-column `.groups` collapse to one column at 900 px. The floating nav pill sticks 14 px from the top and drops its links under 560 px.
 
-## Shape / Radius
+## Shape
 
-Crisp, letterpress-adjacent: `--radius-xs 2px` · `--radius-sm 4px` · `--radius-md 8px` · `--radius-lg 14px` · `--radius-full 999px`. Tags and badges stay rectangular "stamps" (`--radius-xs`) — **not** pills. `--radius-full` is reserved for the one true binary toggle (Switch).
-
-## Elevation / Shadow
-
-Always umber-tinted, never pure black; softer and longer than a typical UI shadow, used sparingly. Most surfaces rely on a hairline border at rest, not elevation. `--shadow-sm 0 3px 10px rgba(27,19,16,.10)`; `--shadow-md 0 14px 34px -16px rgba(27,19,16,.34)`; focus `0 0 0 3px rgba(173,124,60,.32)`. A dedicated `--shadow-seal` inner emboss exists for the mark only.
+Pills (`999px`) for every interactive element: nav, buttons, the command line, table-of-contents chips. `--r: 16px` for containers (files, code blocks, notes, block command lines). `--r-card: 22px` for the prompt card only. Inline code gets 6 px. Nothing is square-cornered.
 
 ## Motion
 
-Calm, deliberate; no bounce/spring/elastic, nothing loops. Easing `--ease-elegant cubic-bezier(.16,1,.3,1)`; durations fast 120 / base 200 / slow 360 / reveal 620ms. Signature moment: a hairline underline that draws in from the left (brass) on link hover, over the resting hairline — not a color change. Entrance reveals are opacity + ~14px translate-y, and must **enhance an already-visible default**: the hidden state is gated behind a JS-added `.js-reveal` class set only when IntersectionObserver + motion are available, so no-JS, reduced-motion, and headless renderers show all content. `prefers-reduced-motion` collapses everything to instant.
+Easing `--ease: cubic-bezier(.16, 1, .3, 1)` everywhere; nothing bounces, nothing loops except the marquee. Every animation is gated: the head script adds `.js` to `<html>` only when `IntersectionObserver` exists and `prefers-reduced-motion` is not set, so no-JS, reduced-motion and headless renderers see everything at rest.
 
-## Iconography
+- **Hero entrance:** each headline word rises out of its line mask (`.w` with `--i` delay, 55 ms apart); lede, prompt card and command line fade up in sequence.
+- **Typed command:** on screens 720 px and wider, the secondary command reveals with a `steps(64)` clip and a brief crema caret, once, after the card has landed. The text is in the DOM the whole time, so Copy works before it finishes.
+- **Reveals:** `.reveal` fades up on intersection; `.reveal--blur` also settles from a 10 px blur (headings, the story quote). A 2.6 s fallback reveals everything for renderers that never intersect.
+- **Answers:** in `.qa`, the crema rule beside the agent's answer scales in from the top, then the text arrives.
+- **Feedback:** `.copy` flips to "Copied" for 1.6 s and its container (`.ask`, `.cmdline`, `.codeblock`) borders in crema. The primary button is magnetic on hover devices only: it leans up to 18% of the pointer offset within 140 px.
+- **Marquee:** one per page, 38 s linear, pauses on hover.
+- **Footer wordmark:** lifts into place with a CSS scroll-driven animation where `animation-timeline: view()` is supported.
 
-No custom icon set. Inline hairline SVGs (copy/check glyphs on copy buttons) at 1.5–1.75px stroke, tinted as ink/brass — never pure black. A few Unicode glyphs (`→`, `✓`, `/`) appear as part of the file-path voice. No emoji, ever. The bean-seal mark (`beantr-mark.svg` + inverse) is the one figurative device: a bean silhouette inside a thin wax-seal ring, holding up from favicon to hero lockup.
+## Iconography and Mark
+
+No icon set. The mark is a crema circle with an S-shaped crease: a bean, drawn as one path (`M10 6c9 0 3 20 12 20`). It is the favicon and sits in the nav pill, and spins half a turn on hover. The only other icon is the star in the GitHub badge, which appears only once the repository has more than 100 stars. Unicode glyphs (`/`, `→`, curly quotes, `+`) carry the rest.
 
 ## Components
 
-- **Copy command chip (`.cmd` + `.copy-btn`):** mono command that **wraps** (never a horizontal scrollbar) inside a `width: fit-content` box so it hugs its command on wide screens; inline chips use a compact icon-only copy button, the hero/prompt keep a text label. Copy flips to a brass "Copied" check for ~1.6s.
-- **Prompt block (`.prompt-block`):** serif natural-language instruction with the shell command inline-coded, plus one "Copy prompt" button — the "hand it to your agent" install path.
-- **Section mark (`.section-mark`):** brass-ringed number badge + hairline rule + mono label. The deliberate "annotated manual" chapter device (01–0N). Kept as committed identity; not generic per-section scaffolding.
-- **Compat row (`.compat-row`):** per-agent name + note + copyable install command.
-- **Flow diagram / directory tree / field-row ledger card:** typographic, data-native "imagery" — real paths and real session data stand in for photography, deliberately, per brand.
-- **Text link (`.textlink`):** the editorial CTA; underline draws in on hover. Filled `Button` exists for app-like surfaces but this page favors textlinks + command chips.
-- Cards are flat: raised surface one step lighter than the page, hairline border, no shadow at rest.
+- **Nav pill (`.navbar` / `.pill`):** brand, two or three links, one crema `Install` pill. Sticky, blurred backdrop (the only blur on the page).
+- **Prompt card (`.ask`):** the primary call to action. Mono label, the natural-language install instruction with the command as inline code, `Copy prompt` bottom right. Copy reads the card's text, so the visible words are exactly what gets pasted.
+- **Command line (`.cmdline`):** the secondary path: mono command in a hairline pill with a ghost `Copy`. `.cmdline--block` is the full-width variant for inner pages; `.cmdline--type` opts into the typed entrance.
+- **Buttons:** `.copy` (crema pill), `.copy--ghost` (hairline), `.btn` (crema pill as a link). One label per intent: `Install` in the nav, `Copy prompt`, `Copy`, `Read the install guide`.
+- **Marquee (`.marquee`):** the list of assistants Beantr works with, separated by crema slashes.
+- **Questions and answers (`.qa-list`):** alternating question (large, quoted) and answer (body text with a crema rule and a mono `your agent` label). Sample data must stay consistent across the page and be labeled as a sample.
+- **Story (`.story`):** a sticky quote on the left, the real appended Markdown on the right with a crema `+` gutter, lines staggering in.
+- **Three notes (`.groups`):** three text columns, each with a heading, a mono crema line ("kept current / kept forever / kept honest"), a sentence, and the file list in mono.
+- **Numbered list (`.rules`, `.rules--compact`):** crema mono numeral, heading, one sentence. Used for "Why it feels different" and the per-agent "What that does".
+- **Note (`.note`):** the block addressed to an AI agent reading the page.
+- **Doc (`.doc`):** the install guide: `h2` anchors, `.toc` chips, `.codeblock` with comments in `--mute` and a top-right ghost Copy, `.callout`, `.tree`, a two-column table that stacks on mobile.
+- **Footer (`.foot`):** one line of links and the giant ghost wordmark in `--bg-3`.
 
-## Layout
+## Copy voice
 
-Content column `max-width: 1040px`, 32px gutters (20px on mobile); focused pages (per-agent installs) use `.wrap--narrow`, `max-width: 760px`. Prose is meant to **fill the column, not sit in a narrow strip** — leads/notes cap at ~72rem and the primary `.prompt-block` at ~1040px (both larger than the container, so they fill it) and the text visibly uses the full width. Tiago's explicit call: widen the *inner content* to fill the column, but keep the original page margins (the 1040 container) — don't widen the outer container to gain width. These are short blurbs, so the wide measure is fine; don't re-narrow them to a 58–65ch "readable" cap. Left-aligned headers, never centered hero copy. Slim sticky top bar with frosted-vellum blur (the only place blur is used). Long pages **alternate full light and dark chapter bands deliberately** (vellum → dark → vellum → dark+footer) — a core layout device, not a footer treatment. Two-column grids (`truth`, `session`) span the full column and collapse to one column ≤ 860px; grid/flex children that hold `nowrap`/`pre` content get `min-width: 0` so commands never blow out page width.
+Coffee first, plain second, files third. Headlines and questions talk about bags, brews, the shelf, resting, dialing in. Explanations avoid architecture words up front ("append-only", "filesystem is the API" are for the docs). File paths appear in mono as quiet proof, never as the headline. Sentence case everywhere. No hype, no exclamation marks, no em dashes; use a period, a comma or a colon.
+
+## Accessibility
+
+WCAG 2.1 AA on the dark surface (values above). Every control is keyboard-operable with a 2 px crema `:focus-visible` ring. Copy buttons announce their state by changing their label. Decorative headline spans are `aria-hidden` behind an `aria-label` on the `h1`. Everything renders without JavaScript; motion only enhances an already visible page and collapses entirely under `prefers-reduced-motion`.

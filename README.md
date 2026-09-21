@@ -47,6 +47,8 @@ beantr/
 
 ## Quick start
 
+The website walks through every path with copy buttons: <https://beantr.tiagomoraes.cloud/guide/>.
+
 Fastest path: inside Claude Code, install this repo as a plugin (no clone needed):
 
 ```text

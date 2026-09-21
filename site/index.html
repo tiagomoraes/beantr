@@ -3,373 +3,194 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Install Beantr, a filesystem-native coffee-tracking skill, in under a minute and teach Claude Code, Hermes, OpenCode, OpenClaw, or Claude Cowork to track your beans, gear, recipes, and brews.">
-  <meta name="theme-color" content="#1B1310">
-  <meta property="og:title" content="Beantr: Your beans, remembered by your agent.">
-  <meta property="og:description" content="A skill, not a new app. One command teaches Claude Code, Hermes, OpenCode, OpenClaw, and Claude Cowork to track your beans, gear, recipes, and brews.">
+  <meta name="description" content="Beantr gives the AI assistant you already use a memory for your coffee: bags, gear, recipes and every cup you brew. A skill, not an app. Works with Claude Code, Hermes, OpenCode, OpenClaw and Claude Cowork.">
+  <meta name="theme-color" content="#0F0F0E">
+  <meta property="og:title" content="Beantr: every bean, every brew, remembered.">
+  <meta property="og:description" content="Give the AI assistant you already use a memory for your coffee. Paste one prompt, or run one command.">
   <meta property="og:type" content="website">
-  <title>Beantr: Your beans, remembered by your agent.</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='none' stroke='%23AD7C3C' stroke-width='2'/%3E%3Cg transform='translate(20,20) rotate(-35)'%3E%3Cellipse cx='0' cy='0' rx='11.5' ry='7.4' fill='%231B1310'/%3E%3Cpath d='M -8.6 0 Q 0 3.4 8.6 0' fill='none' stroke='%23FBF5E9' stroke-width='1.6' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E">
+  <title>Beantr: every bean, every brew, remembered.</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23D8B48B'/%3E%3Cpath d='M10 6c9 0 3 20 12 20' stroke='%230F0F0E' stroke-width='2.6' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <script>
-    /* Gate entrance motion behind a class set before paint, only when
-       motion is welcome and observable. No-JS / reduced-motion / headless
-       renderers never get it, so content is always visible by default. */
+    /* Motion is gated behind a class set before paint, only when it is welcome
+       and observable. No-JS, reduced-motion and headless renderers never get it,
+       so every section is visible by default. */
     try {
-      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        document.documentElement.classList.add('js-reveal');
+      if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('js');
       }
     } catch (e) {}
   </script>
   <link rel="stylesheet" href="/beantr.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap">
-      <a class="brand" href="#top">
-        <svg class="brand-mark" viewBox="0 0 40 40" role="img" aria-label="Beantr">
-          <circle cx="20" cy="20" r="18" fill="none" stroke="var(--accent)" stroke-width="1.3"></circle>
-          <g transform="translate(20,20) rotate(-35)">
-            <ellipse cx="0" cy="0" rx="11.5" ry="7.4" fill="var(--ink-900)"></ellipse>
-            <path d="M -8.6 0 Q 0 3.4 8.6 0" fill="none" stroke="var(--surface-page)" stroke-width="1.4" stroke-linecap="round"></path>
-          </g>
-        </svg>
-        <span class="brand-wordmark">beantr</span>
+  <div class="navbar">
+    <div class="pill">
+      <a class="brand" href="#top" aria-label="Beantr home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--accent)"/><path d="M10 6c9 0 3 20 12 20" stroke="var(--on-accent)" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg>
+        Beantr
       </a>
-      <nav class="nav-links" aria-label="Main navigation">
-        <a class="is-cta" href="#install">Install</a>
-        <a href="#model">Model</a>
-        <a href="#truth">Truth</a>
-        <a href="#principles">Principles</a>
-        <a class="is-github" href="https://github.com/tiagomoraes/beantr"><span class="is-github__text">GitHub</span></a>
+      <nav aria-label="Main">
+        <a class="hide-sm" href="#talk">How it works</a>
+        <a class="hide-sm" href="/guide/">Install guide</a>
+        <a href="https://github.com/tiagomoraes/beantr">GitHub</a>
       </nav>
+      <a class="go" href="#top">Install</a>
     </div>
-  </header>
+  </div>
 
-  <main>
-    <section id="top" class="hero">
+  <main id="top">
+    <section class="hero">
       <div class="wrap">
-        <div class="eyebrow reveal">
-          <span class="eyebrow-dot"></span>
-          <p>a skill for your agent, not a new app</p>
-        </div>
-        <h1 class="reveal">Your beans, <em>remembered</em> by your agent.</h1>
-        <p class="hero-lead reveal">No dashboard, no new app to learn. Beantr is a skill that teaches Claude Code, Hermes, OpenCode, OpenClaw, and Claude Cowork to track your beans, gear, recipes, and brews. Natively, inside the agent you already talk to.</p>
-        <div class="install-cta reveal">
-          <p class="paste-label"><span class="paste-label__dot"></span>Install: paste this to your agent</p>
-          <div class="prompt-block prompt-block--primary">
-            <p class="prompt-block__text">Install Beantr so you can track my coffee. Run <code>curl -fsSL https://beantr.tiagomoraes.cloud/install | bash</code>. It adds the Beantr skill and creates a Markdown coffee ledger at <code>~/beantr</code>. Then confirm you can read it.</p>
-            <button class="copy-btn" type="button" data-copy="Install Beantr so you can track my coffee. Run: curl -fsSL https://beantr.tiagomoraes.cloud/install | bash. It adds the Beantr skill and creates a Markdown coffee ledger at ~/beantr. Then confirm you can read it." aria-label="Copy prompt"><svg class="copy-btn__icon copy-btn__icon--copy" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="7.5" y="7.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 12.5V5.5A2 2 0 0 1 6.5 3.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><svg class="copy-btn__icon copy-btn__icon--check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4.5 10.5l3.8 3.8L15.5 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="copy-btn__label">Copy prompt</span></button>
-          </div>
-          <p class="install-cta__more"><a class="textlink" href="#install"><span class="textlink__label">Or install it yourself</span><span class="textlink__arrow">→</span></a></p>
-        </div>
-      </div>
-    </section>
+        <h1 aria-label="Every bean, every brew, remembered.">
+          <span class="l" aria-hidden="true"><span class="w" style="--i:0">Every</span> <span class="w" style="--i:1">bean,</span> <span class="w" style="--i:2">every</span> <span class="w" style="--i:3">brew,</span></span>
+          <span class="l" aria-hidden="true"><span class="w" style="--i:4"><em>remembered.</em></span></span>
+        </h1>
+        <p class="lede">Beantr gives the assistant you already use a memory for your coffee: bags, gear, recipes and every cup you brew.</p>
 
-    <section id="install" class="section section--dark">
-      <div class="wrap">
-        <div class="section-mark reveal">
-          <span class="section-mark__index">01</span>
-          <span class="section-mark__rule"></span>
-          <span class="section-mark__label">Get started</span>
-        </div>
-        <h2 class="section-head reveal" style="margin-bottom:18px; max-width:42ch;">Paste one prompt. Then just talk to your agent.</h2>
-        <p class="section-lead reveal" style="margin-bottom:0;">The simplest way to install Beantr is to let your agent do it: paste the prompt below and it fetches the pack, adds the skill, and creates your ledger. Any file-capable assistant can run it.</p>
-
-        <div class="install-step reveal" style="margin-top:56px;">
-          <div class="install-step__head">
-            <span class="install-step__index">STEP 1</span>
-            <span class="install-step__title">Install the skill</span>
+        <div class="ask">
+          <p class="ask__label">Paste this to your agent</p>
+          <p class="ask__text" id="prompt">Install Beantr so you can keep track of my coffee. Run <code>curl -fsSL https://beantr.tiagomoraes.cloud/<wbr>install | bash -s -- all</code>. It adds the Beantr skill and creates my coffee notes at <code>~/beantr</code>. Then read them and tell me you are ready.</p>
+          <div class="ask__foot">
+            <span class="hint">Claude Code, Hermes, OpenCode, OpenClaw, Cowork</span>
+            <button type="button" class="copy" data-copy="#prompt" data-magnetic>Copy prompt</button>
           </div>
-
-          <p class="paste-label"><span class="paste-label__dot"></span>Paste this to your assistant</p>
-          <div class="prompt-block prompt-block--primary">
-            <p class="prompt-block__text">Install Beantr so you can track my coffee. Run <code>curl -fsSL https://beantr.tiagomoraes.cloud/install | bash</code>. It adds the Beantr skill and creates a Markdown coffee ledger at <code>~/beantr</code>. Then confirm you can read it.</p>
-            <button class="copy-btn" type="button" data-copy="Install Beantr so you can track my coffee. Run: curl -fsSL https://beantr.tiagomoraes.cloud/install | bash. It adds the Beantr skill and creates a Markdown coffee ledger at ~/beantr. Then confirm you can read it." aria-label="Copy prompt"><svg class="copy-btn__icon copy-btn__icon--copy" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="7.5" y="7.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 12.5V5.5A2 2 0 0 1 6.5 3.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><svg class="copy-btn__icon copy-btn__icon--check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4.5 10.5l3.8 3.8L15.5 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="copy-btn__label">Copy prompt</span></button>
-          </div>
-          <p class="prompt-note">Works with any agent that can run shell commands: Claude Code, Hermes, OpenCode, or OpenClaw. It fetches the pack, adds the skill, and creates your ledger.</p>
-
-          <p class="manual-toggle">Rather run it yourself?</p>
-          <div class="cmd">
-            <code class="cmd__text">curl -fsSL https://beantr.tiagomoraes.cloud/install | bash</code>
-            <button class="copy-btn" type="button" data-copy="curl -fsSL https://beantr.tiagomoraes.cloud/install | bash" aria-label="Copy command"><svg class="copy-btn__icon copy-btn__icon--copy" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="7.5" y="7.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 12.5V5.5A2 2 0 0 1 6.5 3.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><svg class="copy-btn__icon copy-btn__icon--check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4.5 10.5l3.8 3.8L15.5 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="copy-btn__label">Copy</span></button>
-          </div>
-          <p class="install-path__aside">In Claude Code, install it as a plugin instead:</p>
-          <div class="cmd">
-            <code class="cmd__text">/plugin marketplace add tiagomoraes/beantr</code>
-            <button class="copy-btn" type="button" data-copy="/plugin marketplace add tiagomoraes/beantr" aria-label="Copy command"><svg class="copy-btn__icon copy-btn__icon--copy" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="7.5" y="7.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 12.5V5.5A2 2 0 0 1 6.5 3.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><svg class="copy-btn__icon copy-btn__icon--check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4.5 10.5l3.8 3.8L15.5 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="copy-btn__label">Copy</span></button>
-          </div>
-          <div class="cmd">
-            <code class="cmd__text">/plugin install beantr@beantr</code>
-            <button class="copy-btn" type="button" data-copy="/plugin install beantr@beantr" aria-label="Copy command"><svg class="copy-btn__icon copy-btn__icon--copy" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="7.5" y="7.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 12.5V5.5A2 2 0 0 1 6.5 3.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><svg class="copy-btn__icon copy-btn__icon--check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4.5 10.5l3.8 3.8L15.5 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="copy-btn__label">Copy</span></button>
-          </div>
-
-          <p class="compat-label">Installing for a specific agent?</p>
-          <div>
-            <div class="compat-row">
-              <div>
-                <div class="compat-row__agent"><a href="/hermes/">Hermes</a></div>
-                <div class="compat-row__note">Installs as a native skill, loaded directly.</div>
-              </div>
-              <div class="cmd">
-                <code class="cmd__text">./installers/install.sh hermes ~/beantr</code>
-                <button class="copy-btn" type="button" data-copy="./installers/install.sh hermes ~/beantr" aria-label="Copy command">
-                  <svg class="copy-btn__icon copy-btn__icon--copy" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="7.5" y="7.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 12.5V5.5A2 2 0 0 1 6.5 3.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  <svg class="copy-btn__icon copy-btn__icon--check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4.5 10.5l3.8 3.8L15.5 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="copy-btn__label">Copy</span>
-                </button>
-              </div>
-            </div>
-            <div class="compat-row">
-              <div>
-                <div class="compat-row__agent"><a href="/claude-code/">Claude Code</a></div>
-                <div class="compat-row__note">Copies the skill and adds a CLAUDE.md reminder of the ledger path.</div>
-              </div>
-              <div class="cmd">
-                <code class="cmd__text">./installers/install.sh claude-code ~/beantr</code>
-                <button class="copy-btn" type="button" data-copy="./installers/install.sh claude-code ~/beantr" aria-label="Copy command">
-                  <svg class="copy-btn__icon copy-btn__icon--copy" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="7.5" y="7.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 12.5V5.5A2 2 0 0 1 6.5 3.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  <svg class="copy-btn__icon copy-btn__icon--check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4.5 10.5l3.8 3.8L15.5 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="copy-btn__label">Copy</span>
-                </button>
-              </div>
-            </div>
-            <div class="compat-row">
-              <div>
-                <div class="compat-row__agent"><a href="/opencode/">OpenCode</a></div>
-                <div class="compat-row__note">Copies the skill and appends an AGENTS.md block.</div>
-              </div>
-              <div class="cmd">
-                <code class="cmd__text">./installers/install.sh opencode ~/beantr</code>
-                <button class="copy-btn" type="button" data-copy="./installers/install.sh opencode ~/beantr" aria-label="Copy command">
-                  <svg class="copy-btn__icon copy-btn__icon--copy" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="7.5" y="7.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 12.5V5.5A2 2 0 0 1 6.5 3.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  <svg class="copy-btn__icon copy-btn__icon--check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4.5 10.5l3.8 3.8L15.5 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="copy-btn__label">Copy</span>
-                </button>
-              </div>
-            </div>
-            <div class="compat-row">
-              <div>
-                <div class="compat-row__agent"><a href="/openclaw/">OpenClaw</a></div>
-                <div class="compat-row__note">Copies the skill into OpenClaw's global skills directory.</div>
-              </div>
-              <div class="cmd">
-                <code class="cmd__text">./installers/install.sh openclaw ~/beantr</code>
-                <button class="copy-btn" type="button" data-copy="./installers/install.sh openclaw ~/beantr" aria-label="Copy command">
-                  <svg class="copy-btn__icon copy-btn__icon--copy" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="7.5" y="7.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 12.5V5.5A2 2 0 0 1 6.5 3.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  <svg class="copy-btn__icon copy-btn__icon--check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4.5 10.5l3.8 3.8L15.5 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="copy-btn__label">Copy</span>
-                </button>
-              </div>
-            </div>
-            <div class="compat-row">
-              <div>
-                <div class="compat-row__agent"><a href="/cowork/">Claude Cowork</a></div>
-                <div class="compat-row__note">Packages a skill zip to upload in Settings → Customize.</div>
-              </div>
-              <div class="cmd">
-                <code class="cmd__text">./installers/install.sh cowork ~/beantr</code>
-                <button class="copy-btn" type="button" data-copy="./installers/install.sh cowork ~/beantr" aria-label="Copy command">
-                  <svg class="copy-btn__icon copy-btn__icon--copy" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="7.5" y="7.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 12.5V5.5A2 2 0 0 1 6.5 3.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  <svg class="copy-btn__icon copy-btn__icon--check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4.5 10.5l3.8 3.8L15.5 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="copy-btn__label">Copy</span>
-                </button>
-              </div>
-            </div>
-            <div class="compat-row">
-              <div>
-                <div class="compat-row__agent">Generic file-capable assistant</div>
-                <div class="compat-row__note">One instruction file. No skill support required.</div>
-              </div>
-              <div class="cmd">
-                <code class="cmd__text">./installers/install.sh generic ~/beantr</code>
-                <button class="copy-btn" type="button" data-copy="./installers/install.sh generic ~/beantr" aria-label="Copy command">
-                  <svg class="copy-btn__icon copy-btn__icon--copy" viewBox="0 0 20 20" fill="none" aria-hidden="true"><rect x="7.5" y="7.5" width="9" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M4.5 12.5V5.5A2 2 0 0 1 6.5 3.5h7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-                  <svg class="copy-btn__icon copy-btn__icon--check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4.5 10.5l3.8 3.8L15.5 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span class="copy-btn__label">Copy</span>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <p class="install-note">
-            Prefer to inspect the pack first, or run it in CI?
-            <a class="textlink" href="https://github.com/tiagomoraes/beantr"><span class="textlink__label">Clone the repo</span></a>,
-            <a class="textlink" href="/beantr-agent-pack-latest.tar.gz?v=20260630-templates" download="beantr-agent-pack.tar.gz"><span class="textlink__label">download the tarball</span></a>,
-            or <a class="textlink" href="https://github.com/tiagomoraes/beantr/blob/develop/skills/beantr/SKILL.md"><span class="textlink__label">read the skill file</span></a> directly.
-          </p>
         </div>
 
-        <div class="install-step reveal">
-          <div class="install-step__head">
-            <span class="install-step__index">STEP 2</span>
-            <span class="install-step__title">Talk to your agent</span>
-          </div>
-          <p class="section-lead" style="margin-bottom:0;">No special syntax, no slash commands to memorize. Just tell it about your coffee.</p>
-          <ul class="prompt-list">
-            <li><span class="prompt-list__arrow">→</span><span class="prompt-list__text">"What coffee is in tube A07?"</span></li>
-            <li><span class="prompt-list__arrow">→</span><span class="prompt-list__text">"Recommend a V60 recipe for the washed Ethiopian coffee."</span></li>
-            <li><span class="prompt-list__arrow">→</span><span class="prompt-list__text">"Update my current beans and tell me what I should finish first."</span></li>
-            <li><span class="prompt-list__arrow">→</span><span class="prompt-list__text">"Summarize what worked best this month."</span></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="model" class="section">
-      <div class="wrap">
-        <div class="section-mark reveal">
-          <span class="section-mark__index">02</span>
-          <span class="section-mark__rule"></span>
-          <span class="section-mark__label">The model</span>
-        </div>
-        <h2 class="section-head reveal" style="margin-bottom:40px; max-width:34ch;">Three actors. One contract.</h2>
-        <div class="flow-frame reveal">
-          <div class="flow-diagram">
-            <span class="flow-diagram__node">You</span>
-            <span class="flow-diagram__edge">
-              <span class="flow-diagram__edge-label">chat / voice</span>
-              <span class="flow-diagram__edge-line"></span>
-            </span>
-            <span class="flow-diagram__node">Agent</span>
-            <span class="flow-diagram__edge">
-              <span class="flow-diagram__edge-label">read / write</span>
-              <span class="flow-diagram__edge-line"></span>
-            </span>
-            <span class="flow-diagram__node flow-diagram__node--mono">~/beantr/*.md</span>
-          </div>
-        </div>
-        <p class="section-lead reveal">You talk to your agent the way you always do, by chat or by voice. The agent reads and writes a folder of Markdown on your machine. Beantr is what's written on those files: a contract for what goes where, and what it means.</p>
-      </div>
-    </section>
-
-    <section id="truth" class="section section--dark">
-      <div class="wrap">
-        <div class="section-mark reveal">
-          <span class="section-mark__index">03</span>
-          <span class="section-mark__rule"></span>
-          <span class="section-mark__label">Three kinds of truth</span>
-        </div>
-        <h2 class="section-head reveal" style="margin-bottom:48px; max-width:38ch;">Every file answers exactly one question.</h2>
-        <div class="truth-grid">
-          <div class="reveal">
-            <div class="truth-block" style="border-top:none; padding-top:0;">
-              <div class="truth-block__n">Live state</div>
-              <div class="truth-block__title">What is true right now?</div>
-              <div class="truth-block__body"><code class="inline-code">current.md</code> files are mutated in place: beans on hand, gear in use, the recipe you'd reach for today.</div>
-            </div>
-            <div class="truth-block">
-              <div class="truth-block__n">Evidence</div>
-              <div class="truth-block__title">What actually happened?</div>
-              <div class="truth-block__body">Monthly logs are append-only. Every brew, every restock, every correction: preserved, never rewritten.</div>
-            </div>
-            <div class="truth-block">
-              <div class="truth-block__n">Distillation</div>
-              <div class="truth-block__title">What should you do next?</div>
-              <div class="truth-block__body"><code class="inline-code">insights/current.md</code> updates only when evidence is strong enough to be useful. Never generic theory.</div>
-            </div>
-          </div>
-          <div class="tree-panel reveal">
-            <pre class="directory-tree">beantr/
-├── README.md
-<span class="is-emphasis">├── beans/current.md</span>
-│   └── history/2026-06.md
-<span class="is-emphasis">├── gear/current.md</span>
-│   └── history/2026-06.md
-<span class="is-emphasis">├── recipes/current.md</span>
-├── sessions/2026-06.md
-<span class="is-emphasis">└── insights/current.md</span></pre>
+        <div class="alt">
+          <span>Or run it yourself</span>
+          <div class="cmdline cmdline--type">
+            <code id="cmd">curl -fsSL https://beantr.tiagomoraes.cloud/<wbr>install | bash -s -- <span class="arg">all</span></code>
+            <button type="button" class="copy copy--ghost" data-copy="#cmd">Copy</button>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section">
+    <div class="marquee" aria-label="Works with">
+      <div class="marquee__track">
+        <span>Works with Claude Code</span><span>Hermes</span><span>OpenCode</span><span>OpenClaw</span><span>Claude Cowork</span><span>any assistant that can read and write files</span>
+        <span aria-hidden="true">Works with Claude Code</span><span aria-hidden="true">Hermes</span><span aria-hidden="true">OpenCode</span><span aria-hidden="true">OpenClaw</span><span aria-hidden="true">Claude Cowork</span><span aria-hidden="true">any assistant that can read and write files</span>
+      </div>
+    </div>
+
+    <section class="section" id="talk">
       <div class="wrap">
-        <div class="section-mark reveal">
-          <span class="section-mark__index">04</span>
-          <span class="section-mark__rule"></span>
-          <span class="section-mark__label">A real session</span>
-        </div>
-        <div class="session-grid">
-          <div class="reveal">
-            <span class="pull-quote-mark" aria-hidden="true">&ldquo;</span>
-            <p class="pull-quote">Log this espresso: 18g in, 42g out, 31 seconds, sour but aromatic.</p>
-            <p class="pull-quote-footnote">→ agent appends to <code class="inline-code" style="background:transparent; padding:0;">sessions/2026-06.md</code></p>
+        <h2 class="reveal reveal--blur">Then just talk <em>about coffee.</em></h2>
+        <div class="qa-list">
+          <div class="qa reveal">
+            <p class="q">What should I brew this morning?</p>
+            <p class="a"><span class="who">your agent</span>The Yirgacheffe in tube A07 is on day 17, right where you scored it best. <b>V60, 15 g to 250 g, 94 degrees</b>, like Tuesday's 4.5.</p>
           </div>
-          <div class="card reveal">
-            <div class="field-row"><span class="field-row__label">Bean</span><span class="field-row__value">Milky Cake · dak-milky-cake-2026-06</span></div>
-            <div class="field-row"><span class="field-row__label">Method</span><span class="field-row__value">Espresso</span></div>
-            <div class="field-row"><span class="field-row__label">Grinder</span><span class="field-row__value">Lagom P64 · setting 3.8</span></div>
-            <div class="field-row"><span class="field-row__label">Dose → Yield</span><span class="field-row__value">18g → 42g (1:2.33)</span></div>
-            <div class="field-row"><span class="field-row__label">Temperature</span><span class="field-row__value">93<span class="field-row__unit">°C</span></span></div>
-            <div class="field-row"><span class="field-row__label">Brew time</span><span class="field-row__value">31s</span></div>
-            <div class="field-row"><span class="field-row__label">Sensory result</span><span class="field-row__value">Bright, aromatic, slightly sour finish</span></div>
-            <div class="field-row"><span class="field-row__label">Score</span><span class="field-row__value">3.5 / 5</span></div>
-            <div class="field-row"><span class="field-row__label">Next change</span><span class="field-row__value">Grind slightly finer</span></div>
+          <div class="qa reveal">
+            <p class="q">How did I brew the Huila last time?</p>
+            <p class="a"><span class="who">your agent</span>You haven't opened it yet. It has been <b>resting since the 12th</b>, and you usually give naturals ten days. Tomorrow is a good day to start.</p>
+          </div>
+          <div class="qa reveal">
+            <p class="q">What's left on the shelf?</p>
+            <p class="a"><span class="who">your agent</span>Three bags. About <b>138 g of the Yirgacheffe</b>, the sealed Huila, and 410 g of the Cerrado you keep for espresso.</p>
+          </div>
+          <div class="qa reveal">
+            <p class="q">What worked best this month?</p>
+            <p class="a"><span class="who">your agent</span>Your four highest scores were all <b>V60 at 1:16</b>. Espresso dipped after the 9th, the day you switched to the 20 g basket.</p>
+          </div>
+        </div>
+        <p class="talk__note reveal">A sample conversation. Every answer comes from your own notes: what you bought, what you brewed, how it tasted. Never from generic coffee theory.</p>
+      </div>
+    </section>
+
+    <section class="section story" id="story">
+      <div class="wrap">
+        <div class="story__left reveal reveal--blur">
+          <h2 class="quote">Log this espresso: 18g in, 42g out, 31 seconds, sour but aromatic.</h2>
+          <p class="who">you, to your agent</p>
+          <p class="body">One line, said the way you would say it. Your agent turns it into a proper entry in your notes, fills in the bean and the grinder from what is on your shelf, and never guesses at what it does not know.</p>
+        </div>
+        <div>
+          <div class="file reveal">
+            <div class="file__path"><span>~/beantr/sessions/2026-09.md</span><b>added</b></div>
+<pre class="md" aria-label="Lines added to the brew log"><span class="ln" style="--i:0">### 2026-09-20T07:41:12Z - Milky Cake / Espresso</span><span class="ln" style="--i:1"><span class="k">- Bean ID:</span> dak-milky-cake-2026-09</span><span class="ln" style="--i:2"><span class="k">- Method:</span> Espresso</span><span class="ln" style="--i:3"><span class="k">- Grinder:</span> Lagom P64, setting 3.8</span><span class="ln" style="--i:4"><span class="k">- Dose:</span> 18 g</span><span class="ln" style="--i:5"><span class="k">- Yield/water:</span> 42 g</span><span class="ln" style="--i:6"><span class="k">- Ratio:</span> 1:2.33</span><span class="ln" style="--i:7"><span class="k">- Temperature:</span> 93 C</span><span class="ln" style="--i:8"><span class="k">- Brew time:</span> 31 s</span><span class="ln" style="--i:9"><span class="k">- Sensory result:</span> bright, aromatic, slightly sour finish</span><span class="ln" style="--i:10"><span class="k">- Score:</span> 3.5/5</span><span class="ln" style="--i:11"><span class="k">- Next change:</span> grind slightly finer</span></pre>
+          </div>
+          <p class="file__note reveal">Plain text, in a folder on your machine. Open it in any editor, keep it in Git, Obsidian, iCloud or Dropbox.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ledger">
+      <div class="wrap">
+        <h2 class="reveal reveal--blur">Your coffee, in three kinds of notes.</h2>
+        <div class="groups">
+          <div class="g reveal">
+            <h3>What is on the shelf</h3>
+            <p class="k">kept current</p>
+            <p>Which bags are open and how much is left, the gear you are using, and the recipe you would reach for today.</p>
+            <ul><li>beans/current.md</li><li>gear/current.md</li><li>recipes/current.md</li></ul>
+          </div>
+          <div class="g reveal">
+            <h3>What you brewed</h3>
+            <p class="k">kept forever</p>
+            <p>Every cup, with dose, grind, time and how it tasted. New entries are added, old ones are never rewritten.</p>
+            <ul><li>sessions/2026-09.md</li><li>beans/history/2026-09.md</li><li>gear/history/2026-09.md</li></ul>
+          </div>
+          <div class="g reveal">
+            <h3>What to try next</h3>
+            <p class="k">kept honest</p>
+            <p>Advice that only changes when your own cups back it up. No generic theory, no guessing.</p>
+            <ul><li>insights/current.md</li></ul>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="principles" class="section section--dark" style="padding-top:110px; padding-bottom:120px;">
+    <section class="section" id="why">
       <div class="wrap">
-        <div class="section-mark reveal">
-          <span class="section-mark__index">05</span>
-          <span class="section-mark__rule"></span>
-          <span class="section-mark__label">Five rules</span>
+        <h2 class="reveal reveal--blur">Why it feels different.</h2>
+        <ol class="rules">
+          <li class="reveal"><span class="n">1</span><div><h3>It lives inside your agent.</h3><p>No new app to open, no account, no dashboard. You talk about coffee the way you already talk to it about everything else.</p></div></li>
+          <li class="reveal"><span class="n">2</span><div><h3>Your notes are plain files.</h3><p>Markdown, in a folder on your own filesystem. Open them in any editor, sync them with anything, take them with you if you ever leave.</p></div></li>
+          <li class="reveal"><span class="n">3</span><div><h3>It never guesses.</h3><p>A fact it does not know is written down as <code>unknown</code>. Every recommendation points to cups you actually brewed.</p></div></li>
+          <li class="reveal"><span class="n">4</span><div><h3>Today's shelf is always clear.</h3><p>What is open, what is resting, what to finish first. No digging through old entries to find out.</p></div></li>
+          <li class="reveal"><span class="n">5</span><div><h3>Nothing is ever lost.</h3><p>Every brew and every bag stays in the log. Entries are added, never edited away.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section--tight byhand" id="byhand">
+      <div class="wrap">
+        <h2 class="h2--sm reveal reveal--blur">Prefer to do it by hand?</h2>
+        <p class="reveal">Clone the repository or download the pack, then run the installer with the name of your assistant. The install guide covers every agent, plus updating and uninstalling.</p>
+        <div class="cmdline cmdline--block byhand__cmd reveal">
+          <code id="cmd-hand">./installers/install.sh <span class="arg">hermes</span> ~/beantr</code>
+          <button type="button" class="copy copy--ghost" data-copy="./installers/install.sh hermes ~/beantr">Copy</button>
         </div>
-        <h2 class="section-head reveal" style="margin-bottom:8px; max-width:32ch;">What Beantr will not compromise on.</h2>
-        <div class="reveal" style="margin-top:28px;">
-          <div class="principle-item">
-            <div class="principle-item__index">01</div>
-            <div>
-              <div class="principle-item__title">The filesystem is the API.</div>
-              <div class="principle-item__body">Agents use ordinary file tools: no HTTP calls, no MCP tools, no database credentials.</div>
-            </div>
-          </div>
-          <div class="principle-item">
-            <div class="principle-item__index">02</div>
-            <div>
-              <div class="principle-item__title">Current state beats inferred state.</div>
-              <div class="principle-item__body">A current.md file answers what's true now. The agent shouldn't replay history to find out.</div>
-            </div>
-          </div>
-          <div class="principle-item">
-            <div class="principle-item__index">03</div>
-            <div>
-              <div class="principle-item__title">Logs stay append-only.</div>
-              <div class="principle-item__body">History is evidence, not mutable state; session and history files only ever grow.</div>
-            </div>
-          </div>
-          <div class="principle-item">
-            <div class="principle-item__index">04</div>
-            <div>
-              <div class="principle-item__title">Recommendations must cite evidence.</div>
-              <div class="principle-item__body">Good advice points to recent sessions or stable preferences, never generic theory.</div>
-            </div>
-          </div>
-          <div class="principle-item">
-            <div class="principle-item__index">05</div>
-            <div>
-              <div class="principle-item__title">Humans can always edit the files.</div>
-              <div class="principle-item__body">Beantr never requires a special UI: open any file, in any editor, anytime.</div>
-            </div>
-          </div>
+        <p class="byhand__names reveal">hermes, claude-code, opencode, openclaw, cowork or generic</p>
+        <div class="row reveal">
+          <a class="btn" href="/guide/">Read the install guide</a>
+          <nav class="agent-links" aria-label="Per-agent pages">
+            <a href="/claude-code/">Claude Code</a>
+            <a href="/hermes/">Hermes</a>
+            <a href="/opencode/">OpenCode</a>
+            <a href="/openclaw/">OpenClaw</a>
+            <a href="/cowork/">Claude Cowork</a>
+          </nav>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="foot">
     <div class="wrap">
-      <p class="footer-line">No dashboard. No gradients. Just files, kept well.</p>
-      <div class="footer-links">
-        <a href="https://github.com/tiagomoraes/beantr">GitHub</a>
-        <a href="https://github.com/tiagomoraes/beantr/blob/develop/docs/INSTALL.md">Install guide</a>
+      <div class="row">
+        <span>MIT licensed. Made by Tiago Moraes.</span>
+        <nav aria-label="Footer">
+          <a href="/guide/">Install guide</a>
+          <a href="https://github.com/tiagomoraes/beantr">GitHub</a>
+          <a href="https://github.com/tiagomoraes/beantr/blob/develop/skills/beantr/SKILL.md">Skill file</a>
+        </nav>
       </div>
+      <span class="big" aria-hidden="true">beantr</span>
     </div>
   </footer>
 

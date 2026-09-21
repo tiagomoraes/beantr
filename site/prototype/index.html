@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Beantr landing prototype</title>
+  <!-- PROTOTYPE ONLY. Three structurally different redesigns of site/index.html,
+       switchable with ?variant=a|b|c or the floating bar on each page. -->
+  <script>
+    (function () {
+      var v = (new URLSearchParams(location.search).get('variant') || 'a').toLowerCase();
+      if (['a', 'b', 'c', 'd'].indexOf(v) === -1) v = 'a';
+      location.replace(v + '.html');
+    })();
+  </script>
+  <style>
+    body { font: 16px/1.5 system-ui, sans-serif; padding: 40px; color: #111; }
+    a { display: block; margin: 8px 0; }
+  </style>
+</head>
+<body>
+  <p>Beantr landing prototype. Pick a variant:</p>
+  <a href="a.html">A: Ledger split</a>
+  <a href="b.html">B: Manifesto</a>
+  <a href="c.html">C: Index</a>
+  <a href="d.html">D: Roastery</a>
+</body>
+</html>

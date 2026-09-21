@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Beantr is a skill that teaches your AI agent to keep a coffee ledger in plain Markdown files.">
+  <title>Beantr prototype D: Roastery</title>
+  <!-- PROTOTYPE D. "Roastery": variant B's structure and type, pushed toward modern
+       specialty coffee. Matte-black-bag surface, crema accent, bag-label spec grids,
+       real CC0 photography (Wikimedia Commons, Unsplash-era). Throwaway; see README.md. -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23D9B48A'/%3E%3Cpath d='M10 6c9 0 3 20 12 20' stroke='%230E0C0B' stroke-width='2.6' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,300..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    try {
+      if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('js');
+      }
+    } catch (e) {}
+  </script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0E0C0B;
+      --bg-2: #15120F;
+      --bg-3: #1C1814;
+      --ink: #EFEAE2;
+      --ink-2: #B7AFA3;
+      --mute: #837A6E;
+      --line: #27221D;
+      --line-2: #36302A;
+      --accent: #D9B48A;
+      --accent-2: #E8CBA7;
+      --on-accent: #16110C;
+      --sans: 'Bricolage Grotesque', ui-sans-serif, system-ui, -apple-system, sans-serif;
+      --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+      --wrap: 1180px;
+      --r: 16px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font-family: var(--sans); font-size: 17px; line-height: 1.55; font-optical-sizing: auto;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    }
+    h1, h2, h3, p, pre, ul, ol, figure { margin: 0; }
+    a { color: inherit; }
+    button { font: inherit; color: inherit; }
+    code, pre { font-family: var(--mono); }
+    img { display: block; max-width: 100%; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    ::selection { background: var(--accent); color: var(--on-accent); }
+
+    .wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: clamp(20px, 4vw, 40px); }
+
+    /* floating nav */
+    .navbar { position: sticky; top: 14px; z-index: 20; display: flex; justify-content: center; padding-inline: 16px; pointer-events: none; }
+    .pill {
+      pointer-events: auto; display: flex; align-items: center; gap: 6px;
+      padding: 6px 6px 6px 14px; background: rgba(21, 18, 15, .9); border: 1px solid var(--line-2); border-radius: 999px;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 20px 50px -30px rgba(0, 0, 0, .9);
+    }
+    .brand { display: inline-flex; align-items: center; gap: 9px; text-decoration: none; font-weight: 700; font-size: 17px; letter-spacing: -.02em; padding-right: 10px; }
+    .brand svg { width: 22px; height: 22px; display: block; }
+    .pill nav { display: flex; align-items: center; gap: 2px; }
+    .pill nav a { text-decoration: none; color: var(--ink-2); font-size: 14px; font-weight: 500; padding: 8px 12px; border-radius: 999px; transition: color .2s var(--ease), background .2s var(--ease); }
+    .pill nav a:hover { color: var(--ink); background: var(--bg-3); }
+    .pill .go { text-decoration: none; background: var(--accent); color: var(--on-accent); font-weight: 600; font-size: 14px; padding: 9px 16px; border-radius: 999px; transition: background .2s var(--ease), transform .15s var(--ease); }
+    .pill .go:hover { background: var(--accent-2); }
+    .pill .go:active { transform: scale(.97); }
+
+    /* hero */
+    .hero { text-align: center; padding-block: clamp(52px, 10vh, 100px) 0; position: relative; z-index: 2; }
+    h1 {
+      font-size: clamp(38px, 6vw, 88px); font-weight: 700; line-height: .96; letter-spacing: -.04em;
+      font-variation-settings: "wdth" 100; margin-inline: auto; max-width: 100%;
+    }
+    h1 .l { display: block; overflow: hidden; padding-bottom: .06em; }
+    h1 .l > span { display: inline-block; }
+    h1 em { font-style: normal; color: var(--accent); }
+    .lede { margin: 26px auto 0; font-size: clamp(17px, 1.6vw, 20px); line-height: 1.5; color: var(--ink-2); max-width: 46ch; text-wrap: pretty; }
+
+    .cmd {
+      display: inline-grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 14px;
+      margin-top: clamp(32px, 4vw, 48px); max-width: 100%; position: relative; z-index: 3;
+      padding: 8px 8px 8px 24px; background: var(--bg-2); border: 1px solid var(--line-2); border-radius: 999px; text-align: left;
+      box-shadow: 0 30px 60px -30px rgba(0, 0, 0, .9);
+    }
+    .cmd code { font-size: clamp(14px, 1.4vw, 18.5px); line-height: 1.5; color: var(--ink); overflow-wrap: anywhere; }
+    .cmd code .arg { color: var(--accent); }
+    .copy {
+      border: 0; cursor: pointer; border-radius: 999px; padding: 14px 22px;
+      background: var(--accent); color: var(--on-accent); font-weight: 600; font-size: 15px;
+      transition: background .2s var(--ease), transform .15s var(--ease); min-width: 96px;
+    }
+    .copy:hover { background: var(--accent-2); }
+    .copy:active { transform: scale(.97); }
+    .copy.is-copied { background: var(--ink); color: var(--bg); }
+    .hero .alt { margin-top: 18px; font-size: 14.5px; color: var(--mute); }
+    .hero .alt a { color: var(--ink-2); text-decoration: none; border-bottom: 1px solid var(--line-2); padding-bottom: 1px; transition: border-color .2s var(--ease), color .2s var(--ease); }
+    .hero .alt a:hover { color: var(--ink); border-color: var(--accent); }
+
+    /* the bar: full-bleed photo the hero sits on top of */
+    .bar { position: relative; margin-top: clamp(-40px, -4vw, -60px); height: clamp(320px, 58vh, 620px); overflow: hidden; }
+    .bar img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 66%; filter: saturate(.85) contrast(1.04); }
+    .bar::before, .bar::after { content: ''; position: absolute; left: 0; right: 0; pointer-events: none; }
+    .bar::before { top: 0; height: 46%; background: linear-gradient(to bottom, var(--bg) 0%, rgba(14, 12, 11, .55) 45%, rgba(14, 12, 11, 0) 100%); }
+    .bar::after { bottom: 0; height: 34%; background: linear-gradient(to top, var(--bg) 0%, rgba(14, 12, 11, 0) 100%); }
+    .bar figcaption { position: absolute; right: clamp(16px, 3vw, 40px); bottom: 14px; font-family: var(--mono); font-size: 11px; color: var(--mute); }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .js h1 .l > span { transform: translateY(110%); animation: rise .9s var(--ease) forwards; }
+      .js h1 .l:nth-child(2) > span { animation-delay: .1s; }
+      .js .lede, .js .cmd, .js .hero .alt { opacity: 0; transform: translateY(12px); animation: up .8s var(--ease) forwards; }
+      .js .lede { animation-delay: .35s; }
+      .js .cmd { animation-delay: .5s; }
+      .js .hero .alt { animation-delay: .65s; }
+      .js .bar img { transform: scale(1.06); animation: settle 1.6s var(--ease) forwards; animation-delay: .2s; }
+      @keyframes rise { to { transform: none; } }
+      @keyframes up { to { opacity: 1; transform: none; } }
+      @keyframes settle { to { transform: none; } }
+    }
+
+    /* marquee */
+    .marquee { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; padding-block: 15px; }
+    .marquee__track { display: flex; width: max-content; }
+    .marquee__track span { font-family: var(--mono); font-size: 13.5px; color: var(--ink-2); padding-inline: 22px; white-space: nowrap; }
+    .marquee__track span::after { content: '/'; color: var(--accent); margin-left: 44px; }
+    @media (prefers-reduced-motion: no-preference) {
+      .marquee__track { animation: slide 38s linear infinite; }
+      @keyframes slide { to { transform: translateX(-50%); } }
+    }
+
+    /* sections */
+    .section { border-top: 1px solid var(--line); }
+    .section .wrap { padding-block: clamp(72px, 10vw, 130px); }
+    h2 { font-size: clamp(34px, 4.4vw, 64px); font-weight: 700; line-height: .98; letter-spacing: -.04em; text-wrap: balance; max-width: 18ch; margin-bottom: clamp(36px, 5vw, 64px); }
+    h2 em { font-style: normal; color: var(--accent); }
+
+    /* the shelf: bag labels */
+    .shelf { display: grid; grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); gap: clamp(28px, 4vw, 64px); align-items: start; }
+    .shelf__photo { position: relative; border-radius: var(--r); overflow: hidden; aspect-ratio: 4 / 5; background: var(--bg-2); }
+    .shelf__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 62% 50%; filter: saturate(.9) contrast(1.04); }
+    /* full-bleed strip: the room the ledger lives in */
+    .strip { position: relative; height: clamp(260px, 44vh, 480px); overflow: hidden; border-top: 1px solid var(--line); }
+    .strip img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; filter: saturate(.7) contrast(1.06) brightness(.9); }
+    .strip::before, .strip::after { content: ''; position: absolute; left: 0; right: 0; pointer-events: none; height: 30%; }
+    .strip::before { top: 0; background: linear-gradient(to bottom, var(--bg), rgba(14, 12, 11, 0)); }
+    .strip::after { bottom: 0; background: linear-gradient(to top, var(--bg), rgba(14, 12, 11, 0)); }
+    .strip figcaption { position: absolute; right: clamp(16px, 3vw, 40px); bottom: 14px; font-family: var(--mono); font-size: 11px; color: var(--mute); }
+    .shelf__photo figcaption { position: absolute; left: 14px; bottom: 12px; font-family: var(--mono); font-size: 11px; color: rgba(239, 234, 226, .7); }
+    .labels { display: grid; gap: 14px; }
+    .label {
+      display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 18px 28px; align-items: end;
+      padding: 22px 24px 22px; background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--r);
+      transition: border-color .3s var(--ease), transform .3s var(--ease);
+    }
+    .label:hover { border-color: var(--line-2); transform: translateY(-2px); }
+    .label__id { font-family: var(--mono); font-size: 12px; color: var(--mute); display: flex; gap: 14px; align-items: center; grid-column: 1 / -1; }
+    .label__id b { font-weight: 500; color: var(--ink-2); }
+    .label__id .tag { margin-left: auto; font-size: 11px; padding: 4px 9px; border: 1px solid var(--accent); color: var(--accent); border-radius: 999px; }
+    .label__name { font-size: clamp(24px, 2.4vw, 32px); font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+    .label__origin { margin-top: 6px; font-size: 15px; color: var(--ink-2); }
+    .specs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px; font-family: var(--mono); font-size: 12.5px; line-height: 1.4; }
+    .specs dt { color: var(--mute); font-size: 11px; }
+    .specs dd { margin: 2px 0 0; color: var(--ink); }
+    .specs .big dd { font-family: var(--sans); font-size: 26px; font-weight: 600; letter-spacing: -.03em; line-height: 1; margin-top: 4px; }
+    .specs .big dd small { font-size: 13px; font-weight: 500; color: var(--mute); margin-left: 3px; letter-spacing: 0; }
+    .specs .wide { grid-column: 1 / -1; }
+    .shelf__note { grid-column: 2; font-size: 15px; color: var(--mute); max-width: 60ch; text-wrap: pretty; margin-top: 4px; }
+    .shelf__note code { font-size: 13px; color: var(--ink-2); }
+
+    /* story: one session */
+    .story .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); gap: clamp(40px, 6vw, 96px); align-items: start; }
+    .story__left { position: sticky; top: 96px; }
+    .quote { font-size: clamp(28px, 3.3vw, 46px); font-weight: 500; line-height: 1.08; letter-spacing: -.03em; text-wrap: balance; }
+    .quote::before { content: '\201C'; color: var(--accent); }
+    .quote::after { content: '\201D'; color: var(--accent); }
+    .who { margin-top: 14px; font-family: var(--mono); font-size: 13px; color: var(--mute); }
+    .story__left p.body { margin-top: 28px; font-size: 17px; color: var(--ink-2); max-width: 44ch; text-wrap: pretty; }
+    .story__left p.body code { font-size: 14px; color: var(--ink); }
+    .file { background: var(--bg-2); border: 1px solid var(--line); border-radius: var(--r); padding: 22px 26px 26px; }
+    .file__path { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-family: var(--mono); font-size: 13px; color: var(--mute); padding-bottom: 14px; border-bottom: 1px solid var(--line); margin-bottom: 16px; }
+    .file__path b { color: var(--accent); font-weight: 500; }
+    .md { font-size: 14px; line-height: 1.75; color: var(--ink); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .md .ln { display: block; padding-left: 1.7em; text-indent: -1.7em; }
+    .md .ln::before { content: '+'; color: var(--accent); display: inline-block; width: 1.7em; text-indent: 0; }
+    .md .ln .k { color: var(--ink-2); }
+    .js .file .ln { opacity: 0; transform: translateY(6px); transition: opacity .6s var(--ease), transform .6s var(--ease); transition-delay: calc(var(--i) * 70ms); }
+    .js .file.in .ln { opacity: 1; transform: none; }
+    .story__photo { margin-top: 18px; border-radius: var(--r); overflow: hidden; aspect-ratio: 16 / 9; position: relative; background: var(--bg-2); }
+    .story__photo img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.8) contrast(1.04); }
+    .story__photo figcaption { position: absolute; right: 14px; bottom: 12px; font-family: var(--mono); font-size: 11px; color: rgba(239, 234, 226, .7); }
+
+    .groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 4vw, 56px); }
+    .g h3 { font-size: clamp(22px, 2.2vw, 28px); font-weight: 600; letter-spacing: -.025em; line-height: 1.1; }
+    .g .k { margin-top: 10px; font-family: var(--mono); font-size: 13px; color: var(--accent); }
+    .g p { margin-top: 14px; font-size: 16px; color: var(--ink-2); text-wrap: pretty; }
+    .g ul { margin-top: 18px; padding: 0; list-style: none; font-family: var(--mono); font-size: 14.5px; line-height: 2; color: var(--ink); }
+
+    .rules { list-style: none; padding: 0; display: grid; }
+    .rules li { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 16px; padding-block: clamp(22px, 3vw, 34px); border-top: 1px solid var(--line); }
+    .rules li:first-child { border-top: 0; padding-top: 0; }
+    .rules .n { font-family: var(--mono); font-size: 14px; color: var(--accent); padding-top: .55em; }
+    .rules h3 { font-size: clamp(24px, 2.6vw, 34px); font-weight: 600; letter-spacing: -.03em; line-height: 1.1; }
+    .rules p { margin-top: 8px; font-size: 17px; color: var(--ink-2); max-width: 58ch; text-wrap: pretty; }
+    .rules code { font-size: 14px; color: var(--ink); }
+
+    /* footer */
+    .foot { border-top: 1px solid var(--line); overflow: hidden; }
+    .foot .wrap { padding-block: 40px 0; }
+    .foot .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px 24px; font-size: 14.5px; color: var(--mute); }
+    .foot .row nav { display: flex; gap: 22px; flex-wrap: wrap; }
+    .foot .row a { color: var(--ink-2); text-decoration: none; }
+    .foot .row a:hover { color: var(--ink); }
+    .foot .credits { margin-top: 14px; font-family: var(--mono); font-size: 11.5px; color: var(--mute); }
+    .foot .big { display: block; margin-top: 28px; font-size: clamp(88px, 19vw, 260px); font-weight: 800; letter-spacing: -.05em; line-height: .78; color: var(--bg-3); user-select: none; transform: translateY(.06em); }
+
+    .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+    .js .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .js .reveal, .js .file .ln { opacity: 1; transform: none; transition: none; } }
+
+    @media (max-width: 900px) {
+      .shelf { grid-template-columns: 1fr; }
+      .shelf__photo { aspect-ratio: 16 / 10; }
+      .strip { height: 220px; }
+      .shelf__note { grid-column: 1; }
+      .story .wrap { grid-template-columns: 1fr; gap: 36px; }
+      .story__left { position: static; }
+      .groups { grid-template-columns: 1fr; }
+      .pill nav .hide-sm { display: none; }
+      .rules li { grid-template-columns: 40px minmax(0, 1fr); }
+      .label { grid-template-columns: 1fr; align-items: start; }
+    }
+    @media (max-width: 560px) {
+      .cmd { display: grid; width: 100%; grid-template-columns: 1fr; border-radius: 22px; padding: 14px; gap: 12px; }
+      .cmd .copy { justify-self: stretch; }
+      .pill nav { display: none; }
+      .bar { height: 260px; margin-top: -24px; }
+    }
+  </style>
+</head>
+<body data-variant="d">
+  <div class="navbar">
+    <div class="pill">
+      <a class="brand" href="#top" aria-label="Beantr home">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="15" fill="var(--accent)"/><path d="M10 6c9 0 3 20 12 20" stroke="var(--on-accent)" stroke-width="2.6" stroke-linecap="round" fill="none"/></svg>
+        Beantr
+      </a>
+      <nav aria-label="Main">
+        <a class="hide-sm" href="#shelf">Shelf</a>
+        <a class="hide-sm" href="#ledger">Ledger</a>
+        <a href="https://github.com/tiagomoraes/beantr">GitHub</a>
+      </nav>
+      <a class="go" href="#top">Install</a>
+    </div>
+  </div>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <h1>
+          <span class="l"><span>Every bag. Every brew.</span></span>
+          <span class="l"><span><em>On file,</em> kept by your agent.</span></span>
+        </h1>
+        <p class="lede">Beantr teaches the agent you already use to keep a coffee ledger in Markdown: beans, gear, recipes, every brew.</p>
+        <div class="cmd">
+          <code id="cmd">curl -fsSL https://beantr.tiagomoraes.cloud/<wbr>install | bash -s -- <span class="arg">all</span></code>
+          <button type="button" class="copy" data-copy="#cmd">Copy</button>
+        </div>
+        <p class="alt">Installs for every agent it finds on this machine. Claude Code users can also <a href="https://github.com/tiagomoraes/beantr/blob/develop/docs/INSTALL.md">add it as a plugin</a>.</p>
+      </div>
+    </section>
+    <figure class="bar">
+      <img src="img/bar.jpg" alt="A cortado in a small glass on a white saucer, against a dark wall" width="1920" height="1280" fetchpriority="high">
+      <figcaption>photo: Matt Hoffman, CC0</figcaption>
+    </figure>
+
+    <div class="marquee" aria-label="Works with">
+      <div class="marquee__track">
+        <span>Works with Claude Code</span><span>Hermes</span><span>OpenCode</span><span>OpenClaw</span><span>Claude Cowork</span><span>any agent with file tools</span>
+        <span aria-hidden="true">Works with Claude Code</span><span aria-hidden="true">Hermes</span><span aria-hidden="true">OpenCode</span><span aria-hidden="true">OpenClaw</span><span aria-hidden="true">Claude Cowork</span><span aria-hidden="true">any agent with file tools</span>
+      </div>
+    </div>
+
+    <section class="section" id="shelf">
+      <div class="wrap">
+        <h2 class="reveal">Every bag on the shelf, <em>on file.</em></h2>
+        <div class="shelf">
+          <figure class="shelf__photo reveal">
+            <img src="img/shelf.jpg" alt="A wooden scoop of roasted coffee beans on a dark surface" width="1920" height="1282" loading="lazy">
+            <figcaption>photo: Joanna Kosinska, CC0</figcaption>
+          </figure>
+          <div class="labels">
+            <article class="label reveal">
+              <p class="label__id"><b>A07</b><span>tube</span><span class="tag">finish first</span></p>
+              <div>
+                <h3 class="label__name">Yirgacheffe</h3>
+                <p class="label__origin">Ethiopia, washed</p>
+              </div>
+              <dl class="specs">
+                <div class="big"><dt>remaining</dt><dd>138<small>g of 250</small></dd></div>
+                <div><dt>roast date</dt><dd>2026-09-04</dd></div>
+                <div class="wide"><dt>notes</dt><dd>jasmine, lemon, black tea</dd></div>
+              </dl>
+            </article>
+            <article class="label reveal">
+              <p class="label__id"><b>B02</b><span>bag, sealed</span></p>
+              <div>
+                <h3 class="label__name">Huila</h3>
+                <p class="label__origin">Colombia, natural</p>
+              </div>
+              <dl class="specs">
+                <div class="big"><dt>remaining</dt><dd>250<small>g of 250</small></dd></div>
+                <div><dt>roast date</dt><dd>2026-09-12, resting</dd></div>
+                <div class="wide"><dt>notes</dt><dd>red fruit, cocoa, panela</dd></div>
+              </dl>
+            </article>
+            <article class="label reveal">
+              <p class="label__id"><b>C11</b><span>hopper</span></p>
+              <div>
+                <h3 class="label__name">Cerrado</h3>
+                <p class="label__origin">Brazil, pulped natural</p>
+              </div>
+              <dl class="specs">
+                <div class="big"><dt>remaining</dt><dd>410<small>g of 1000</small></dd></div>
+                <div><dt>roast date</dt><dd>2026-08-28</dd></div>
+                <div class="wide"><dt>notes</dt><dd>hazelnut, milk chocolate</dd></div>
+              </dl>
+            </article>
+            <p class="shelf__note reveal">Sample rows from <code>beans/current.md</code>. IDs stay stable, quantities are edited in place, and a fact the agent does not know is written as <code>unknown</code>, never guessed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section story" id="session">
+      <div class="wrap">
+        <div class="story__left reveal">
+          <h2 class="quote">Log this espresso: 18g in, 42g out, 31 seconds, sour but aromatic.</h2>
+          <p class="who">you, to your agent</p>
+          <p class="body">It read <code>beans/current.md</code> and <code>gear/current.md</code>, filled in the bean and the grinder, and appended the entry to this month's log. Nothing was invented.</p>
+        </div>
+        <div>
+          <div class="file reveal">
+            <div class="file__path"><span>~/beantr/sessions/2026-09.md</span><b>appended</b></div>
+<pre class="md" aria-label="Lines appended to the session log"><span class="ln" style="--i:0">### 2026-09-20T07:41:12Z - Milky Cake / Espresso</span><span class="ln" style="--i:1"><span class="k">- Bean ID:</span> dak-milky-cake-2026-09</span><span class="ln" style="--i:2"><span class="k">- Method:</span> Espresso</span><span class="ln" style="--i:3"><span class="k">- Grinder:</span> Lagom P64, setting 3.8</span><span class="ln" style="--i:4"><span class="k">- Dose:</span> 18 g</span><span class="ln" style="--i:5"><span class="k">- Yield/water:</span> 42 g</span><span class="ln" style="--i:6"><span class="k">- Ratio:</span> 1:2.33</span><span class="ln" style="--i:7"><span class="k">- Temperature:</span> 93 C</span><span class="ln" style="--i:8"><span class="k">- Brew time:</span> 31 s</span><span class="ln" style="--i:9"><span class="k">- Sensory result:</span> bright, aromatic, slightly sour finish</span><span class="ln" style="--i:10"><span class="k">- Score:</span> 3.5/5</span><span class="ln" style="--i:11"><span class="k">- Next change:</span> grind slightly finer</span></pre>
+          </div>
+          <figure class="story__photo reveal">
+            <img src="img/shot.jpg" alt="Two streams of espresso pouring from a portafilter into a white cup" width="1920" height="1280" loading="lazy">
+            <figcaption>photo: Gold Coast Media Lab, CC0</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ledger">
+      <div class="wrap">
+        <h2 class="reveal">Every file answers one question.</h2>
+        <div class="groups">
+          <div class="g reveal">
+            <h3>What is on the shelf right now?</h3>
+            <p class="k">live state, edited in place</p>
+            <p>Beans and how much is left, gear in use, the recipe you would reach for today.</p>
+            <ul><li>beans/current.md</li><li>gear/current.md</li><li>recipes/current.md</li></ul>
+          </div>
+          <div class="g reveal">
+            <h3>What did you actually brew?</h3>
+            <p class="k">evidence, append-only</p>
+            <p>Every shot, every pour, every restock and correction. Kept forever, never rewritten.</p>
+            <ul><li>sessions/2026-09.md</li><li>beans/history/2026-09.md</li><li>gear/history/2026-09.md</li></ul>
+          </div>
+          <div class="g reveal">
+            <h3>What should you dial in next?</h3>
+            <p class="k">distilled, only with evidence</p>
+            <p>Updated when recent sessions back it up. No generic theory, no guessing.</p>
+            <ul><li>insights/current.md</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <figure class="strip">
+      <img src="img/shop.jpg" alt="The bar of an industrial coffee shop, backlit by tall windows, with baristas and guests in silhouette" width="1920" height="1280" loading="lazy">
+      <figcaption>photo: Redd Angelo, CC0</figcaption>
+    </figure>
+
+    <section class="section" id="rules">
+      <div class="wrap">
+        <h2 class="reveal">Five rules Beantr will not bend.</h2>
+        <ol class="rules">
+          <li class="reveal"><span class="n">1</span><div><h3>The filesystem is the API.</h3><p>Agents use ordinary file tools. No HTTP calls, no MCP server, no database credentials, no account.</p></div></li>
+          <li class="reveal"><span class="n">2</span><div><h3>Current state beats inferred state.</h3><p>A <code>current.md</code> answers what is true now. The agent never replays history to find out.</p></div></li>
+          <li class="reveal"><span class="n">3</span><div><h3>Logs stay append-only.</h3><p>History is evidence, not mutable state. Session and history files only ever grow.</p></div></li>
+          <li class="reveal"><span class="n">4</span><div><h3>Recommendations cite evidence.</h3><p>Good advice points to recent sessions or stable preferences, never to generic theory.</p></div></li>
+          <li class="reveal"><span class="n">5</span><div><h3>Humans can always edit the files.</h3><p>No special UI required. Open any file, in any editor, at any time.</p></div></li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="row">
+        <span>MIT licensed. Made by Tiago Moraes.</span>
+        <nav aria-label="Footer">
+          <a href="https://github.com/tiagomoraes/beantr">GitHub</a>
+          <a href="https://github.com/tiagomoraes/beantr/blob/develop/docs/INSTALL.md">Install guide</a>
+          <a href="https://github.com/tiagomoraes/beantr/blob/develop/skills/beantr/SKILL.md">Skill file</a>
+        </nav>
+      </div>
+      <p class="credits" id="credits">Photos by Matt Hoffman, Joanna Kosinska, Gold Coast Media Lab and Redd Angelo, CC0, via Wikimedia Commons.</p>
+      <span class="big" aria-hidden="true">beantr</span>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      function copyText(t) {
+        if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(t);
+        return new Promise(function (res, rej) {
+          try { var ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); res(); } catch (e) { rej(e); }
+        });
+      }
+      document.querySelectorAll('[data-copy]').forEach(function (btn) {
+        var orig = btn.textContent;
+        btn.addEventListener('click', function () {
+          var src = btn.getAttribute('data-copy');
+          var text = src.charAt(0) === '#' ? document.querySelector(src).textContent : src;
+          copyText(text).then(function () {
+            btn.classList.add('is-copied'); btn.textContent = 'Copied';
+            clearTimeout(btn._t); btn._t = setTimeout(function () { btn.classList.remove('is-copied'); btn.textContent = orig; }, 1600);
+          });
+        });
+      });
+      if (document.documentElement.classList.contains('js')) {
+        var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: .05 });
+        document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+        setTimeout(function () { document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); }); }, 2200);
+      }
+    })();
+  </script>
+  <script src="switcher.js"></script>
+</body>
+</html>

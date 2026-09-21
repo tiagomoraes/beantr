@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Beantr is a skill that teaches your AI agent to keep a coffee ledger in plain Markdown files.">
+  <title>Beantr prototype C: Index</title>
+  <!-- PROTOTYPE C. "Index": a two-column page with a sticky left index that holds
+       the install command the whole way down. Archivo (wide) + Geist Mono, cobalt
+       accent, sharp corners, hairlines that organize real content.
+       Throwaway; see site/prototype/README.md. -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231F3FBF'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-family='monospace' font-size='15' fill='%23F6F6F3'%3E~/%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,300..800;1,62..125,300..800&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script>
+    try {
+      if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('js');
+      }
+    } catch (e) {}
+  </script>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #F6F6F3;
+      --bg-2: #EEEEEA;
+      --ink: #111110;
+      --ink-2: #4B4B47;
+      --mute: #74746E;
+      --line: #D2D2CB;
+      --accent: #1F3FBF;
+      --accent-2: #172F91;
+      --on-accent: #F6F6F3;
+      --sans: 'Archivo', ui-sans-serif, system-ui, -apple-system, sans-serif;
+      --mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+      --ease: cubic-bezier(.16, 1, .3, 1);
+      --side: 320px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #101010;
+        --bg-2: #171716;
+        --ink: #EDEDEA;
+        --ink-2: #B4B4AE;
+        --mute: #7F7F79;
+        --line: #2A2A28;
+        --accent: #8AA0FF;
+        --accent-2: #A6B7FF;
+        --on-accent: #0B1233;
+      }
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font-family: var(--sans); font-size: 16.5px; line-height: 1.55;
+      -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+    }
+    h1, h2, h3, p, pre, ul, ol, dl, dd { margin: 0; }
+    a { color: inherit; }
+    button, select { font: inherit; color: inherit; }
+    code, pre { font-family: var(--mono); }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    ::selection { background: var(--accent); color: var(--on-accent); }
+
+    .page { display: grid; grid-template-columns: var(--side) minmax(0, 1fr); min-height: 100dvh; }
+
+    /* sticky index */
+    .side {
+      position: sticky; top: 0; height: 100dvh; overflow: auto;
+      display: flex; flex-direction: column; justify-content: space-between; gap: 32px;
+      padding: 22px 24px 24px; border-right: 1px solid var(--line);
+    }
+    .brand { font-family: var(--mono); font-size: 15px; font-weight: 500; text-decoration: none; letter-spacing: -.01em; }
+    .brand .tilde { color: var(--accent); }
+    .index { margin-top: 44px; padding: 0; list-style: none; display: grid; gap: 6px; font-family: var(--mono); font-size: 13.5px; }
+    .index a { text-decoration: none; color: var(--mute); display: inline-flex; gap: 10px; padding-block: 2px; transition: color .2s var(--ease); }
+    .index a::before { content: attr(data-n); color: var(--line); transition: color .2s var(--ease); }
+    .index a:hover { color: var(--ink); }
+    .index a.is-active { color: var(--ink); }
+    .index a.is-active::before { color: var(--accent); }
+
+    .install { display: grid; gap: 10px; }
+    .install .lbl { font-family: var(--mono); font-size: 12px; color: var(--mute); }
+    .sel { position: relative; }
+    .sel select {
+      width: 100%; appearance: none; -webkit-appearance: none; background: transparent; border: 1px solid var(--line); border-radius: 0;
+      padding: 9px 32px 9px 11px; font-family: var(--mono); font-size: 13px; color: var(--ink); cursor: pointer;
+    }
+    .sel::after { content: '\2193'; position: absolute; right: 11px; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-size: 12px; color: var(--mute); pointer-events: none; }
+    .cmd { border: 1px solid var(--line); padding: 11px 12px; font-family: var(--mono); font-size: 12px; line-height: 1.6; color: var(--ink); overflow-wrap: anywhere; background: var(--bg-2); }
+    .cmd .arg { color: var(--accent); font-weight: 500; }
+    .copy {
+      border: 0; border-radius: 0; cursor: pointer; padding: 12px 14px; width: 100%;
+      background: var(--ink); color: var(--bg); font-weight: 600; font-size: 14px; letter-spacing: -.005em;
+      transition: background .2s var(--ease), transform .15s var(--ease);
+    }
+    .copy:hover { background: var(--accent); color: var(--on-accent); }
+    .copy:active { transform: scale(.985); }
+    .copy.is-copied { background: var(--accent); color: var(--on-accent); }
+    .plugin { font-family: var(--mono); font-size: 12px; color: var(--mute); line-height: 1.6; }
+    .plugin code { color: var(--ink-2); }
+    .side .meta { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-family: var(--mono); font-size: 12.5px; color: var(--mute); }
+    .side .meta a { color: var(--ink-2); text-decoration: none; }
+    .side .meta a:hover { color: var(--ink); }
+
+    /* rows */
+    .main { min-width: 0; }
+    .row {
+      display: grid; grid-template-columns: 168px minmax(0, 1fr); gap: 24px clamp(24px, 3vw, 48px);
+      padding: clamp(44px, 5.5vw, 72px) clamp(24px, 4vw, 60px);
+      border-top: 1px solid var(--line);
+    }
+    .row > * { min-width: 0; }
+    .row__label { font-family: var(--mono); font-size: 13px; color: var(--mute); padding-top: .4em; }
+    .row--hero { grid-template-columns: 1fr; border-top: 0; padding-block: clamp(56px, 11vh, 120px) clamp(48px, 8vh, 96px); }
+    h1 {
+      font-size: clamp(38px, 4.9vw, 82px); font-weight: 600; line-height: .94; letter-spacing: -.035em;
+      font-variation-settings: "wdth" 110; text-wrap: balance; max-width: 22ch;
+    }
+    h1 em { font-style: italic; font-weight: 500; }
+    .lede { margin-top: 26px; font-size: clamp(17px, 1.5vw, 20px); line-height: 1.45; color: var(--ink-2); max-width: 54ch; text-wrap: pretty; }
+    .lede code { font-size: .88em; color: var(--ink); }
+
+    h2 { font-size: clamp(26px, 2.6vw, 40px); font-weight: 600; letter-spacing: -.03em; line-height: 1; font-variation-settings: "wdth" 108; text-wrap: balance; margin-bottom: clamp(24px, 3vw, 40px); }
+    h3 { font-size: 19px; font-weight: 600; letter-spacing: -.02em; line-height: 1.2; font-variation-settings: "wdth" 105; }
+
+    .defs { display: grid; grid-template-columns: 200px minmax(0, 1fr); row-gap: clamp(20px, 2.5vw, 30px); column-gap: 32px; }
+    .defs dt { font-size: 21px; font-weight: 600; letter-spacing: -.02em; line-height: 1.2; font-variation-settings: "wdth" 108; }
+    .defs dd { font-size: 16.5px; color: var(--ink-2); max-width: 58ch; text-wrap: pretty; }
+    .defs dd code { font-size: .86em; color: var(--ink); }
+
+    .blocks { display: grid; gap: clamp(28px, 3.5vw, 44px); }
+    .block p { margin-top: 8px; font-size: 15.5px; color: var(--ink-2); max-width: 60ch; text-wrap: pretty; }
+    .block p code { font-size: .88em; color: var(--ink); }
+    .line { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; margin-top: 12px; padding: 10px 0 10px 12px; border-left: 2px solid var(--line); }
+    .line code { font-family: var(--mono); font-size: 14px; color: var(--ink); overflow-wrap: anywhere; }
+    .line .copy { width: auto; background: transparent; color: var(--ink); border: 1px solid var(--line); padding: 7px 11px; font-size: 13px; font-weight: 500; }
+    .line .copy:hover { border-color: var(--ink); background: transparent; color: var(--ink); }
+    .line .copy.is-copied { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+    .block .links { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--mono); font-size: 13.5px; }
+    .block .links a { color: var(--ink-2); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; transition: color .2s var(--ease), border-color .2s var(--ease); }
+    .block .links a:hover { color: var(--ink); border-color: var(--accent); }
+
+    .tree { font-size: clamp(13px, 1.15vw, 15.5px); line-height: 1.95; color: var(--ink); white-space: pre; overflow-x: auto; }
+    .tree .c { color: var(--accent); }
+    .tree .d { color: var(--mute); }
+
+    .said { font-size: clamp(22px, 2.2vw, 30px); font-weight: 500; letter-spacing: -.025em; line-height: 1.15; font-variation-settings: "wdth" 104; text-wrap: balance; max-width: 30ch; }
+    .said::before { content: '\201C'; color: var(--accent); }
+    .said::after { content: '\201D'; color: var(--accent); }
+    .who { margin-top: 10px; font-family: var(--mono); font-size: 12.5px; color: var(--mute); }
+    .file { margin-top: 28px; border-top: 1px solid var(--line); padding-top: 18px; }
+    .file__path { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-family: var(--mono); font-size: 12.5px; color: var(--mute); margin-bottom: 14px; }
+    .file__path b { color: var(--accent); font-weight: 500; }
+    .md { font-size: 13.5px; line-height: 1.75; color: var(--ink); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .md .ln { display: block; padding-left: 1.7em; text-indent: -1.7em; }
+    .md .ln::before { content: '+'; color: var(--accent); display: inline-block; width: 1.7em; text-indent: 0; }
+    .md .ln .k { color: var(--ink-2); }
+    .file p.note { margin-top: 16px; font-size: 14.5px; color: var(--mute); max-width: 60ch; }
+    .file p.note code { font-size: .9em; color: var(--ink-2); }
+
+    .rules { list-style: none; padding: 0; display: grid; gap: clamp(20px, 2.5vw, 30px); }
+    .rules li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; }
+    .rules .n { font-family: var(--mono); font-size: 13px; color: var(--accent); padding-top: .35em; }
+    .rules p { margin-top: 6px; font-size: 15.5px; color: var(--ink-2); max-width: 58ch; text-wrap: pretty; }
+    .rules code { font-size: .88em; color: var(--ink); }
+
+    .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; font-family: var(--mono); font-size: 12.5px; color: var(--mute); }
+    .foot nav { display: flex; gap: 20px; }
+    .foot a { color: var(--ink-2); text-decoration: none; }
+    .foot a:hover { color: var(--ink); }
+
+    .js .reveal { opacity: 0; transform: translateY(12px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+    .js .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) { .js .reveal { opacity: 1; transform: none; transition: none; } }
+
+    @media (max-width: 900px) {
+      .page { grid-template-columns: 1fr; }
+      .side { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); gap: 22px; padding: 18px 20px 22px; }
+      .index { display: none; }
+      .row { grid-template-columns: minmax(0, 1fr); gap: 14px; padding: 40px 20px; }
+      .row__label { padding-top: 0; }
+      .defs { grid-template-columns: 1fr; row-gap: 6px; }
+      .defs dd { margin-bottom: 14px; }
+      .row--hero { padding-block: 44px 48px; }
+    }
+  </style>
+</head>
+<body data-variant="c">
+  <div class="page">
+    <aside class="side">
+      <div>
+        <a class="brand" href="#top"><span class="tilde">~/</span>beantr</a>
+        <ol class="index" aria-label="Sections">
+          <li><a href="#what" data-n="01">What it is</a></li>
+          <li><a href="#install" data-n="02">Install</a></li>
+          <li><a href="#ledger" data-n="03">The ledger</a></li>
+          <li><a href="#session" data-n="04">One session</a></li>
+          <li><a href="#rules" data-n="05">Rules</a></li>
+        </ol>
+      </div>
+      <div class="install">
+        <span class="lbl">Install for</span>
+        <label class="sel">
+          <span class="sr" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Agent</span>
+          <select id="agent">
+            <option value="all">every agent it finds</option>
+            <option value="claude-code">Claude Code</option>
+            <option value="hermes">Hermes</option>
+            <option value="opencode">OpenCode</option>
+            <option value="openclaw">OpenClaw</option>
+            <option value="cowork">Claude Cowork</option>
+          </select>
+        </label>
+        <code class="cmd" id="cmd">curl -fsSL https://beantr.tiagomoraes.cloud/<wbr>install | bash -s -- <span class="arg" id="arg">all</span></code>
+        <button type="button" class="copy" data-copy="#cmd">Copy command</button>
+        <p class="plugin">Ledger is created at <code>~/beantr</code>. Existing files are never overwritten.</p>
+      </div>
+      <div class="meta">
+        <a href="https://github.com/tiagomoraes/beantr">GitHub</a>
+        <span>MIT, 2026</span>
+      </div>
+    </aside>
+
+    <main class="main" id="top">
+      <section class="row row--hero">
+        <div>
+          <h1>Coffee, kept by <em>your agent</em>, in plain files.</h1>
+          <p class="lede">A skill for Claude Code, Hermes, OpenCode, OpenClaw and Cowork. Your ledger is a folder of Markdown at <code>~/beantr</code>.</p>
+        </div>
+      </section>
+
+      <section class="row" id="what">
+        <span class="row__label">What it is</span>
+        <dl class="defs reveal">
+          <dt>A skill</dt>
+          <dd>One <code>SKILL.md</code> your agent loads. It says what goes in which file, what each field means, and when to write.</dd>
+          <dt>A folder</dt>
+          <dd>Eight Markdown files. Beans, gear, recipes, sessions, insights. Open them in any editor, sync them however you like.</dd>
+          <dt>No server</dt>
+          <dd>No API, no database, no account. The agent uses the file tools it already has.</dd>
+        </dl>
+      </section>
+
+      <section class="row" id="install">
+        <span class="row__label">Install</span>
+        <div class="blocks reveal">
+          <div class="block">
+            <h3>One line, any agent</h3>
+            <p>The command in the left column downloads the pack and installs the skill for the agent you name. Run it with no name to see which agents it detects. Nothing is installed until you pick one.</p>
+          </div>
+          <div class="block">
+            <h3>Claude Code, as a plugin</h3>
+            <div class="line"><code>/plugin marketplace add tiagomoraes/beantr</code><button type="button" class="copy" data-copy="/plugin marketplace add tiagomoraes/beantr">Copy</button></div>
+            <div class="line"><code>/plugin install beantr@beantr</code><button type="button" class="copy" data-copy="/plugin install beantr@beantr">Copy</button></div>
+          </div>
+          <div class="block">
+            <h3>By hand</h3>
+            <p>Inspect first, or run it in CI.</p>
+            <nav class="links" aria-label="Manual install">
+              <a href="https://github.com/tiagomoraes/beantr">Clone the repo</a>
+              <a href="https://beantr.tiagomoraes.cloud/beantr-agent-pack-latest.tar.gz">Download the tarball</a>
+              <a href="https://github.com/tiagomoraes/beantr/blob/develop/skills/beantr/SKILL.md">Read SKILL.md</a>
+            </nav>
+          </div>
+        </div>
+      </section>
+
+      <section class="row" id="ledger">
+        <span class="row__label">The ledger</span>
+        <div class="reveal">
+          <h2>Every file answers one question.</h2>
+<pre class="tree" aria-label="Ledger folder layout with the role of each file">~/beantr/
+  README.md
+  beans/current.md            <span class="c"># live: what is on the shelf right now</span>
+  beans/history/2026-09.md    <span class="c"># evidence: restocks and corrections, append-only</span>
+  gear/current.md             <span class="c"># live: grinders, brewers, defaults</span>
+  gear/history/2026-09.md     <span class="c"># evidence</span>
+  recipes/current.md          <span class="c"># live: the recipe you would reach for today</span>
+  sessions/2026-09.md         <span class="c"># evidence: every brew, append-only</span>
+  insights/current.md         <span class="c"># distilled: only when the evidence supports it</span></pre>
+        </div>
+      </section>
+
+      <section class="row" id="session">
+        <span class="row__label">One session</span>
+        <div class="reveal">
+          <p class="said">Log this espresso: 18g in, 42g out, 31 seconds, sour but aromatic.</p>
+          <p class="who">you, to your agent</p>
+          <div class="file">
+            <div class="file__path"><span>~/beantr/sessions/2026-09.md</span><b>appended</b></div>
+<pre class="md" aria-label="Lines appended to the session log"><span class="ln">### 2026-09-20T07:41:12Z - Milky Cake / Espresso</span><span class="ln"><span class="k">- Bean ID:</span> dak-milky-cake-2026-09</span><span class="ln"><span class="k">- Method:</span> Espresso</span><span class="ln"><span class="k">- Grinder:</span> Lagom P64, setting 3.8</span><span class="ln"><span class="k">- Dose:</span> 18 g</span><span class="ln"><span class="k">- Yield/water:</span> 42 g</span><span class="ln"><span class="k">- Ratio:</span> 1:2.33</span><span class="ln"><span class="k">- Temperature:</span> 93 C</span><span class="ln"><span class="k">- Brew time:</span> 31 s</span><span class="ln"><span class="k">- Sensory result:</span> bright, aromatic, slightly sour finish</span><span class="ln"><span class="k">- Score:</span> 3.5/5</span><span class="ln"><span class="k">- Next change:</span> grind slightly finer</span></pre>
+            <p class="note">The bean and the grinder came from <code>beans/current.md</code> and <code>gear/current.md</code>. Nothing was invented.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="row" id="rules">
+        <span class="row__label">Rules</span>
+        <ol class="rules reveal">
+          <li><span class="n">1</span><div><h3>The filesystem is the API.</h3><p>Agents use ordinary file tools. No HTTP calls, no MCP server, no database credentials, no account.</p></div></li>
+          <li><span class="n">2</span><div><h3>Current state beats inferred state.</h3><p>A <code>current.md</code> answers what is true now. The agent never replays history to find out.</p></div></li>
+          <li><span class="n">3</span><div><h3>Logs stay append-only.</h3><p>History is evidence, not mutable state. Session and history files only ever grow.</p></div></li>
+          <li><span class="n">4</span><div><h3>Recommendations cite evidence.</h3><p>Good advice points to recent sessions or stable preferences, never to generic theory.</p></div></li>
+          <li><span class="n">5</span><div><h3>Humans can always edit the files.</h3><p>No special UI required. Open any file, in any editor, at any time.</p></div></li>
+        </ol>
+      </section>
+
+      <footer class="row">
+        <span class="row__label">Beantr</span>
+        <div class="foot">
+          <span>MIT licensed. Made by Tiago Moraes.</span>
+          <nav aria-label="Footer">
+            <a href="https://github.com/tiagomoraes/beantr">GitHub</a>
+            <a href="https://github.com/tiagomoraes/beantr/blob/develop/docs/INSTALL.md">Install guide</a>
+            <a href="https://github.com/tiagomoraes/beantr/blob/develop/skills/beantr/SKILL.md">Skill file</a>
+          </nav>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var sel = document.getElementById('agent');
+      var arg = document.getElementById('arg');
+      sel.addEventListener('change', function () { arg.textContent = sel.value; });
+
+      function copyText(t) {
+        if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(t);
+        return new Promise(function (res, rej) {
+          try { var ta = document.createElement('textarea'); ta.value = t; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); res(); } catch (e) { rej(e); }
+        });
+      }
+      document.querySelectorAll('[data-copy]').forEach(function (btn) {
+        var orig = btn.textContent;
+        btn.addEventListener('click', function () {
+          var src = btn.getAttribute('data-copy');
+          var text = src.charAt(0) === '#' ? document.querySelector(src).textContent : src;
+          copyText(text).then(function () {
+            btn.classList.add('is-copied'); btn.textContent = 'Copied';
+            clearTimeout(btn._t); btn._t = setTimeout(function () { btn.classList.remove('is-copied'); btn.textContent = orig; }, 1600);
+          });
+        });
+      });
+
+      if ('IntersectionObserver' in window) {
+        var links = Array.prototype.slice.call(document.querySelectorAll('.index a'));
+        var byId = {};
+        links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+        var spy = new IntersectionObserver(function (es) {
+          es.forEach(function (e) {
+            if (!e.isIntersecting) return;
+            links.forEach(function (a) { a.classList.remove('is-active'); });
+            var a = byId[e.target.id]; if (a) a.classList.add('is-active');
+          });
+        }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+        document.querySelectorAll('.row[id]').forEach(function (s) { spy.observe(s); });
+      }
+      if (document.documentElement.classList.contains('js')) {
+        var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: .05 });
+        document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+        setTimeout(function () { document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); }); }, 2200);
+      }
+    })();
+  </script>
+  <script src="switcher.js"></script>
+</body>
+</html>

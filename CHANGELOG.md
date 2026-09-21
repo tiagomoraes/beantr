@@ -6,6 +6,8 @@ All notable changes to Beantr are documented here. The format is based on
 
 ## [Unreleased]
 
+## [2.0.1] - 2026-09-21
+
 ### Changed
 - Redesigned the site around one dark page ("Crema on black"): coffee-first,
   plain-language copy, a question-and-answer section that shows everyday use,

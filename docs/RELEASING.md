@@ -44,6 +44,12 @@ record lives in `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.jso
 2. Create the release branch: `git switch -c release/vX.Y.Z develop`.
 3. Bump the version in `.claude-plugin/plugin.json` and
    `.claude-plugin/marketplace.json`.
+   Also bump the `?v=` on `/beantr.css` and `/beantr.js` in every page under
+   `site/` and the pack cache key (`beantr-agent-pack-latest.tar.gz?v=<version>-<date>`)
+   in `README.md`, `docs/INSTALL.md`, `site/guide/index.html` and
+   `site/install`, `site/update`, `site/uninstall`. Cloudflare caches static
+   assets for four hours; the HTML is not cached, so versioned URLs reach users
+   immediately.
 4. Move the `Unreleased` notes in [CHANGELOG.md](../CHANGELOG.md) under a new
    `## [X.Y.Z] - YYYY-MM-DD` heading.
 5. Open a PR from `release/vX.Y.Z` into `main`, get a review, and merge.

@@ -6,6 +6,13 @@ All notable changes to Beantr are documented here. The format is based on
 
 ## [Unreleased]
 
+## [2.0.2] - 2026-09-21
+
+### Fixed
+- Stylesheet and script URLs now carry the release version (`/beantr.css?v=2.0.2`),
+  so a page is never served with a stale cached stylesheet after a redesign.
+  Cloudflare caches static assets for four hours, and the HTML is not cached.
+
 ## [2.0.1] - 2026-09-21
 
 ### Changed

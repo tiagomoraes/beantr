@@ -37,6 +37,8 @@ Scale (fluid): h1 `clamp(38px, 6vw, 88px)` (inner pages `clamp(36px, 5.2vw, 76px
 
 Fonts load from Google Fonts with `display=swap`. Self-hosting is a fine later improvement; keep the two families.
 
+Every page links `/beantr.css?v=<version>` and `/beantr.js?v=<version>`. The edge cache keeps static assets for four hours, so the version in the URL is what makes a new release render with its own stylesheet; bump it on every release (see `docs/RELEASING.md`).
+
 ## Spacing and Layout
 
 Content column `--wrap: 1180px`, long-form and inner pages `--wrap-narrow: 820px`, gutters `clamp(20px, 4vw, 40px)` as `padding-inline` on `.wrap` only; section rhythm is `padding-block: clamp(72px, 10vw, 130px)` on `.section .wrap` (tight sections `clamp(56px, 7vw, 96px)`). Sections are separated by a `--line` hairline, never by a change of background. The hero is centered; below it, two-column grids (`.qa`, `.story`) and the three-column `.groups` collapse to one column at 900 px. The floating nav pill sticks 14 px from the top and drops its links under 560 px.

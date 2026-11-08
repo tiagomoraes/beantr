@@ -106,11 +106,12 @@ headless renderers, and under `prefers-reduced-motion`.
 - Fonts: Newsreader and IBM Plex Mono via Google Fonts. Asset URLs carry
   `?v=3.0.0`; bump it whenever the CSS or JS changes, because the artifact host
   sets a 4h edge cache.
-- Temporary preview: `https://beantr.tiagomoraes.cloud/v3/`, served by
-  `beantr-v3.service` on `127.0.0.1:8792` from `/home/hermes/deploys/beantr-v3`,
-  with a `/v3` path rule in the Cloudflare tunnel. Remove the rule, the service,
-  and the directory when the preview ends.
-- The live site at `/` is untouched.
+- Deploy: through the private artifacts hub. The built `site/` is mirrored into
+  the `tiagomoraes/artifacts` repo under `beantr/`, and a push to its `main`
+  produces an immutable release and swaps the live symlink. The old
+  `beantr/beantr.css` and `beantr.js` stay in place for the guide and per-agent
+  pages until those are ported.
+- Live at `https://beantr.tiagomoraes.cloud/`.
 
 ## Not ported yet
 

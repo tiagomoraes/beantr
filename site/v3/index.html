@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beantr: your coffee, in writing.</title>
+<meta name="description" content="Beantr gives the AI assistant you already use a memory for your coffee: bags, gear, recipes and every cup you brew. A skill, not an app. One folder of plain text, kept true by your agent.">
+<meta name="theme-color" content="#F1F0EA">
+<meta property="og:title" content="Beantr: your coffee, in writing.">
+<meta property="og:description" content="Give the agent you already use a memory for your coffee. Paste one prompt, or run one command.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2317160F'/%3E%3Cellipse cx='16' cy='16' rx='5.6' ry='8' transform='rotate(-28 16 16)' fill='none' stroke='%23D9B78C' stroke-width='1.6'/%3E%3Cpath d='M13.8 9.4c2.8 3.2 1.2 8.6 4.4 11.8' fill='none' stroke='%23D9B78C' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..700;1,6..72,200..600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  try {
+    if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('js');
+    }
+  } catch (e) {}
+</script>
+<link rel="stylesheet" href="site.css?v=3.0.0">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="glow" aria-hidden="true"></div>
+
+<header class="head">
+  <div class="head__in">
+    <a class="brand" href="#top" aria-label="Beantr home">
+      <svg class="bean" viewBox="0 0 24 24" aria-hidden="true">
+        <ellipse cx="12" cy="12" rx="6.6" ry="9.4" transform="rotate(-28 12 12)" fill="none" stroke="currentColor" stroke-width="1.25"/>
+        <path d="M9.6 5.2c3.2 3.6 1.4 9.8 4.8 13.4" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>
+      </svg>
+      <span>beantr</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#filed">how it works</a>
+      <a href="/guide/">install guide</a>
+      <a href="https://github.com/tiagomoraes/beantr">github</a>
+    </nav>
+    <a class="btn btn--sm btn--head" href="#top">install</a>
+  </div>
+</header>
+
+<div class="page">
+
+  <div class="spine" aria-hidden="true"><span class="spine__fill"></span><span class="spine__tip"></span></div>
+
+  <main id="main">
+
+    <section class="hero" id="top">
+      <div class="shell">
+        <aside class="rail">
+          <p class="rail__path">~/beantr</p>
+          <p class="rail__note">a skill,<br>not an app</p>
+        </aside>
+        <div class="col">
+          <h1 class="display reveal-lines" data-reveal-immediate>
+            <span class="display__line"><span>Your coffee,</span></span>
+            <span class="display__line display__line--i"><span>in writing<i class="period">.</i></span></span>
+          </h1>
+
+          <div class="hero__foot">
+            <div class="lede-block" data-reveal style="--d:.42s">
+              <p class="lede">Beantr gives the AI assistant you already use a <em>memory</em> for your coffee: bags, gear, recipes and every cup you brew.</p>
+              <p class="facts"><span>no app</span><span>no account</span><span>one folder</span></p>
+            </div>
+
+            <div class="card install-card" data-reveal style="--d:.52s">
+              <div class="card__bar">
+                <span class="label">paste this to your agent</span>
+                <span class="label label--dim">one prompt</span>
+              </div>
+              <div class="card__body">
+                <p>Install Beantr so you can keep track of my coffee.</p>
+                <p class="code-line"><span>curl -fsSL https://beantr.tiagomoraes.cloud/install </span><span class="code-line__next">| bash -s -- all</span></p>
+                <p>Then read <code>~/beantr</code> and tell me you are ready.</p>
+              </div>
+              <div class="card__foot">
+                <button type="button" class="btn btn--crema" data-copy data-magnetic>copy prompt</button>
+                <span class="label label--dim">claude code, hermes, opencode, openclaw, cowork</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="keeps">
+      <div class="shell">
+        <aside class="rail">
+          <p class="rail__path">beans/<br>current.md</p>
+          <p class="rail__note">what is open</p>
+        </aside>
+        <div class="col">
+          <h2 class="display display--h2 reveal-lines" data-reveal>
+            <span class="display__line"><span>Three kinds of notes.</span></span>
+          </h2>
+          <p class="lede lede--short" data-reveal style="--d:.1s">One folder, kept true by your agent.</p>
+
+          <div class="shelf" data-shelf data-reveal style="--d:.16s">
+            <div class="shelf__detail" aria-live="polite" aria-atomic="true">
+              <p class="label">on the shelf</p>
+              <p class="shelf__name" data-d="name">Konga</p>
+              <dl class="stats">
+                <div><dt>left</dt><dd data-d="g">138 g</dd></div>
+                <div><dt>bag</dt><dd data-d="cap">250 g</dd></div>
+                <div><dt>roasted</dt><dd data-d="roast">22 oct</dd></div>
+                <div><dt>tube</dt><dd data-d="tube">a07</dd></div>
+                <div><dt>state</dt><dd data-d="state">open</dd></div>
+              </dl>
+            </div>
+
+            <ul class="tubes" role="list">
+              <li><button type="button" class="tube is-active" style="--fill:.55" data-name="Konga" data-g="138 g" data-cap="250 g" data-roast="22 oct" data-tube="a07" data-state="open" aria-label="Konga, tube a07, 138 grams left, open"><span class="tube__fill"></span></button><span class="tube__id">a07</span></li>
+              <li><button type="button" class="tube" style="--fill:1" data-name="Huila" data-g="250 g" data-cap="250 g" data-roast="02 nov" data-tube="12" data-state="sealed" aria-label="Huila, tube 12, 250 grams, sealed"><span class="tube__fill"></span></button><span class="tube__id">12</span></li>
+              <li><button type="button" class="tube" style="--fill:.82" data-name="Cerrado" data-g="410 g" data-cap="500 g" data-roast="14 oct" data-tube="25" data-state="open" aria-label="Cerrado, tube 25, 410 grams left, open"><span class="tube__fill"></span></button><span class="tube__id">25</span></li>
+              <li><button type="button" class="tube" style="--fill:.38" data-name="Gedeb" data-g="96 g" data-cap="250 g" data-roast="28 oct" data-tube="03" data-state="open" aria-label="Gedeb, tube 03, 96 grams left, open"><span class="tube__fill"></span></button><span class="tube__id">03</span></li>
+              <li><button type="button" class="tube" style="--fill:.31" data-name="Sidama" data-g="78 g" data-cap="250 g" data-roast="19 oct" data-tube="08" data-state="open" aria-label="Sidama, tube 08, 78 grams left, open"><span class="tube__fill"></span></button><span class="tube__id">08</span></li>
+              <li><button type="button" class="tube" style="--fill:.48" data-name="Maringá" data-g="120 g" data-cap="250 g" data-roast="25 oct" data-tube="19" data-state="open" aria-label="Maringá, tube 19, 120 grams left, open"><span class="tube__fill"></span></button><span class="tube__id">19</span></li>
+              <li><button type="button" class="tube" style="--fill:.22" data-name="Antigua" data-g="54 g" data-cap="250 g" data-roast="30 oct" data-tube="21" data-state="open" aria-label="Antigua, tube 21, 54 grams left, open"><span class="tube__fill"></span></button><span class="tube__id">21</span></li>
+              <li><button type="button" class="tube" style="--fill:.15" data-name="Nariño" data-g="37 g" data-cap="250 g" data-roast="11 oct" data-tube="05" data-state="open" aria-label="Nariño, tube 05, 37 grams left, open"><span class="tube__fill"></span></button><span class="tube__id">05</span></li>
+              <li><button type="button" class="tube" style="--fill:.08" data-name="Chiriquí" data-g="21 g" data-cap="250 g" data-roast="07 oct" data-tube="30" data-state="open" aria-label="Chiriquí, tube 30, 21 grams left, open"><span class="tube__fill"></span></button><span class="tube__id">30</span></li>
+              <li><button type="button" class="tube tube--empty" style="--fill:0" data-name="Kochere" data-g="0 g" data-cap="250 g" data-roast="09 sep" data-tube="11" data-state="finished" aria-label="Kochere, tube 11, empty, finished"><span class="tube__fill"></span></button><span class="tube__id">11</span></li>
+              <li><button type="button" class="tube" style="--fill:.76" data-name="El Ramo" data-g="190 g" data-cap="250 g" data-roast="31 oct" data-tube="14" data-state="sealed" aria-label="El Ramo, tube 14, 190 grams, sealed"><span class="tube__fill"></span></button><span class="tube__id">14</span></li>
+              <li><button type="button" class="tube" style="--fill:.26" data-name="Buesaco" data-g="66 g" data-cap="250 g" data-roast="16 oct" data-tube="27" data-state="open" aria-label="Buesaco, tube 27, 66 grams left, open"><span class="tube__fill"></span></button><span class="tube__id">27</span></li>
+            </ul>
+
+            <p class="shelf__caption label label--dim">a sample shelf, read from beans/current.md. Hover a tube.</p>
+          </div>
+
+          <div class="notes">
+            <article class="note" data-reveal>
+              <h3>What is on the shelf</h3>
+              <p class="label">kept current</p>
+              <p>Which bags are open, how much is left, and the recipe you would reach for today. One coffee per jar or tube.</p>
+              <ul class="paths">
+                <li>beans/current.md</li>
+                <li>gear/current.md</li>
+                <li>recipes/current.md</li>
+              </ul>
+            </article>
+            <article class="note" data-reveal style="--d:.08s">
+              <h3>What you brewed</h3>
+              <p class="label">kept forever</p>
+              <p>Every cup, with dose, grind, time and how it tasted. Added, never rewritten.</p>
+              <ul class="paths">
+                <li>sessions/2026-11.md</li>
+                <li>beans/history/2026-11.md</li>
+              </ul>
+            </article>
+            <article class="note" data-reveal style="--d:.16s">
+              <h3>What to try next</h3>
+              <p class="label">kept honest</p>
+              <p>Advice that only changes when your own cups back it up. No generic coffee theory.</p>
+              <ul class="paths">
+                <li>insights/current.md</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="filed" id="filed" data-filed>
+      <div class="filed__sticky">
+        <div class="shell">
+          <aside class="rail">
+            <p class="rail__path">sessions/<br>2026-11.md</p>
+            <p class="rail__note">what you brewed</p>
+          </aside>
+          <div class="col">
+            <h2 class="display display--h2 reveal-lines" data-reveal>
+              <span class="display__line"><span>Say it. It’s filed.</span></span>
+            </h2>
+
+            <div class="filed__grid">
+              <div class="said">
+                <p class="said__text">
+                  <span class="said__ctx">Log this espresso:</span>
+                  <span data-step="1">18 g in,</span>
+                  <span data-step="2">42 g out,</span>
+                  <span data-step="3">31 seconds,</span>
+                  <span data-step="4">sour but aromatic.</span>
+                </p>
+                <p class="label">you, to your agent</p>
+                <p class="said__note">One sentence, said the way you would say it. No form, no app.</p>
+              </div>
+
+              <div class="file">
+                <div class="file__bar">
+                  <span>~/beantr/sessions/2026-11.md</span>
+                  <span class="file__flag">+ appended</span>
+                </div>
+                <ol class="file__lines">
+                  <li data-step="0"><span class="h">###</span> 2026-11-08T09:12:04Z <span class="dot">·</span> Konga / Espresso</li>
+                  <li data-step="0"><span class="k">- Bean ID:</span> konga-2026-11 <span class="tag">from your shelf</span></li>
+                  <li data-step="0"><span class="k">- Method:</span> Espresso</li>
+                  <li data-step="0"><span class="k">- Grinder:</span> Lagom P64, 3.8 <span class="tag">from your shelf</span></li>
+                  <li data-step="0"><span class="k">- Temperature:</span> <span class="unknown">unknown</span></li>
+                  <li data-step="0"><span class="k">- Score:</span> <span class="unknown">unknown</span></li>
+                  <li data-step="1"><span class="k">- Dose:</span> 18 g</li>
+                  <li data-step="2"><span class="k">- Yield:</span> 42 g</li>
+                  <li data-step="2"><span class="k">- Ratio:</span> 1:2.33</li>
+                  <li data-step="3"><span class="k">- Brew time:</span> 31 s</li>
+                  <li data-step="4"><span class="k">- Sensory result:</span> sour but aromatic</li>
+                  <li data-step="4"><span class="k">- Next change:</span> grind slightly finer</li>
+                </ol>
+              </div>
+            </div>
+
+            <p class="filed__note" data-step="4">Plain text, in a folder on your machine. Open it in any editor, keep it in Git, Obsidian, iCloud or Dropbox.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="ask">
+      <div class="shell">
+        <aside class="rail">
+          <p class="rail__path">insights/<br>current.md</p>
+          <p class="rail__note">what to try next</p>
+        </aside>
+        <div class="col">
+          <h2 class="display display--h2 reveal-lines" data-reveal>
+            <span class="display__line"><span>Then ask it anything.</span></span>
+          </h2>
+
+          <div class="asks__head">
+            <span class="label">you ask</span>
+            <span class="label">your agent</span>
+          </div>
+          <ol class="asks">
+            <li class="ask" data-reveal>
+              <p class="ask__q">What should I brew this morning?</p>
+              <div class="ask__a">
+                <p>The Yirgacheffe in tube A07 is on day 17, right where you scored it best. V60, 15 g to 250 g, 94 degrees, like Tuesday’s 4.5.</p>
+              </div>
+            </li>
+            <li class="ask" data-reveal style="--d:.06s">
+              <p class="ask__q">How did I brew the Huila last time?</p>
+              <div class="ask__a">
+                <p>You haven’t opened it yet. It has been resting since the 12th, and you usually give naturals ten days. Tomorrow is a good day to start.</p>
+              </div>
+            </li>
+            <li class="ask" data-reveal style="--d:.12s">
+              <p class="ask__q">What is left on the shelf?</p>
+              <div class="ask__a">
+                <p>Three bags. About 138 g of the Yirgacheffe, the sealed Huila, and 410 g of the Cerrado you keep for espresso.</p>
+              </div>
+            </li>
+            <li class="ask" data-reveal style="--d:.18s">
+              <p class="ask__q">What worked best this month?</p>
+              <div class="ask__a">
+                <p>Your four highest scores were all V60 at 1:16. Espresso dipped after the 9th, the day you switched to the 20 g basket.</p>
+              </div>
+            </li>
+          </ol>
+          <p class="asks__note label">a sample conversation. Every answer comes from your own notes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="why">
+      <div class="shell">
+        <aside class="rail">
+          <p class="rail__path">README.md</p>
+          <p class="rail__note">why it is different</p>
+        </aside>
+        <div class="col">
+          <h2 class="display display--h2 reveal-lines" data-reveal>
+            <span class="display__line"><span>Why it feels different.</span></span>
+          </h2>
+
+          <div class="why">
+            <article class="why__item why__item--wide" data-reveal>
+              <h3>It lives inside your agent.</h3>
+              <p>No new app to open, no account, no dashboard. You talk about coffee the way you already talk to it about everything else.</p>
+            </article>
+            <article class="why__item" data-reveal style="--d:.06s">
+              <h3>Your notes are plain files.</h3>
+              <p>Markdown in a folder on your disk. Open it in any editor, sync it with anything, take it with you.</p>
+            </article>
+            <article class="why__item" data-reveal style="--d:.12s">
+              <h3>It never guesses.</h3>
+              <p>A fact it does not know is written as <code>unknown</code>. Every recommendation points to a cup you actually brewed.</p>
+            </article>
+            <article class="why__item" data-reveal style="--d:.18s">
+              <h3>One coffee per container.</h3>
+              <p>A named jar or tube holds one coffee at a time. Your agent asks before it replaces anything still there.</p>
+            </article>
+            <article class="why__item" data-reveal style="--d:.24s">
+              <h3>Nothing is ever lost.</h3>
+              <p>Every brew and every bag stays in the log. Entries are added, never edited away.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="install">
+      <div class="shell">
+        <aside class="rail">
+          <p class="rail__path">install</p>
+          <p class="rail__note">one line</p>
+        </aside>
+        <div class="col">
+          <h2 class="display display--h2 reveal-lines" data-reveal>
+            <span class="display__line"><span>Start with one line.</span></span>
+          </h2>
+
+          <div class="band__grid">
+            <div class="band__cmd" data-reveal>
+              <p class="label">run it yourself</p>
+              <div class="cmdline">
+                <code id="cmd-2">curl -fsSL https://beantr.tiagomoraes.cloud/install | bash -s -- all</code>
+                <button type="button" class="btn btn--crema" data-copy="#cmd-2">copy</button>
+              </div>
+              <p class="band__note">The same installer the prompt runs. It adds the skill and creates <code>~/beantr</code>, with nothing else to open.</p>
+            </div>
+
+            <div class="band__side" data-reveal style="--d:.08s">
+              <p class="label">works with</p>
+              <nav class="agents" aria-label="Per-agent install pages">
+                <a href="/claude-code/">claude code</a>
+                <a href="/hermes/">hermes</a>
+                <a href="/opencode/">opencode</a>
+                <a href="/openclaw/">openclaw</a>
+                <a href="/cowork/">cowork</a>
+              </nav>
+              <p class="band__note">Install, update or remove it by hand. Every agent and every path is in the install guide.</p>
+              <a class="arrow-link" href="/guide/">read the install guide <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+
+          <footer class="foot">
+            <div class="foot__row">
+              <p class="label label--dim">MIT licensed. Made by Tiago Moraes.</p>
+              <nav class="foot__nav" aria-label="Footer">
+                <a href="/guide/">install guide</a>
+                <a href="https://github.com/tiagomoraes/beantr">github</a>
+                <a href="https://github.com/tiagomoraes/beantr/blob/main/skills/beantr/SKILL.md">skill file</a>
+              </nav>
+            </div>
+            <p class="wordmark" aria-hidden="true">beantr</p>
+          </footer>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="site.js?v=3.0.0"></script>
+</body>
+</html>

@@ -102,20 +102,26 @@ headless renderers, and under `prefers-reduced-motion`.
 
 ## Files and preview
 
-- `index.html`, `site.css`, `site.js`. No build step, no dependencies, no images.
+- `index.html`, `site.css`, `site.js` for the landing. No build step, no
+  dependencies, no images.
+- `guide.css` restyles the install guide and the five per-agent pages onto the
+  same tokens, serif and dark machine surfaces. Those pages keep `beantr.css`
+  as their structural base and load `guide.css` after it.
 - Fonts: Newsreader and IBM Plex Mono via Google Fonts. Asset URLs carry
   `?v=3.0.0`; bump it whenever the CSS or JS changes, because the artifact host
   sets a 4h edge cache.
 - Deploy: through the private artifacts hub. The built `site/` is mirrored into
   the `tiagomoraes/artifacts` repo under `beantr/`, and a push to its `main`
-  produces an immutable release and swaps the live symlink. The old
-  `beantr/beantr.css` and `beantr.js` stay in place for the guide and per-agent
-  pages until those are ported.
+  produces an immutable release and swaps the live symlink. `beantr.css` and
+  `beantr.js` stay in place as the structural base for the guide and per-agent
+  pages.
 - Live at `https://beantr.tiagomoraes.cloud/`.
 
-## Not ported yet
+## Ported surfaces
 
-`/guide/` and the per-agent pages (`/hermes/`, `/claude-code/`, `/opencode/`,
-`/openclaw/`, `/cowork/`) still use the previous dark system (`beantr.css`).
-They are the next step once this direction is approved: they should inherit
-these tokens, the rail, and the hairlines, with their existing content.
+`/guide/` and the five per-agent pages (`/hermes/`, `/claude-code/`,
+`/opencode/`, `/openclaw/`, `/cowork/`) now share the paper, ink, Newsreader,
+Plex Mono and dark code surfaces through `guide.css`. Their content and markup
+are unchanged; only the head, the wordmark and the one broken `#talk` anchor
+were touched. The landing's rail and spine are landing-only devices; the docs
+use a single 900px column instead.
